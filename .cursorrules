@@ -1,0 +1,165 @@
+# Help That's Open — project rules
+
+A directory of assistance programs (rent, utility, water, food, emergency) showing
+whether each one is **currently accepting applications**, verified by phone.
+Independent private company. Not a government site. Not an application service.
+
+---
+
+## Non-negotiables — violating any of these breaks the product
+
+### 1. We never handle applications
+The company does not fill out, submit, file, or represent anyone on an application.
+- Never build an application form, an eligibility calculator, or a "qualify" checker.
+- Never add a field that collects household income, SSN, DOB, or case details.
+- The only user data we collect is ZIP, an optional phone/email for alerts, and the
+  need category. Nothing else. If a feature request implies more, stop and ask.
+
+### 2. Never imply government affiliation
+- Never use schema.org `GovernmentService` or `GovernmentOrganization`, even for
+  programs run by government agencies. Use `Service` with an `NGO` or `Organization`
+  provider. Structured data is a machine-readable claim.
+- Never use `.gov`-styled seals, eagles, flags, or official-looking badges.
+- The disclosure bar and footer disclaimer are required on every page. Do not remove,
+  collapse, or conditionally render them.
+
+### 3. Banned CTA and copy patterns
+Never write, in UI copy or content:
+- "See if you qualify" / "Check your eligibility" / "You may be eligible"
+- "Activate", "unlock", "claim your benefits", "benefits you're missing"
+- "Apply now", "Start your application", "Get approved"
+- Anything implying an entitlement already assigned to the user
+
+Write instead: "See who's open", "What to bring", "Talk it through",
+"Who to try first", "Text me this list".
+
+### 4. Agency phone numbers are always real
+Listing phone numbers must be the provider's actual number. Never substitute a
+tracking or pooled number on an agency listing. Call tracking is fine on **our own**
+CTAs only, clearly labeled as ours.
+
+### 5. status_log is append-only
+- `UPDATE` and `DELETE` are revoked at the grant level. Never write code that
+  attempts either.
+- `programs.current_status` and `last_verified_at` are maintained by trigger only.
+  Never set them directly.
+- Dialer webhooks write to `call_attempts`. **Webhooks never write to `status_log`.**
+  Only a VA commit does.
+
+### 6. Never fabricate freshness
+- `dateModified` in JSON-LD must equal the real `last_verified_at`. If they diverge,
+  the crawler learns to distrust the domain.
+- Never seed, mock, or default a status to `accepting`. Unknown is `unknown`.
+- If a county's records are past due, unpublish the county page rather than serve
+  stale green statuses.
+
+### 7. Nothing is Texas-specific
+Texas is the first market, not the model. Every route, query, copy string, and
+component takes a geo parameter. No hardcoded state names, county lists, ZIP
+ranges, or "254 counties" outside of data.
+
+---
+
+## Stack
+
+- **Next.js (App Router)** on Vercel — SSG/ISR for the county pages
+- **Postgres** (Neon or Supabase)
+- **Drizzle ORM** — this schema needs triggers and raw SQL functions; prefer Drizzle
+  over Prisma for that control
+- **Tailwind** with the tokens below
+- No client-side state library. Server components by default.
+
+### Rendering
+County and ZIP pages are statically generated with ISR. When a VA commits a status
+change, fire on-demand revalidation for the affected county and ZIP paths. This is
+the core architectural requirement: pages must be static for SEO but reflect a
+status change within minutes.
+
+---
+
+## URL architecture
+
+```
+/                                   ZIP entry, geo-detected
+/tx/                                state hub
+/tx/harris-county/                  county hub
+/tx/harris-county/rent/             county × need
+/tx/77021/                          ZIP page
+/programs/bakerripley-ceap/         program page — the citable atom
+/how-we-verify/                     methodology
+/corrections/                       public correction log
+/for-agencies/                      claim a listing
+/guides/[slug]/
+/data/[state].json                  machine-readable feed
+/llms.txt
+```
+
+Path is canonical. `?geo=` query params are for paid traffic only and must not
+create indexable duplicates — canonical tag always points at the path form.
+
+**Every geo page is a landing page.** Most traffic arrives from search directly on
+a county or ZIP page, never seeing the homepage. Full header, value prop, disclosure,
+and CTA on every one.
+
+---
+
+## Design tokens
+
+```css
+--navy:    #1C2B5E   /* text, headers, dark bands */
+--navy-2:  #3D4E85   /* secondary text */
+--navy-3:  #6B78A0   /* tertiary, labels */
+--crimson: #C41F4E   /* brand + all actions. NEVER a status color. */
+--pink:    #F9D9E5   /* logo pill, accents on navy */
+--lav:     #F1F4FC   /* section backgrounds */
+--line:    #DFE4F2
+
+--open:    #1B7A4B   /* status: accepting */
+--wait:    #B0741A   /* status: waitlist */
+--shut:    #DDE2EE   /* status: funds out — grey, never red */
+```
+
+- Type: **Nunito** (400/600/700/800/900). Body copy is 600 weight, not 400.
+- Buttons and chips are fully rounded (`border-radius: 999px`).
+- Cards: 2px borders, 20px radius.
+- **Crimson is brand and action only.** The moment crimson also signals a status,
+  the mark stops working. Statuses are green/amber/grey.
+- **Funds-out is grey, not red.** The user is already panicking; grey reads as
+  information, red reads as alarm.
+
+### Logo
+A window with one lit pane. Full mark (with mullions) at 24px and up; simplified
+frame-plus-pane at 16–20px. The frame color flips for the background; **the lit pane
+stays crimson.** In UI, the same window with a recolored pane is the status
+indicator — green / amber / grey.
+
+---
+
+## Schema.org — required per page type
+
+| Page | Types |
+|---|---|
+| Home | `Organization`, `WebSite` + `SearchAction`, `FAQPage` |
+| County / ZIP | `Dataset` (with `dateModified`, `spatialCoverage`, `measurementTechnique`), `ItemList`, `FAQPage`, `BreadcrumbList` |
+| Program | `Service` with `NGO`/`Organization` provider, `areaServed`, `availableChannel` |
+| Status change | `SpecialAnnouncement` |
+
+`Organization` must carry `disambiguatingDescription` (the non-affiliation statement),
+`publishingPrinciples` → `/how-we-verify/`, and `correctionsPolicy` → `/corrections/`.
+
+---
+
+## Content rules
+
+- County pages differentiate on **structured local fact**, not prose. Three facts per
+  page minimum: the local utility, who administers the funding, and the local catch.
+  A templated page with no local fact should not ship.
+- Never generate placeholder or lorem listing data that could reach production.
+- Sample/demo data must be visibly labeled as such.
+
+---
+
+## When in doubt
+
+If a request would make the site look more like a benefits portal and less like a
+directory, stop and ask. That distinction is the whole business.
