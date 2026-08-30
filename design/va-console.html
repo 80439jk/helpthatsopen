@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Verification console</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1C2B5E;--navy-2:#3D4E85;--navy-3:#6B78A0;--crimson:#C41F4E;--pink:#F9D9E5;
+--lav:#F1F4FC;--line:#DFE4F2;--line-2:#EDF0F8;--open:#1B7A4B;--wait:#B0741A;--shut-t:#8A93AC;--pill:999px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--lav);color:var(--navy);font-family:Nunito,system-ui,sans-serif;font-weight:600;line-height:1.45;font-size:15px;-webkit-font-smoothing:antialiased}
+.hide{display:none!important}
+
+.top{background:var(--navy);color:#fff;padding:11px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.lg{display:flex;align-items:center;gap:9px;font-weight:900;font-size:15px}
+.tabs{display:flex;gap:6px;margin-left:14px}
+.tab{background:#2A3A6E;border:0;color:#B9C4E2;border-radius:var(--pill);padding:7px 16px;font-family:Nunito;font-weight:800;font-size:13px;cursor:pointer}
+.tab.on{background:#fff;color:var(--navy)}
+.sp{margin-left:auto;display:flex;gap:20px;font-size:12px;font-weight:700;color:#A7B4DA;flex-wrap:wrap}
+.sp b{color:#fff;display:block;font-size:16px;font-weight:900;font-family:'IBM Plex Mono'}
+
+/* ===== DIALER BAR ===== */
+.dial{background:#0F1830;color:#fff;padding:11px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-bottom:2px solid #2A3A6E}
+.live{display:flex;align-items:center;gap:9px;font-weight:800;font-size:14px}
+.pulse{width:9px;height:9px;border-radius:50%;background:#2FBF74;box-shadow:0 0 0 0 rgba(47,191,116,.6);animation:p 1.8s infinite}
+@keyframes p{70%{box-shadow:0 0 0 9px rgba(47,191,116,0)}100%{box-shadow:0 0 0 0 rgba(47,191,116,0)}}
+.dnum{font-family:'IBM Plex Mono';font-size:14px;color:#9DAAD0}
+.dtime{font-family:'IBM Plex Mono';font-size:19px;font-weight:600;color:#2FBF74;margin-left:4px}
+.dctl{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.db{background:#2A3A6E;border:0;color:#fff;border-radius:var(--pill);padding:9px 17px;font-family:Nunito;font-weight:800;font-size:13.5px;cursor:pointer}
+.db:hover{background:#3A4C86}
+.db.end{background:var(--crimson)}
+.db.go{background:var(--open)}
+.dmode{font-family:'IBM Plex Mono';font-size:11px;color:#6B78A0;letter-spacing:.06em;text-transform:uppercase}
+
+.shell{display:grid;grid-template-columns:320px 1fr;min-height:calc(100vh - 100px)}
+@media(max-width:1020px){.shell{grid-template-columns:1fr}}
+
+/* queue */
+.q{background:#fff;border-right:2px solid var(--line);padding:16px}
+.qh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.qh h2{font-size:12.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin:0}
+.qh span{font-family:'IBM Plex Mono';font-size:11.5px;color:var(--navy-3)}
+.qnote{font-size:12.5px;color:var(--navy-3);margin:0 0 14px;line-height:1.4}
+.qi{border:2px solid var(--line);border-radius:13px;padding:12px 13px;margin-bottom:8px;cursor:pointer}
+.qi:hover{border-color:var(--crimson)}
+.qi.on{border-color:var(--navy);background:var(--lav)}
+.qi.lock{opacity:.5}
+.r1{display:flex;justify-content:space-between;gap:9px;align-items:baseline;margin-bottom:2px}
+.qi b{font-size:14.5px;font-weight:800;line-height:1.25}
+.score{font-family:'IBM Plex Mono';font-size:14.5px;font-weight:600;color:var(--crimson);flex:none}
+.qi small{display:block;font-size:12.5px;color:var(--navy-3);margin-bottom:7px}
+.why{display:flex;gap:4px;flex-wrap:wrap}
+.wtag{font-family:'IBM Plex Mono';font-size:10px;padding:2px 6px;border-radius:5px;background:var(--lav);border:1px solid var(--line);color:var(--navy-3)}
+.wtag.hot{background:#FCEEF2;border-color:#F3C9D6;color:var(--crimson)}
+
+.c{padding:20px 24px 60px;max-width:920px}
+.ch{display:flex;justify-content:space-between;gap:14px;align-items:start;flex-wrap:wrap}
+.ch h1{font-size:25px;font-weight:900;letter-spacing:-.02em;margin:0}
+.ch .sub{font-size:14.5px;color:var(--navy-2);margin:3px 0 0}
+.lastknown{background:#fff;border:2px solid var(--line);border-radius:13px;padding:13px 16px;margin:15px 0 18px;display:flex;gap:20px;flex-wrap:wrap;font-size:14px}
+.lastknown b{display:block;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy-3);margin-bottom:2px}
+.lastknown span{font-family:'IBM Plex Mono';font-size:13.5px}
+
+.step{background:#fff;border:2px solid var(--line);border-radius:15px;margin-bottom:11px;overflow:hidden}
+.step.act{border-color:var(--navy)}
+.sh{display:flex;gap:11px;align-items:center;padding:13px 17px;background:var(--lav);border-bottom:2px solid var(--line);cursor:pointer}
+.step.act .sh{background:var(--navy);color:#fff;border-color:var(--navy)}
+.sn{width:23px;height:23px;border-radius:50%;background:var(--navy);color:#fff;font-size:11.5px;font-weight:900;display:grid;place-items:center;flex:none}
+.step.act .sn{background:var(--pink);color:var(--navy)}
+.sh b{font-size:14.5px;font-weight:800;flex:1}
+.sh em{font-style:normal;font-family:'IBM Plex Mono';font-size:11.5px;opacity:.72}
+.sb{padding:17px}
+.brand{color:#1B7A4B;font-weight:900;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+.say{background:#FFFDF5;border-left:4px solid var(--wait);border-radius:0 10px 10px 0;padding:13px 15px;font-size:16px;line-height:1.55;margin:0 0 13px}
+.hint{font-size:13px;color:var(--navy-3);line-height:1.45;margin:0 0 13px}
+.hint strong{color:var(--crimson);font-weight:800}
+label{display:block;font-size:11.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--navy-3);margin:0 0 5px}
+input[type=text],textarea,select{width:100%;font-family:Nunito;font-weight:600;font-size:14.5px;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--navy);margin-bottom:12px}
+textarea{min-height:62px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--crimson)}
+.prefill{background:var(--lav)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 13px}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+.opts{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px}
+.opt{border:2px solid var(--line);border-radius:var(--pill);padding:8px 15px;font-size:13.5px;font-weight:800;cursor:pointer;background:#fff;font-family:Nunito;color:var(--navy-2)}
+.opt.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+.opt.sel.g{background:var(--open);border-color:var(--open)}
+.opt.sel.a{background:var(--wait);border-color:var(--wait)}
+.opt.sel.s{background:var(--shut-t);border-color:var(--shut-t)}
+.flag{background:#FCEEF2;border:1.5px solid #F3C9D6;border-radius:10px;padding:10px 13px;font-size:13px;font-weight:700;color:var(--crimson);margin:0 0 12px;display:flex;gap:8px}
+.readback{background:var(--navy);color:#fff;border-radius:15px;padding:21px 23px;margin-top:13px}
+.readback h3{font-size:16px;font-weight:900;margin:0 0 11px;color:#fff}
+.rb{background:#2A3A6E;border-radius:10px;padding:12px 15px;font-size:15.5px;line-height:1.5;margin-bottom:12px}
+.btn{border:0;border-radius:var(--pill);padding:12px 22px;font-family:Nunito;font-size:14.5px;font-weight:800;cursor:pointer;background:var(--crimson);color:#fff}
+.btn-g{background:#fff;color:var(--navy)}
+.btn-o{background:none;border:2px solid #4A5A8E;color:#fff}
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.small{font-size:12.5px;color:var(--navy-3);margin:9px 0 0}
+
+/* ===== SUPERVISOR ===== */
+.sv{padding:24px 26px 70px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:12px;margin-bottom:26px}
+.kpi{background:#fff;border:2px solid var(--line);border-radius:15px;padding:18px 20px}
+.kpi b{display:block;font-family:'IBM Plex Mono';font-size:31px;font-weight:600;letter-spacing:-.02em;line-height:1}
+.kpi small{display:block;font-size:13px;font-weight:700;color:var(--navy-3);margin-top:7px}
+.kpi i{font-style:normal;font-size:12.5px;font-weight:800}
+.up{color:var(--open)} .dn{color:var(--crimson)}
+h2.sec{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--navy-3);margin:0 0 12px}
+.panel{background:#fff;border:2px solid var(--line);border-radius:15px;padding:20px 22px;margin-bottom:22px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--navy-3);padding:0 12px 10px 0;border-bottom:2px solid var(--line)}
+td{padding:12px 12px 12px 0;border-bottom:1px solid var(--line-2);font-weight:600}
+td b{font-weight:800}
+.mono{font-family:'IBM Plex Mono';font-size:13.5px}
+.pill{display:inline-block;padding:3px 11px;border-radius:var(--pill);font-size:12px;font-weight:800}
+.p-ok{background:#E6F3EC;color:var(--open)} .p-warn{background:#FBF0DC;color:var(--wait)} .p-bad{background:#FCEEF2;color:var(--crimson)}
+.bar2{height:9px;border-radius:var(--pill);background:#E3E8F4;overflow:hidden;min-width:90px}
+.bar2 i{display:block;height:100%;background:var(--open)}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="lg"><svg width="21" height="21" viewBox="0 0 26 26" fill="none"><rect x="2" y="2" width="22" height="22" rx="5" stroke="#F9D9E5" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#F9D9E5" stroke-width="2.4"/><rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#C41F4E"/></svg>Verification</div>
+  <div class="tabs"><button class="tab on" data-v="agent">Agent</button><button class="tab" data-v="sup">Supervisor</button></div>
+  <div class="sp">
+    <div>Today<b>23 / 40</b></div><div>Reached<b>61%</b></div><div>Avg call<b>2:48</b></div><div>You<b>M. Cruz</b></div>
+  </div>
+</div>
+
+<!-- ============ AGENT ============ -->
+<div id="v-agent">
+<div class="dial">
+  <span class="live"><span class="pulse"></span>Connected</span>
+  <span class="dnum">(713) 000-0000 · Denise, intake</span>
+  <span class="dtime">2:14</span>
+  <span class="dmode">preview mode · CA9f2b</span>
+  <div class="dctl">
+    <button class="db">Mute</button><button class="db">Hold</button>
+    <button class="db">Warm transfer</button><button class="db end">End &amp; wrap</button>
+  </div>
+</div>
+
+<div class="shell">
+  <div class="q">
+    <div class="qh"><h2>Your queue</h2><span>locked to you</span></div>
+    <p class="qnote">Pull from the top. Records lock when you open them so two VAs never call the same line.</p>
+    <div class="qi on"><div class="r1"><b>BakerRipley</b><span class="score">94</span></div><small>CEAP · Harris County TX</small>
+      <div class="why"><span class="wtag hot">14d overdue</span><span class="wtag hot">high demand</span><span class="wtag">tier A</span></div></div>
+    <div class="qi"><div class="r1"><b>Salvation Army — Gtr Houston</b><span class="score">91</span></div><small>Utility crisis · Harris TX</small>
+      <div class="why"><span class="wtag hot">reopens Sept 1</span><span class="wtag">tier A</span></div></div>
+    <div class="qi lock"><div class="r1"><b>Miami-Dade Community Action</b><span class="score">88</span></div><small>Locked — A. Reyes</small>
+      <div class="why"><span class="wtag">tier A</span></div></div>
+    <div class="qi"><div class="r1"><b>Catholic Charities — Galv-Houston</b><span class="score">76</span></div><small>Emergency rent · Harris TX</small>
+      <div class="why"><span class="wtag">tier B</span><span class="wtag hot">2 failed</span></div></div>
+    <div class="qi"><div class="r1"><b>Wesley Community Center</b><span class="score">71</span></div><small>Rent &amp; deposit · Harris TX</small>
+      <div class="why"><span class="wtag">tier B</span><span class="wtag hot">demand spike</span></div></div>
+  </div>
+
+  <div class="c">
+    <div class="ch"><div><h1>BakerRipley</h1><p class="sub">Comprehensive Energy Assistance Program · attempt 1 of 3</p></div></div>
+
+    <div class="lastknown">
+      <div><b>Last confirmed</b><span>Aug 16 · 14d ago</span></div>
+      <div><b>Last status</b><span style="color:var(--open)">Accepting</span></div>
+      <div><b>Last spoke to</b><span>Denise, intake</span></div>
+      <div><b>Tier</b><span>A · 14d</span></div>
+      <div><b>Reach</b><span>4.7M</span></div>
+    </div>
+
+    <div class="step"><div class="sh"><span class="sn">1</span><b>Open — one breath, then offer the callback</b><em>0:15</em></div>
+      <div class="sb">
+        <p class="say">Hi, this is <b>Maria</b> — calling from <span class="brand">Help That's Open</span>, the site that lists which programs are taking applications. <b>We send people to you.</b> I've got about two minutes of questions so we're not sending you folks you can't help. Is now alright, or should I call back?</p>
+        <p class="hint"><strong>Never</strong> say partner, work with, or affiliated.</p>
+        <div class="opts"><span class="opt sel">Reached a person</span><span class="opt">Gatekeeper</span><span class="opt">Voicemail</span><span class="opt">Callback booked</span></div>
+      </div></div>
+
+    <div class="step act"><div class="sh"><span class="sn">2</span><b>Status — never ask "are you still open"</b><em>0:40</em></div>
+      <div class="sb">
+        <p class="say">Last time we spoke someone told us you were taking walk-ins. <b>How far into the month is the funding usually lasting right now?</b></p>
+        <p class="hint">"Are you accepting?" gets a reflexive yes. This gets the truth and the reopen date for free. <strong>If they only say "we're open":</strong> "And is that likely to hold through next week?"</p>
+        <label>Status heard</label>
+        <div class="opts"><span class="opt sel g">Accepting</span><span class="opt a">Waitlist</span><span class="opt s">Funds out</span><span class="opt">Appointment only</span><span class="opt">Season closed</span><span class="opt">Wouldn't say</span></div>
+        <div class="grid2"><div><label>Funding lasts until</label><input type="text" value="around the 8th–10th"></div>
+        <div><label>Reopens on</label><input type="text" placeholder="—"></div></div>
+        <div class="flag">⚑ Status change requires a note before commit.</div>
+      </div></div>
+
+    <div class="step"><div class="sh"><span class="sn">3</span><b>Confirm — assume, let them correct</b><em>0:40</em></div>
+      <div class="sb">
+        <p class="say">I have you as <b>walk-in, Monday to Thursday, doors at eight</b>, capping around forty a day. Still right?</p>
+        <p class="hint">Prefilled from the last call. An open question gets you sent to the website. <strong>Blank beats guessed.</strong></p>
+        <div class="grid2"><div><label>How to apply</label><input class="prefill" type="text" value="Walk-in, Mon–Thu, 8:00 AM"></div>
+        <div><label>Daily cap</label><input class="prefill" type="text" value="~40 per day"></div></div>
+        <label>Documents required</label>
+        <textarea class="prefill">Photo ID · SS cards all household · current bill · disconnect notice if any · 30 days income all adults</textarea>
+      </div></div>
+
+    <div class="step"><div class="sh"><span class="sn">4</span><b>The money question</b><em>0:30</em></div>
+      <div class="sb">
+        <p class="say">Last one. <b>What's the most common reason somebody gets turned away here?</b></p>
+        <p class="hint">Highest-value question in the script. Nobody else asks it. <strong>Their words, not a paraphrase.</strong></p>
+        <label>Most common disqualifier — verbatim</label>
+        <textarea>"People come in without the income for everybody in the house — we can't take just the one paycheck."</textarea>
+      </div></div>
+
+    <div class="step"><div class="sh"><span class="sn">5</span><b>Read back, then wrap</b><em>0:25</em></div>
+      <div class="sb"><div class="readback">
+        <h3>Read out loud, word for word</h3>
+        <div class="rb">So I'll show you as <b>accepting, walk-in Monday to Thursday at eight</b>, funding usually through about the tenth, and that people need income for everyone in the household. That right?</div>
+        <div class="rb">Thanks — I'll put today's date on it. If anything changes before we call back, there's a link on your listing to update it yourself.</div>
+        <div class="row"><button class="btn btn-g">Commit &amp; dial next</button><button class="btn btn-o">They corrected something</button></div>
+      </div>
+      <p class="small">Commit writes an append-only status_log row with your ID, the call_id, method and timestamp, then auto-dials the next record in your queue. Failed contacts write too.</p>
+      </div></div>
+  </div>
+</div>
+</div>
+
+<!-- ============ SUPERVISOR ============ -->
+<div id="v-sup" class="hide"><div class="sv">
+  <div class="kpis">
+    <div class="kpi"><b>61%</b><small>Reach rate <i class="dn">▼ 4 pts wk</i></small></div>
+    <div class="kpi"><b>2:48</b><small>Avg call <i class="up">▲ on target</i></small></div>
+    <div class="kpi"><b>412</b><small>Records overdue <i class="dn">▲ 88</i></small></div>
+    <div class="kpi"><b>1,489</b><small>Published · 10 counties</small></div>
+    <div class="kpi"><b>7</b><small>QA flags open</small></div>
+  </div>
+
+  <h2 class="sec">Reach rate is the number that matters</h2>
+  <div class="panel">
+    <p style="margin:0 0 16px;font-size:15px;color:var(--navy-2);line-height:1.55">Every point of reach rate moves headcount. At 61% you hold 10 counties with one VA. If it slides toward 35% — which is what happens when the outbound number gets flagged as spam — the same coverage takes two, and the freshness claim starts slipping before you notice.</p>
+    <table>
+      <tr><th>Line</th><th>Attestation</th><th>Spam label</th><th>Reach</th><th></th></tr>
+      <tr><td><b>(713) 000-0000</b><br><span class="mono" style="color:var(--navy-3)">Houston outbound</span></td><td class="mono">A</td><td><span class="pill p-ok">Clean</span></td><td class="mono">64%</td><td><div class="bar2"><i style="width:64%"></i></div></td></tr>
+      <tr><td><b>(305) 000-0000</b><br><span class="mono" style="color:var(--navy-3)">Miami outbound</span></td><td class="mono">A</td><td><span class="pill p-warn">Flagged · T-Mobile</span></td><td class="mono">47%</td><td><div class="bar2"><i style="width:47%;background:var(--wait)"></i></div></td></tr>
+      <tr><td><b>(303) 000-0000</b><br><span class="mono" style="color:var(--navy-3)">Denver outbound</span></td><td class="mono">B</td><td><span class="pill p-bad">Scam Likely</span></td><td class="mono">31%</td><td><div class="bar2"><i style="width:31%;background:var(--crimson)"></i></div></td></tr>
+    </table>
+  </div>
+
+  <h2 class="sec">QA flags — automated first</h2>
+  <div class="panel">
+    <table>
+      <tr><th>Record</th><th>VA</th><th>Flag</th><th>Why it fired</th><th></th></tr>
+      <tr><td><b>Wesley Community Center</b></td><td>J. Lopez</td><td><span class="pill p-bad">Too fast</span></td><td>Full record committed on a 41-second call</td><td><button class="btn" style="padding:8px 16px;font-size:13px">Review</button></td></tr>
+      <tr><td><b>Northwest Assistance Ministries</b></td><td>J. Lopez</td><td><span class="pill p-warn">No change</span></td><td>Every field identical to prior check, 3rd time</td><td><button class="btn" style="padding:8px 16px;font-size:13px">Review</button></td></tr>
+      <tr><td><b>Salvation Army — Miami</b></td><td>A. Reyes</td><td><span class="pill p-bad">Downgrade</span></td><td>Accepting → funds out, note field empty</td><td><button class="btn" style="padding:8px 16px;font-size:13px">Review</button></td></tr>
+    </table>
+  </div>
+
+  <h2 class="sec">Coverage — where the freshness claim is at risk</h2>
+  <div class="panel">
+    <table>
+      <tr><th>County</th><th>Programs</th><th>Overdue</th><th>Oldest check</th><th>Health</th></tr>
+      <tr><td><b>Harris</b> TX</td><td class="mono">312</td><td class="mono">24</td><td class="mono">19d</td><td><span class="pill p-ok">Healthy</span></td></tr>
+      <tr><td><b>Dallas</b> TX</td><td class="mono">287</td><td class="mono">51</td><td class="mono">28d</td><td><span class="pill p-warn">Slipping</span></td></tr>
+      <tr><td><b>Bexar</b> TX</td><td class="mono">198</td><td class="mono">12</td><td class="mono">11d</td><td><span class="pill p-ok">Healthy</span></td></tr>
+      <tr><td><b>Hidalgo</b> TX</td><td class="mono">164</td><td class="mono">96</td><td class="mono">44d</td><td><span class="pill p-bad">Unpublish?</span></td></tr>
+    </table>
+    <p style="margin:16px 0 0;font-size:14.5px;color:var(--navy-2);line-height:1.5">Hidalgo has 96 records past due and the oldest is 44 days on a 14-day tier. <b>Pull the county page down before it publishes stale green statuses</b> — an unavailable page costs you traffic, a wrong one costs you the claim.</p>
+  </div>
+</div></div>
+
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');
+  document.getElementById('v-agent').classList.toggle('hide',t.dataset.v!=='agent');
+  document.getElementById('v-sup').classList.toggle('hide',t.dataset.v!=='sup');
+  window.scrollTo(0,0);
+}));
+document.querySelectorAll('.opts').forEach(g=>g.querySelectorAll('.opt').forEach(o=>o.addEventListener('click',()=>{
+  g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));o.classList.add('sel');})));
+document.querySelectorAll('.step .sh').forEach(h=>h.addEventListener('click',()=>{
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('act'));h.parentElement.classList.add('act');}));
+document.querySelectorAll('.qi:not(.lock)').forEach(q=>q.addEventListener('click',()=>{
+  document.querySelectorAll('.qi').forEach(x=>x.classList.remove('on'));q.classList.add('on');}));
+</script>
+</body>
+</html>

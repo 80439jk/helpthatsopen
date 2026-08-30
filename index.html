@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Help That's Open — prototypes</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1C2B5E;--navy-2:#3D4E85;--navy-3:#6B78A0;--crimson:#C41F4E;--pink:#F9D9E5;--lav:#F1F4FC;--line:#DFE4F2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--lav);color:var(--navy);font-family:Nunito,system-ui,sans-serif;font-weight:600;line-height:1.5;padding:48px 24px 80px}
+.w{max-width:760px;margin:0 auto}
+.warn{background:#FCEEF2;border:2px solid #F3C9D6;border-radius:14px;padding:16px 20px;font-size:15px;font-weight:700;color:var(--crimson);margin-bottom:32px;line-height:1.5}
+.brand{display:inline-flex;align-items:center;gap:11px;background:var(--pink);border-radius:999px;padding:11px 22px 11px 16px;font-weight:800;font-size:18px;margin-bottom:26px}
+h1{font-size:34px;font-weight:900;letter-spacing:-.025em;margin:0 0 10px}
+.lede{font-size:17px;color:var(--navy-2);margin:0 0 34px;max-width:56ch}
+a.card{display:block;background:#fff;border:2px solid var(--line);border-radius:18px;padding:24px 26px;margin-bottom:12px;text-decoration:none;color:var(--navy)}
+a.card:hover{border-color:var(--crimson)}
+a.card h2{font-size:21px;font-weight:900;margin:0 0 7px;letter-spacing:-.015em}
+a.card p{margin:0;font-size:16px;color:var(--navy-2);line-height:1.5}
+.k{font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--crimson);margin-bottom:9px}
+.foot{margin-top:34px;font-size:14.5px;color:var(--navy-3);line-height:1.6}
+.foot code{background:#fff;border:1px solid var(--line);border-radius:5px;padding:2px 6px;font-size:13px}
+</style></head><body><div class="w">
+
+<div class="brand">
+  <svg width="24" height="24" viewBox="0 0 26 26" fill="none"><rect x="2" y="2" width="22" height="22" rx="5" stroke="#C41F4E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/><rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#C41F4E"/></svg>
+  Help That's Open
+</div>
+
+<div class="warn">Internal prototypes. All program names, statuses and funding data are illustrative and were invented for layout purposes — none of it is verified and none of it should be treated as real.</div>
+
+<h1>Prototypes</h1>
+<p class="lede">Design and interaction reference for the build. These are single-file mockups with inline data, not a starting codebase — read <code>.cursorrules</code> and <code>docs/</code> first.</p>
+
+<a class="card" href="/preview/prototype.html">
+  <div class="k">Consumer site</div>
+  <h2>Landing + results</h2>
+  <p>Geo-switchable across TX, FL, CA and three ZIPs. Demo bar at the top re-renders both views. Click through to results to see the four call placements.</p>
+</a>
+
+<a class="card" href="/preview/va-console.html">
+  <div class="k">Internal</div>
+  <h2>Verification console</h2>
+  <p>Agent view with the guided call script and dialer bar, plus a supervisor tab covering reach rate, QA flags and county coverage health.</p>
+</a>
+
+<a class="card" href="/preview/logo-system.html">
+  <div class="k">Brand</div>
+  <h2>Logo system</h2>
+  <p>Lit-window mark. Lockups, colorways, small-size variants and the status-indicator application.</p>
+</a>
+
+<p class="foot">Repo also contains <code>docs/01</code>–<code>05</code> (brief, data model, database + dialer, site architecture, VA operations), <code>data/SOURCES.md</code> for seed data, and <code>.cursorrules</code> for the build constraints.</p>
+
+</div></body></html>
