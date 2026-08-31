@@ -292,7 +292,7 @@ footer{padding:58px 0 0;border-top:2px solid var(--line-2);margin-top:30px}
       <defs><clipPath id="wm1"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm1)"><rect x="13" y="0" width="14" height="13" fill="#C41F4E"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#C41F4E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/>
     </svg>Help That's Open
   </button>
-  <button class="geo" onclick="go('results')" id="geoctl">
+  <button class="geo" onclick="geoClick()" id="geoctl">
     <span class="pin"></span><span id="geotxt">77021</span><small id="geosub">&#183; Harris County</small><span class="car">&#9662;</span>
   </button>
   <ul><li><a href="#guides">What to bring</a></li><li><a href="#verify">How we check</a></li></ul>
@@ -520,42 +520,42 @@ const W=(c,s=26)=>{const u='w'+(++_wid);return `<svg width="${s}" height="${s}" 
 const C={open:'#1B7A4B',wait:'#B0741A',shut:'#DDE2EE'};
 
 const G={
- tx:{c1:"Texas",c2:"",h1:"Who's accepting applications in Texas today.",open:3180,shut:8660,total:11840,right:"254 counties",zip:"77021",cty:"254",
+ tx:{c1:"Texas",c2:"",zc:"Harris County",h1:"Who's accepting applications in Texas today.",open:3180,shut:8660,total:11840,right:"254 counties",zip:"77021",cty:"254",zopen:11,zshut:30,ztotal:41,
   lh:"What's different about getting help in Texas",ls:"Every county runs on its own providers, funding calendar and utility. Here's what shapes it statewide.",
   counties:[["Harris",6],["Dallas",9],["Tarrant",4],["Bexar",7],["Travis",5],["Collin",3],["Denton",3],["Hidalgo",8],["El Paso",5],["Fort Bend",4],["Montgomery",2],["Williamson",3]],
   f:[["Retail electric","Most of Texas is a <b>deregulated</b> market — your provider and your wires company are different, and only some programs pay a retail provider directly. Austin, San Antonio and El Paso are the exceptions."],
      ["Who runs the money","Federal utility help flows through <b>35 subrecipients</b> covering all 254 counties, mostly Community Action Agencies. Which one you get depends on your county, not your city."],
      ["Funding calendar","Most crisis funds refill on the <b>1st</b> and are gone within a week in the big metros. Applying on the 20th is usually applying for next month."]],
   L:"77021"},
- fl:{c1:"Florida",c2:"",h1:"Who's accepting applications in Florida today.",open:1740,shut:4680,total:6420,right:"67 counties",zip:"33131",cty:"67",
+ fl:{c1:"Florida",c2:"",zc:"Miami-Dade County",h1:"Who's accepting applications in Florida today.",open:1740,shut:4680,total:6420,right:"67 counties",zip:"33131",cty:"67",zopen:9,zshut:25,ztotal:34,
   lh:"What's different about getting help in Florida",ls:"Florida's providers and funding calendar don't work the way Texas's do.",
   counties:[["Miami-Dade",9],["Broward",6],["Palm Beach",5],["Hillsborough",7],["Orange",6],["Duval",4],["Pinellas",4],["Lee",3],["Polk",3],["Brevard",2],["Volusia",2],["Pasco",3]],
   f:[["Retail electric","Florida has <b>no residential retail choice</b> — you can't switch providers, so utility help is paid directly to FPL, Duke or your municipal utility."],
      ["Who runs the money","Utility assistance runs through county <b>Community Action Agencies</b> and, in some counties, a separate emergency program with its own paperwork and its own waitlist."],
      ["Storm season","<b>June through November</b>, disaster funds open and close fast after a named storm, and they use different eligibility rules than regular assistance."]],
   L:"33131"},
- ca:{c1:"California",c2:"",h1:"Who's accepting applications in California today.",open:4010,shut:10190,total:14200,right:"58 counties",zip:"90011",cty:"58",
+ ca:{c1:"California",c2:"",zc:"Los Angeles County",h1:"Who's accepting applications in California today.",open:4010,shut:10190,total:14200,right:"58 counties",zip:"90011",cty:"58",zopen:11,zshut:30,ztotal:41,
   lh:"What's different about getting help in California",ls:"California layers state programs on top of federal ones, which changes what you can stack.",
   counties:[["Los Angeles",12],["San Diego",7],["Orange",6],["Riverside",5],["San Bernardino",5],["Santa Clara",4],["Alameda",4],["Sacramento",4],["Fresno",3],["Kern",3],["Contra Costa",3],["Ventura",2]],
   f:[["Retail electric","Mostly <b>regulated</b> utilities with discount rate programs that are separate from bill assistance — you can often have both at once."],
      ["Who runs the money","County agencies plus a statewide network, and the two have <b>different income tests</b>. Being turned down by one doesn't rule out the other."],
      ["Stacking","Several state programs run <b>alongside</b> federal help rather than replacing it. Most people apply to one and stop."]],
   L:"90011"},
- "77021":{c1:"Texas",c2:"Harris County",h1:"Who's accepting applications in 77021 today.",open:11,shut:30,total:41,right:"Harris County",zip:"77021",cty:"254",
+ "77021":{c1:"Texas",c2:"Harris County",h1:"Who's accepting applications in 77021 today.",open:11,shut:30,total:41,right:"Harris County",zip:"77021",cty:"254",zopen:11,zshut:30,ztotal:41,
   lh:"What's different about getting help in 77021",ls:"Programs serving this ZIP, and the local details that decide whether you get seen.",
   counties:[["Harris",6],["Fort Bend",4],["Montgomery",2],["Brazoria",3],["Galveston",3],["Liberty",1]],
   f:[["Your utility","<b>CenterPoint</b> delivers your power, but your bill comes from a retail provider you chose. Bring the bill with the retail provider's name on it, not the CenterPoint one."],
      ["Who runs the money","Federal utility help here runs through <b>BakerRipley</b>, which caps walk-in intake around 40 a day. People start lining up before 7:30."],
      ["The catch","Two of the rent programs serving 77021 <b>won't pay on a verbal lease</b>. If yours isn't in writing, start with the two that will."]],
   L:"77021"},
- "33131":{c1:"Florida",c2:"Miami-Dade County",h1:"Who's accepting applications in 33131 today.",open:9,shut:25,total:34,right:"Miami-Dade County",zip:"33131",cty:"67",
+ "33131":{c1:"Florida",c2:"Miami-Dade County",h1:"Who's accepting applications in 33131 today.",open:9,shut:25,total:34,right:"Miami-Dade County",zip:"33131",cty:"67",zopen:9,zshut:25,ztotal:34,
   lh:"What's different about getting help in 33131",ls:"Programs serving this ZIP, and the local details that decide whether you get seen.",
   counties:[["Miami-Dade",9],["Broward",6],["Monroe",2],["Palm Beach",5],["Collier",2],["Hendry",1]],
   f:[["Your utility","<b>FPL</b> is your provider and you can't switch. Utility help is paid straight to them, so you'll need your account number, not just the bill."],
      ["Who runs the money","Miami-Dade runs its own <b>community action</b> office alongside several nonprofit programs, and they don't share a waitlist. Apply to more than one."],
      ["The catch","Rent here competes with a <b>very high</b> rent-to-income ratio, so several programs cap what they'll pay rather than covering a full month."]],
   L:"33131"},
- "80439":{c1:"Colorado",c2:"Jefferson County",h1:"Who's accepting applications in 80439 today.",open:4,shut:8,total:12,right:"Jefferson County",zip:"80439",cty:"64",
+ "80439":{c1:"Colorado",c2:"Jefferson County",h1:"Who's accepting applications in 80439 today.",open:4,shut:8,total:12,right:"Jefferson County",zip:"80439",cty:"64",zopen:4,zshut:8,ztotal:12,
   lh:"What's different about getting help in 80439",ls:"Programs serving this ZIP, and the local details that decide whether you get seen.",
   counties:[["Jefferson",4],["Denver",8],["Arapahoe",5],["Adams",4],["Clear Creek",1],["Park",1]],
   f:[["Seasonal window","Colorado's main utility assistance program only runs <b>November 1 to April 30</b>. Outside that window you're looking at nonprofit funds instead, and there are fewer of them."],
@@ -648,8 +648,8 @@ function render(k){
 
  const L=LIST[d.L]||LIST["77021"];
  const nOpen=L.filter(x=>x.s==='open').length;
- document.getElementById('rh1').textContent='Help in '+d.zip+(d.c2?' — '+d.c2:'');
- document.getElementById('rsum').innerHTML='<b>'+d.open+' accepting</b> · '+d.shut+' waitlisted or out of money';
+ document.getElementById('rh1').textContent='Help in '+d.zip+' — '+(d.c2||d.zc);
+ document.getElementById('rsum').innerHTML='<b>'+d.zopen+' accepting</b> · '+d.zshut+' waitlisted or out of money';
  let html='',g='';
  L.forEach(x=>{
   if(x.g!==g){g=x.g;html+=`<p class="lgroup">${g}</p>`}
@@ -663,8 +663,8 @@ function render(k){
    <p class="Lver">${x.ver}</p></div></div>`;
  });
  document.getElementById('listings').innerHTML=html;
- document.getElementById('zerostat').innerHTML='Only <b>'+d.open.toLocaleString()+'</b> of these <i>'+d.total.toLocaleString()+'</i> are open today.';
- document.getElementById('stickyb').textContent=d.open+' open in '+d.zip;
+ document.getElementById('zerostat').innerHTML='Only <b>'+d.zopen+'</b> of these <i>'+d.ztotal+'</i> are open today.';
+ document.getElementById('stickyb').textContent=d.zopen+' open in '+d.zip;
  document.getElementById('geotxt').textContent=d.c2?d.zip:d.c1;
  document.getElementById('geosub').textContent=d.c2?'\u00b7 '+d.c2:'\u00b7 all counties';
  const nb=d.counties.filter(c=>!d.c2||!d.c2.startsWith(c[0])).slice(0,5);
@@ -678,6 +678,8 @@ function render(k){
   if(!h.querySelector('svg'))h.insertAdjacentHTML('afterbegin',W(c,24));
  });
 }
+function geoClick(){const d=G[cur];if(d.c2){go('results');return;}go('landing');
+ setTimeout(()=>document.getElementById('ceyebrow').scrollIntoView({behavior:'smooth',block:'start'}),40);}
 function go(v){
  document.getElementById('v-landing').classList.toggle('hide',v!=='landing');
  document.getElementById('v-results').classList.toggle('hide',v!=='results');
