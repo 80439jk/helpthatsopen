@@ -288,7 +288,9 @@ footer{padding:58px 0 0;border-top:2px solid var(--line-2);margin-top:30px}
   <span>Demo —</span>
   <a class="dhome" href="/">&#9664; All prototypes</a>
   <span class="dsep"></span>
-  <button data-g="tx" class="on">Texas</button><button data-g="fl">Florida</button><button data-g="ca">California</button>
+  <button data-g="home" class="on">Homepage</button>
+  <span class="dsep"></span>
+  <button data-g="tx">Texas</button><button data-g="fl">Florida</button><button data-g="ca">California</button>
   <button data-g="77021">77021 Houston</button><button data-g="33131">33131 Miami</button><button data-g="80439">80439 Evergreen CO</button>
 </div>
 
@@ -307,7 +309,7 @@ footer{padding:58px 0 0;border-top:2px solid var(--line-2);margin-top:30px}
   <div class="navr"><a class="navtel" href="tel:+10000000000">(000) 000-0000</a><button class="btn" onclick="go('results')">Check my ZIP</button></div>
 </div></div>
 
-<div class="crumb"><div class="wrap"><a onclick="go('landing')">Home</a> › <a id="cb1">Texas</a><span id="cb2x"> › <span id="cb2">Harris County</span></span></div></div>
+<div class="crumb"><div class="wrap"><a onclick="go('landing')">Home</a><span id="cbsep"> › </span><a id="cb1">Texas</a><span id="cb2x"> › <span id="cb2">Harris County</span></span></div></div>
 
 <!-- ============ LANDING ============ -->
 <div id="v-landing">
@@ -395,7 +397,7 @@ footer{padding:58px 0 0;border-top:2px solid var(--line-2);margin-top:30px}
 
 <section><div class="wrap">
   <p class="eyebrow" id="ceyebrow">All 254 counties</p>
-  <h2 class="s">Start with your county.</h2>
+  <h2 class="s" id="ctyh">Start with your county.</h2>
   <p class="sub">What's open, what each place requires, and when we last confirmed it.</p>
   <div class="cgrid" id="cgrid"></div>
   <p class="ctynote" id="ctynote"></p>
@@ -529,6 +531,16 @@ const W=(c,s=26)=>{const u='w'+(++_wid);return `<svg width="${s}" height="${s}" 
 const C={open:'#1B7A4B',wait:'#B0741A',shut:'#DDE2EE'};
 
 const G={
+ home:{c1:"",c2:"",zc:"",h1:"Who's accepting applications near you today.",
+  open:8930,shut:23530,total:32460,right:"3 states live",zip:"",cty:"3",
+  zopen:0,zshut:0,ztotal:0,
+  lh:"Assistance doesn't work the same way twice",
+  ls:"Who administers the money, when it refills and what they'll ask you for changes by state and by county. Start with your ZIP.",
+  counties:[["Texas",3180],["Florida",1740],["California",4010]],
+  f:[["No two states alike","Who runs federal utility help, how many programs exist and when they refill is set <b>state by state</b> \u2014 and inside a state, county by county."],
+     ["The funding calendar","Most crisis funds refill at the <b>start of the month</b> and empty within days in big metros. Timing matters as much as eligibility."],
+     ["What we don't do","We don't take applications, submit them or represent you to anybody. We tell you <b>who's open and what they need</b>."]],
+  L:"77021"},
  tx:{c1:"Texas",c2:"",zc:"Harris County",h1:"Who's accepting applications in Texas today.",open:3180,shut:8660,total:11840,right:"254 counties",zip:"77021",cty:"254",zopen:11,zshut:30,ztotal:41,
   lh:"What's different about getting help in Texas",ls:"Every county runs on its own providers, funding calendar and utility. Here's what shapes it statewide.",
   counties:[["Harris",6],["Dallas",9],["Tarrant",4],["Bexar",7],["Travis",5],["Collin",3],["Denton",3],["Hidalgo",8],["El Paso",5],["Fort Bend",4],["Montgomery",2],["Williamson",3]],
@@ -633,7 +645,8 @@ const LIST={
 };
 
 let cur='tx';
-const CTY2GEO={'Harris':'77021','Miami-Dade':'33131','Jefferson':'80439'};
+const CTY2GEO={'Harris':'77021','Miami-Dade':'33131','Jefferson':'80439',
+ 'Texas':'tx','Florida':'fl','California':'ca'};
 function pick(g){document.querySelectorAll('.demo button').forEach(x=>x.classList.toggle('on',x.dataset.g===g));render(g);go('results');}
 
 function render(k){
@@ -645,10 +658,14 @@ function render(k){
  document.getElementById('barfill').style.width=pct+'%';
  document.getElementById('barL').textContent=pct+'% of '+d.total.toLocaleString()+' programs are open right now';
  document.getElementById('barR').textContent=d.right;
+ const isHome=!d.c1;
  document.getElementById('cb1').textContent=d.c1;
+ document.getElementById('cb1').style.display=isHome?'none':'inline';
+ document.getElementById('cbsep').style.display=isHome?'none':'inline';
  document.getElementById('cb2x').style.display=d.c2?'inline':'none';
  if(d.c2)document.getElementById('cb2').textContent=d.c2;
- document.getElementById('zipin').value=d.zip;
+ const zi=document.getElementById('zipin');
+ zi.value=d.zip; zi.placeholder=d.zip?'':'ZIP code';
  document.getElementById('rzip').value=d.zip;
  document.getElementById('localh').textContent=d.lh;
  document.getElementById('localsub').textContent=d.ls;
@@ -656,8 +673,10 @@ function render(k){
  document.getElementById('cgrid').innerHTML=d.counties.map(c=>{const g=CTY2GEO[c[0]];
    return g?`<button class="cty" onclick="pick('${g}')">${c[0]} <em>${c[1]} open</em></button>`:`<span class="cty off">${c[0]} <em>${c[1]} open</em></span>`;}).join('');
  const live=d.counties.filter(c=>CTY2GEO[c[0]]).map(c=>c[0]);
- document.getElementById('ctynote').textContent=live.length?live.join(' and ')+' carries sample data in this prototype \u2014 the rest are shown for layout.':'Shown for layout only.';
- document.getElementById('ceyebrow').textContent='All '+d.cty+' counties';
+ document.getElementById('ctynote').textContent=isHome?'Three states carry sample data in this prototype.':live.length?live.join(' and ')+' carries sample data in this prototype \u2014 the rest are shown for layout.':'Shown for layout only.';
+ document.getElementById('ceyebrow').textContent=isHome?'Where we\u2019re live':'All '+d.cty+' counties';
+ document.getElementById('ctyh').textContent=isHome?'Start with your state.':'Start with your county.';
+ document.getElementById('allcty').style.display=isHome?'none':'inline-block';
  document.getElementById('allcty').textContent='See all '+d.cty+' counties';
 
  const L=LIST[d.L]||LIST["77021"];
@@ -679,8 +698,8 @@ function render(k){
  document.getElementById('listings').innerHTML=html;
  document.getElementById('zerostat').innerHTML='Only <b>'+d.zopen+'</b> of these <i>'+d.ztotal+'</i> are open today.';
  document.getElementById('stickyb').textContent=d.zopen+' open in '+d.zip;
- document.getElementById('geotxt').textContent=d.c2?d.zip:d.c1;
- document.getElementById('geosub').textContent=d.c2?'\u00b7 '+d.c2:'\u00b7 all counties';
+ document.getElementById('geotxt').textContent=d.c2?d.zip:(d.c1||'Enter your ZIP');
+ document.getElementById('geosub').textContent=d.c2?'\u00b7 '+d.c2:(d.c1?'\u00b7 all counties':'');
  const nb=d.counties.filter(c=>!d.c2||!d.c2.startsWith(c[0])).slice(0,5);
  document.getElementById('nbgrid').innerHTML=nb.map(c=>{const g=CTY2GEO[c[0]];
    return g?`<button class="cty" style="flex:0 0 auto" onclick="pick('${g}')">${c[0]} County <em>${c[1]} open</em></button>`:`<span class="cty off" style="flex:0 0 auto">${c[0]} County <em>${c[1]} open</em></span>`;}).join('');
@@ -711,7 +730,7 @@ document.querySelectorAll('.fchip').forEach(c=>c.addEventListener('click',()=>{
 (function(){
  const q=new URLSearchParams(location.search);
  const g=q.get('geo');
- const start=(g && G[g])?g:'tx';
+ const start=(g && G[g])?g:'home';
  document.querySelectorAll('.demo button').forEach(x=>x.classList.toggle('on',x.dataset.g===start));
  render(start);
  if(q.get('view')==='results')go('results');
