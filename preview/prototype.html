@@ -149,6 +149,9 @@ h2.s{font-size:clamp(27px,3.5vw,38px);font-weight:900;letter-spacing:-.02em;line
 .cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(184px,1fr));gap:11px;margin-bottom:26px}
 .cty{background:#fff;border:2px solid var(--line);border-radius:var(--pill);padding:14px 22px;text-decoration:none;color:var(--navy);font-size:16px;font-weight:800;display:flex;justify-content:space-between;gap:10px;cursor:pointer}
 .cty:hover{border-color:var(--crimson)}
+.cty.off{cursor:default;opacity:.5}
+.cty.off:hover{border-color:var(--line)}
+.ctynote{font-size:14.5px;font-weight:600;color:var(--navy-3);margin:0 0 20px}
 .cty em{font-style:normal;color:var(--open);font-weight:700}
 
 /* guides */
@@ -390,6 +393,7 @@ footer{padding:58px 0 0;border-top:2px solid var(--line-2);margin-top:30px}
   <h2 class="s">Start with your county.</h2>
   <p class="sub">What's open, what each place requires, and when we last confirmed it.</p>
   <div class="cgrid" id="cgrid"></div>
+  <p class="ctynote" id="ctynote"></p>
   <button class="btn btn-ghost" id="allcty">See all 254 counties</button>
 </div></section>
 
@@ -624,6 +628,8 @@ const LIST={
 };
 
 let cur='tx';
+const CTY2GEO={'Harris':'77021','Miami-Dade':'33131','Jefferson':'80439'};
+function pick(g){document.querySelectorAll('.demo button').forEach(x=>x.classList.toggle('on',x.dataset.g===g));render(g);go('results');}
 
 function render(k){
  const d=G[k];cur=k;
@@ -642,7 +648,10 @@ function render(k){
  document.getElementById('localh').textContent=d.lh;
  document.getElementById('localsub').textContent=d.ls;
  document.getElementById('facts').innerHTML=d.f.map(f=>`<div class="fact"><h3>${f[0]}</h3><p>${f[1]}</p></div>`).join('');
- document.getElementById('cgrid').innerHTML=d.counties.map(c=>`<a class="cty">${c[0]} <em>${c[1]} open</em></a>`).join('');
+ document.getElementById('cgrid').innerHTML=d.counties.map(c=>{const g=CTY2GEO[c[0]];
+   return g?`<button class="cty" onclick="pick('${g}')">${c[0]} <em>${c[1]} open</em></button>`:`<span class="cty off">${c[0]} <em>${c[1]} open</em></span>`;}).join('');
+ const live=d.counties.filter(c=>CTY2GEO[c[0]]).map(c=>c[0]);
+ document.getElementById('ctynote').textContent=live.length?live.join(' and ')+' carries sample data in this prototype \u2014 the rest are shown for layout.':'Shown for layout only.';
  document.getElementById('ceyebrow').textContent='All '+d.cty+' counties';
  document.getElementById('allcty').textContent='See all '+d.cty+' counties';
 
@@ -668,7 +677,8 @@ function render(k){
  document.getElementById('geotxt').textContent=d.c2?d.zip:d.c1;
  document.getElementById('geosub').textContent=d.c2?'\u00b7 '+d.c2:'\u00b7 all counties';
  const nb=d.counties.filter(c=>!d.c2||!d.c2.startsWith(c[0])).slice(0,5);
- document.getElementById('nbgrid').innerHTML=nb.map(c=>`<a class="cty" style="flex:0 0 auto">${c[0]} County <em>${c[1]} open</em></a>`).join('');
+ document.getElementById('nbgrid').innerHTML=nb.map(c=>{const g=CTY2GEO[c[0]];
+   return g?`<button class="cty" style="flex:0 0 auto" onclick="pick('${g}')">${c[0]} County <em>${c[1]} open</em></button>`:`<span class="cty off" style="flex:0 0 auto">${c[0]} County <em>${c[1]} open</em></span>`;}).join('');
  document.getElementById('fcth').textContent=d.c1+' counties';
  document.getElementById('fcty').innerHTML=d.counties.slice(0,5).map(c=>`<a>${c[0]}</a>`).join('');
  document.getElementById('fctall').textContent='All '+d.cty+' \u2192';
