@@ -43,6 +43,9 @@ body{margin:0;background:#fff;color:var(--navy);font-family:Nunito,system-ui,san
 .demo span{color:#9CA3AF;letter-spacing:.05em;text-transform:uppercase;font-size:11px}
 .demo button{background:#2A3444;color:#fff;border:0;border-radius:var(--pill);padding:7px 14px;font-family:Nunito;font-weight:800;font-size:12.5px;cursor:pointer}
 .demo button.on{background:var(--crimson)}
+.demo .dhome{background:#fff;color:#111827;border-radius:var(--pill);padding:7px 15px;font-weight:800;font-size:12.5px;text-decoration:none}
+.demo .dhome:hover{background:var(--pink)}
+.demo .dsep{width:1px;height:20px;background:#374151;margin:0 4px}
 
 .disc-bar{background:var(--navy);color:#fff;text-align:center;padding:13px 20px;font-size:15px;font-weight:700}
 
@@ -283,6 +286,8 @@ footer{padding:58px 0 0;border-top:2px solid var(--line-2);margin-top:30px}
 
 <div class="demo">
   <span>Demo —</span>
+  <a class="dhome" href="/">&#9664; All prototypes</a>
+  <span class="dsep"></span>
   <button data-g="tx" class="on">Texas</button><button data-g="fl">Florida</button><button data-g="ca">California</button>
   <button data-g="77021">77021 Houston</button><button data-g="33131">33131 Miami</button><button data-g="80439">80439 Evergreen CO</button>
 </div>
@@ -703,7 +708,14 @@ document.querySelectorAll('.demo button').forEach(b=>b.addEventListener('click',
 document.querySelectorAll('.fchip').forEach(c=>c.addEventListener('click',()=>{
  document.querySelectorAll('.fchip').forEach(x=>x.classList.remove('on'));c.classList.add('on');
 }));
-render('tx');
+(function(){
+ const q=new URLSearchParams(location.search);
+ const g=q.get('geo');
+ const start=(g && G[g])?g:'tx';
+ document.querySelectorAll('.demo button').forEach(x=>x.classList.toggle('on',x.dataset.g===start));
+ render(start);
+ if(q.get('view')==='results')go('results');
+})();
 </script>
 </body>
 </html>
