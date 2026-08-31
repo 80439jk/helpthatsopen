@@ -50,9 +50,20 @@ body{margin:0;background:#fff;color:var(--navy);font-family:Nunito,system-ui,san
 .nav{display:flex;align-items:center;gap:26px;padding:15px 0;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:12px;background:var(--pink);border-radius:var(--pill);padding:12px 24px 12px 18px;font-weight:800;font-size:19px;cursor:pointer;border:0;font-family:Nunito;color:var(--navy)}
 .nav ul{display:flex;gap:23px;list-style:none;margin:0;padding:0;font-size:15.5px;font-weight:700}
-.nav ul a{color:var(--navy);text-decoration:none}
+.nav ul a{color:var(--navy);text-decoration:none;cursor:pointer}
+.geo{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--line);border-radius:var(--pill);padding:9px 16px 9px 13px;font-family:Nunito;font-weight:800;font-size:15px;color:var(--navy);cursor:pointer;white-space:nowrap}
+.geo:hover{border-color:var(--crimson)}
+.geo .pin{width:9px;height:9px;border-radius:50%;background:var(--open);flex:none}
+.geo small{font-weight:700;color:var(--navy-3);font-size:13.5px}
+.geo .car{color:var(--navy-3);font-size:12px}
+.navtel{font-size:18px;font-weight:900;color:var(--crimson);text-decoration:none;white-space:nowrap}
+@media(max-width:1080px){.geo small{display:none}}
+.nearby{border-top:2px solid var(--line-2);margin-top:36px;padding-top:26px}
+.nearby h3{font-size:13px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--navy-3);margin:0 0 6px}
+.nearby p{font-size:16px;font-weight:600;color:var(--navy-2);margin:0 0 16px;max-width:58ch;line-height:1.5}
+.nbgrid{display:flex;gap:10px;flex-wrap:wrap}
 .nav ul a:hover{color:var(--crimson)}
-.navr{margin-left:auto;display:flex;gap:10px}
+.navr{margin-left:auto;display:flex;gap:10px;align-items:center}
 .btn{border:0;border-radius:var(--pill);padding:14px 26px;font-family:Nunito;font-size:15.5px;font-weight:800;cursor:pointer;background:var(--crimson);color:#fff;white-space:nowrap}
 .btn:hover{background:var(--crimson-hi)}
 .btn-ghost{background:none;color:var(--navy);border:2px solid var(--navy)}
@@ -248,8 +259,9 @@ dd b{color:var(--navy);font-weight:800}
 
 /* footer */
 footer{padding:58px 0 0;border-top:2px solid var(--line-2);margin-top:30px}
-.fg{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;padding-bottom:50px}
-@media(max-width:860px){.fg{grid-template-columns:1fr 1fr;gap:32px}}
+.fg{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:34px;padding-bottom:50px}
+@media(max-width:1000px){.fg{grid-template-columns:1fr 1fr 1fr;gap:32px}}
+@media(max-width:700px){.fg{grid-template-columns:1fr 1fr;gap:30px}}
 .fg h4{font-size:14.5px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;margin:0 0 18px}
 .fg a{display:block;font-size:16.5px;font-weight:600;color:var(--navy-2);text-decoration:none;margin-bottom:12px}
 .fg a:hover{color:var(--crimson)}
@@ -280,8 +292,11 @@ footer{padding:58px 0 0;border-top:2px solid var(--line-2);margin-top:30px}
       <defs><clipPath id="wm1"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm1)"><rect x="13" y="0" width="14" height="13" fill="#C41F4E"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#C41F4E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/>
     </svg>Help That's Open
   </button>
-  <ul><li><a onclick="go('results')">Find help</a></li><li><a href="#verify">How we check</a></li><li><a href="#guides">What to bring</a></li><li><a href="#agencies">For agencies</a></li></ul>
-  <div class="navr"><button class="btn btn-ghost">Call</button><button class="btn" onclick="go('results')">Check my ZIP</button></div>
+  <button class="geo" onclick="go('results')" id="geoctl">
+    <span class="pin"></span><span id="geotxt">77021</span><small id="geosub">&#183; Harris County</small><span class="car">&#9662;</span>
+  </button>
+  <ul><li><a href="#guides">What to bring</a></li><li><a href="#verify">How we check</a></li></ul>
+  <div class="navr"><a class="navtel" href="tel:+10000000000">(000) 000-0000</a><button class="btn" onclick="go('results')">Check my ZIP</button></div>
 </div></div>
 
 <div class="crumb"><div class="wrap"><a onclick="go('landing')">Home</a> › <a id="cb1">Texas</a><span id="cb2x"> › <span id="cb2">Harris County</span></span></div></div>
@@ -445,6 +460,12 @@ footer{padding:58px 0 0;border-top:2px solid var(--line-2);margin-top:30px}
 
   <div id="listings"></div>
 
+  <div class="nearby">
+    <h3>Nearby counties</h3>
+    <p>Service areas don't stop at the county line. If you're near the edge, some of these will take you too.</p>
+    <div class="nbgrid" id="nbgrid"></div>
+  </div>
+
   <div class="what">
     <h3>What happens when you call</h3>
     <ul class="wsteps">
@@ -483,6 +504,7 @@ footer{padding:58px 0 0;border-top:2px solid var(--line-2);margin-top:30px}
     </div>
     <div><h4>Get help</h4><a>Check my ZIP</a><a>Talk to someone</a><a>Text me a list</a><a>Alerts when funds reopen</a></div>
     <div><h4>What we track</h4><a>Rent &amp; eviction</a><a>Electric &amp; gas</a><a>Water</a><a>Food</a><a>Emergency &amp; disaster</a><a>School &amp; childcare</a></div>
+    <div><h4 id="fcth">Texas counties</h4><div id="fcty"></div><a style="color:var(--crimson)" id="fctall">All 254 &rarr;</a></div>
     <div><h4>About</h4><a>How we verify</a><a>Corrections log</a><a>For agencies</a><a>Data access</a><a>Contact</a></div>
   </div>
 </div>
@@ -643,6 +665,13 @@ function render(k){
  document.getElementById('listings').innerHTML=html;
  document.getElementById('zerostat').innerHTML='Only <b>'+d.open.toLocaleString()+'</b> of these <i>'+d.total.toLocaleString()+'</i> are open today.';
  document.getElementById('stickyb').textContent=d.open+' open in '+d.zip;
+ document.getElementById('geotxt').textContent=d.c2?d.zip:d.c1;
+ document.getElementById('geosub').textContent=d.c2?'\u00b7 '+d.c2:'\u00b7 all counties';
+ const nb=d.counties.filter(c=>!d.c2||!d.c2.startsWith(c[0])).slice(0,5);
+ document.getElementById('nbgrid').innerHTML=nb.map(c=>`<a class="cty" style="flex:0 0 auto">${c[0]} County <em>${c[1]} open</em></a>`).join('');
+ document.getElementById('fcth').textContent=d.c1+' counties';
+ document.getElementById('fcty').innerHTML=d.counties.slice(0,5).map(c=>`<a>${c[0]}</a>`).join('');
+ document.getElementById('fctall').textContent='All '+d.cty+' \u2192';
 
  document.querySelectorAll('.sbox h3').forEach((h,i)=>{
   const c=[C.open,C.wait,C.shut][i];
