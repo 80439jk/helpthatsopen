@@ -33,7 +33,7 @@ pre{background:var(--lav);border:2px solid var(--line);border-radius:14px;paddin
 </style></head><body>
 
 <h1>The lit window</h1>
-<p class="intro">A window with one pane lit. Says someone's there and the door's worth knocking on, without claiming to be an institution. The lit pane is also a working part of the interface, not just decoration — more on that below.</p>
+<div style="background:#E6F3EC;border:2px solid #B8DCC8;border-radius:14px;padding:16px 20px;font-size:15.5px;color:#14603A;margin:22px 0;max-width:70ch;line-height:1.5"><b>Corrected.</b> The pane was an 8.2px square that fell short of both the mullion and the frame's inner edge, leaving hairline gaps, with a corner radius that did not match the frame. It is now clipped to the frame's exact inner shape and extends under the stroke, so the quadrant fills solidly at every size. <b>Each instance needs a unique clip id.</b></div><p class="intro">A window with one pane lit. Says someone's there and the door's worth knocking on, without claiming to be an institution. The lit pane is also a working part of the interface, not just decoration — more on that below.</p>
 
 <!-- LOCKUPS -->
 <div class="block">
@@ -44,27 +44,21 @@ pre{background:var(--lav);border:2px solid var(--line);border-radius:14px;paddin
   <div class="item">
     <div class="pill">
       <svg width="27" height="27" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-        <rect x="2" y="2" width="22" height="22" rx="5" stroke="#C41F4E" stroke-width="3"/>
-        <path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/>
-        <rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#C41F4E"/>
+        <defs><clipPath id="wm1"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm1)"><rect x="13" y="0" width="14" height="13" fill="#C41F4E"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#C41F4E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/>
       </svg>CornerHelp
     </div><span class="cap">Pill — site header</span>
   </div>
   <div class="item">
     <div class="plain">
       <svg width="27" height="27" viewBox="0 0 26 26" fill="none">
-        <rect x="2" y="2" width="22" height="22" rx="5" stroke="#C41F4E" stroke-width="3"/>
-        <path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/>
-        <rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#C41F4E"/>
+        <defs><clipPath id="wm2"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm2)"><rect x="13" y="0" width="14" height="13" fill="#C41F4E"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#C41F4E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/>
       </svg>CornerHelp
     </div><span class="cap">Plain — documents</span>
   </div>
   <div class="item">
     <div class="stack">
       <svg width="40" height="40" viewBox="0 0 26 26" fill="none">
-        <rect x="2" y="2" width="22" height="22" rx="5" stroke="#C41F4E" stroke-width="3"/>
-        <path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/>
-        <rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#C41F4E"/>
+        <defs><clipPath id="wm3"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm3)"><rect x="13" y="0" width="14" height="13" fill="#C41F4E"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#C41F4E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/>
       </svg>Corner<br>Help
     </div><span class="cap">Stacked — square</span>
   </div>
@@ -80,27 +74,21 @@ pre{background:var(--lav);border:2px solid var(--line);border-radius:14px;paddin
   <div class="item">
     <div class="onnavy">
       <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-        <rect x="2" y="2" width="22" height="22" rx="5" stroke="#F9D9E5" stroke-width="3"/>
-        <path d="M13 3.5v19M3.5 13h19" stroke="#F9D9E5" stroke-width="2.4"/>
-        <rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#C41F4E"/>
+        <defs><clipPath id="wm4"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm4)"><rect x="13" y="0" width="14" height="13" fill="#C41F4E"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#F9D9E5" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#F9D9E5" stroke-width="2.4"/>
       </svg>CornerHelp
     </div><span class="cap">On navy</span>
   </div>
   <div class="item">
     <div class="plain" style="color:var(--navy)">
       <svg width="27" height="27" viewBox="0 0 26 26" fill="none">
-        <rect x="2" y="2" width="22" height="22" rx="5" stroke="#1C2B5E" stroke-width="3"/>
-        <path d="M13 3.5v19M3.5 13h19" stroke="#1C2B5E" stroke-width="2.4"/>
-        <rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#C41F4E"/>
+        <defs><clipPath id="wm5"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm5)"><rect x="13" y="0" width="14" height="13" fill="#C41F4E"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#1C2B5E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#1C2B5E" stroke-width="2.4"/>
       </svg>CornerHelp
     </div><span class="cap">Navy frame</span>
   </div>
   <div class="item">
     <div class="plain">
       <svg width="27" height="27" viewBox="0 0 26 26" fill="none">
-        <rect x="2" y="2" width="22" height="22" rx="5" stroke="#1C2B5E" stroke-width="3"/>
-        <path d="M13 3.5v19M3.5 13h19" stroke="#1C2B5E" stroke-width="2.4"/>
-        <rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#1C2B5E"/>
+        <defs><clipPath id="wm6"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm6)"><rect x="13" y="0" width="14" height="13" fill="#1C2B5E"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#1C2B5E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#1C2B5E" stroke-width="2.4"/>
       </svg>CornerHelp
     </div><span class="cap">One colour — fax, stamp</span>
   </div>
@@ -114,19 +102,13 @@ pre{background:var(--lav);border:2px solid var(--line);border-radius:14px;paddin
 <p class="n">The crossbars turn to mud at favicon scale. Ship two files: the full mark down to 24px, and a simplified frame-plus-pane for 16 and 20.</p>
 <div class="row">
   <div class="item"><div class="chipbox"><svg width="30" height="30" viewBox="0 0 26 26" fill="none">
-    <rect x="2" y="2" width="22" height="22" rx="5" stroke="#C41F4E" stroke-width="3"/>
-    <path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/>
-    <rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#C41F4E"/></svg></div><span class="cap">32px — full</span></div>
+    <defs><clipPath id="wm7"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm7)"><rect x="13" y="0" width="14" height="13" fill="#C41F4E"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#C41F4E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/></svg></div><span class="cap">32px — full</span></div>
   <div class="item"><div class="chipbox" style="width:34px;height:34px"><svg width="22" height="22" viewBox="0 0 26 26" fill="none">
-    <rect x="2" y="2" width="22" height="22" rx="5" stroke="#C41F4E" stroke-width="3.6"/>
-    <rect x="14" y="3" width="9" height="9" rx="2" fill="#C41F4E"/></svg></div><span class="cap">20px — simplified</span></div>
+    <defs><clipPath id="wm12"><rect x="3" y="3" width="20" height="20" rx="4"/></clipPath></defs><g clip-path="url(#wm12)"><rect x="13" y="0" width="14" height="13" fill="#C41F4E"/></g><rect x="2.5" y="2.5" width="21" height="21" rx="5" fill="none" stroke="#C41F4E" stroke-width="3.6"/></svg></div><span class="cap">20px — simplified</span></div>
   <div class="item"><div class="chipbox" style="width:26px;height:26px;border-radius:7px"><svg width="16" height="16" viewBox="0 0 26 26" fill="none">
-    <rect x="2.5" y="2.5" width="21" height="21" rx="5" stroke="#C41F4E" stroke-width="4"/>
-    <rect x="13.6" y="2.8" width="9.6" height="9.6" rx="2" fill="#C41F4E"/></svg></div><span class="cap">16px — favicon</span></div>
+    <defs><clipPath id="wm13"><rect x="3" y="3" width="20" height="20" rx="4"/></clipPath></defs><g clip-path="url(#wm13)"><rect x="13" y="0" width="14" height="13" fill="#C41F4E"/></g><rect x="2.5" y="2.5" width="21" height="21" rx="5" fill="none" stroke="#C41F4E" stroke-width="4"/></svg></div><span class="cap">16px — favicon</span></div>
   <div class="item"><div class="chipbox n" style="width:46px;height:46px;border-radius:11px"><svg width="30" height="30" viewBox="0 0 26 26" fill="none">
-    <rect x="2" y="2" width="22" height="22" rx="5" stroke="#F9D9E5" stroke-width="3"/>
-    <path d="M13 3.5v19M3.5 13h19" stroke="#F9D9E5" stroke-width="2.4"/>
-    <rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#C41F4E"/></svg></div><span class="cap">App icon</span></div>
+    <defs><clipPath id="wm8"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm8)"><rect x="13" y="0" width="14" height="13" fill="#C41F4E"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#F9D9E5" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#F9D9E5" stroke-width="2.4"/></svg></div><span class="cap">App icon</span></div>
 </div>
 </div>
 
@@ -137,19 +119,13 @@ pre{background:var(--lav);border:2px solid var(--line);border-radius:14px;paddin
 <p class="n">Same window, different pane colour, and you have a status indicator that's already the brand. Use it on listing cards, county tiles, and the alert emails — no separate icon set, and people learn the vocabulary from the logo before they read the legend.</p>
 <div class="statusrow">
   <div class="st"><svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-    <rect x="2" y="2" width="22" height="22" rx="5" stroke="#1C2B5E" stroke-width="3"/>
-    <path d="M13 3.5v19M3.5 13h19" stroke="#1C2B5E" stroke-width="2.4"/>
-    <rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#1B7A4B"/></svg>
+    <defs><clipPath id="wm9"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm9)"><rect x="13" y="0" width="14" height="13" fill="#1B7A4B"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#1C2B5E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#1C2B5E" stroke-width="2.4"/></svg>
     <div>Accepting<small>lit green</small></div></div>
   <div class="st"><svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-    <rect x="2" y="2" width="22" height="22" rx="5" stroke="#1C2B5E" stroke-width="3"/>
-    <path d="M13 3.5v19M3.5 13h19" stroke="#1C2B5E" stroke-width="2.4"/>
-    <rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#B0741A"/></svg>
+    <defs><clipPath id="wm10"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm10)"><rect x="13" y="0" width="14" height="13" fill="#B0741A"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#1C2B5E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#1C2B5E" stroke-width="2.4"/></svg>
     <div>Waitlist<small>lit amber</small></div></div>
   <div class="st"><svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-    <rect x="2" y="2" width="22" height="22" rx="5" stroke="#1C2B5E" stroke-width="3"/>
-    <path d="M13 3.5v19M3.5 13h19" stroke="#1C2B5E" stroke-width="2.4"/>
-    <rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#DDE2EE"/></svg>
+    <defs><clipPath id="wm11"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm11)"><rect x="13" y="0" width="14" height="13" fill="#DDE2EE"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#1C2B5E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#1C2B5E" stroke-width="2.4"/></svg>
     <div>Funds out<small>unlit</small></div></div>
 </div>
 <div class="tip">Keep the crimson pane for the logo only. The moment crimson also means a status, the mark stops being a mark. Crimson = the brand and the buttons; green, amber and grey = information.</div>
@@ -162,15 +138,21 @@ pre{background:var(--lav);border:2px solid var(--line);border-radius:14px;paddin
 <p class="n">Full mark, then the small-size variant. Swap the <code>#C41F4E</code> on the last rect to recolour the pane.</p>
 <pre>&lt;!-- Full mark, 24px and up --&gt;
 &lt;svg width="26" height="26" viewBox="0 0 26 26" fill="none" role="img" aria-label="CornerHelp"&gt;
+  &lt;defs&gt;&lt;clipPath id="w1"&gt;
+    &lt;rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/&gt;
+  &lt;/clipPath&gt;&lt;/defs&gt;
+  &lt;g clip-path="url(#w1)"&gt;&lt;rect x="13" y="0" width="14" height="13" fill="#C41F4E"/&gt;&lt;/g&gt;
   &lt;rect x="2" y="2" width="22" height="22" rx="5" stroke="#C41F4E" stroke-width="3"/&gt;
   &lt;path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/&gt;
-  &lt;rect x="14.4" y="3.4" width="8.2" height="8.2" rx="2" fill="#C41F4E"/&gt;
 &lt;/svg&gt;
 
 &lt;!-- Simplified, 16–20px --&gt;
 &lt;svg width="16" height="16" viewBox="0 0 26 26" fill="none" role="img" aria-label="CornerHelp"&gt;
+  &lt;defs&gt;&lt;clipPath id="w2"&gt;
+    &lt;rect x="3" y="3" width="20" height="20" rx="4"/&gt;
+  &lt;/clipPath&gt;&lt;/defs&gt;
+  &lt;g clip-path="url(#w2)"&gt;&lt;rect x="13" y="0" width="14" height="13" fill="#C41F4E"/&gt;&lt;/g&gt;
   &lt;rect x="2.5" y="2.5" width="21" height="21" rx="5" stroke="#C41F4E" stroke-width="4"/&gt;
-  &lt;rect x="13.6" y="2.8" width="9.6" height="9.6" rx="2" fill="#C41F4E"/&gt;
 &lt;/svg&gt;</pre>
 <div class="tip">Clear space: one pane-width on every side. Minimum size 16px on screen, 8mm in print. Never rotate it, never gradient the pane, never light more than one pane.</div>
 </div>
