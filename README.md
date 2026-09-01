@@ -1,4 +1,4 @@
-# Help That's Open — handoff
+# CornerHelp — handoff
 
 Everything needed to rebuild this in Cursor. Read `.cursorrules` first; it holds the
 constraints that aren't obvious from the mockups.

@@ -61,14 +61,14 @@ Section 8 is not optional. A directory with anonymous data is a low-trust docume
 {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "@id": "https://helpthatsopen.com/#org",
-  "name": "Help That's Open",
-  "url": "https://helpthatsopen.com",
+  "@id": "https://cornerhelp.com/#org",
+  "name": "CornerHelp",
+  "url": "https://cornerhelp.com",
   "disambiguatingDescription": "An independent private company. Not a government agency, not affiliated with any government program, and not a provider of assistance.",
   "foundingDate": "2026",
   "areaServed": { "@type": "State", "name": "Texas" },
-  "publishingPrinciples": "https://helpthatsopen.com/how-we-verify/",
-  "correctionsPolicy": "https://helpthatsopen.com/corrections/"
+  "publishingPrinciples": "https://cornerhelp.com/how-we-verify/",
+  "correctionsPolicy": "https://cornerhelp.com/corrections/"
 }
 ```
 
@@ -82,10 +82,10 @@ Declaring the county directory as a `Dataset` is the single strongest AI-trust m
 {
   "@context": "https://schema.org",
   "@type": "Dataset",
-  "@id": "https://helpthatsopen.com/texas/harris-county/#dataset",
+  "@id": "https://cornerhelp.com/texas/harris-county/#dataset",
   "name": "Harris County, Texas assistance program status",
   "description": "Current application status, eligibility requirements, and required documents for rent, utility, water, and food assistance programs serving Harris County.",
-  "creator": { "@id": "https://helpthatsopen.com/#org" },
+  "creator": { "@id": "https://cornerhelp.com/#org" },
   "dateModified": "2026-08-30T08:14:00-05:00",
   "temporalCoverage": "2026-08-30/..",
   "spatialCoverage": {
@@ -97,7 +97,7 @@ Declaring the county directory as a `Dataset` is the single strongest AI-trust m
   "distribution": {
     "@type": "DataDownload",
     "encodingFormat": "application/json",
-    "contentUrl": "https://helpthatsopen.com/data/texas/harris-county.json"
+    "contentUrl": "https://cornerhelp.com/data/texas/harris-county.json"
   }
 }
 ```
@@ -110,7 +110,7 @@ Declaring the county directory as a `Dataset` is the single strongest AI-trust m
 {
   "@context": "https://schema.org",
   "@type": "Service",
-  "@id": "https://helpthatsopen.com/programs/bakerripley-ceap/#service",
+  "@id": "https://cornerhelp.com/programs/bakerripley-ceap/#service",
   "name": "Comprehensive Energy Assistance Program (CEAP)",
   "serviceType": "Utility bill assistance",
   "provider": {
@@ -131,7 +131,7 @@ Declaring the county directory as a `Dataset` is the single strongest AI-trust m
     "serviceLocation": { "@type": "Place", "address": { "@type": "PostalAddress", "addressLocality": "Houston", "addressRegion": "TX" } }
   },
   "termsOfService": "Photo ID, Social Security cards for all household members, current utility bill, 30 days income for all adults",
-  "isRelatedTo": { "@id": "https://helpthatsopen.com/texas/harris-county/electric-bill/#dataset" }
+  "isRelatedTo": { "@id": "https://cornerhelp.com/texas/harris-county/electric-bill/#dataset" }
 }
 ```
 
@@ -146,7 +146,7 @@ When a program reopens or exhausts funds, emit one. It's a type Google actively 
   "name": "Salvation Army Greater Houston utility assistance reopens September 1",
   "datePosted": "2026-08-30T02:40:00-05:00",
   "expires": "2026-09-30",
-  "category": "https://helpthatsopen.com/status/funds-reopened",
+  "category": "https://cornerhelp.com/status/funds-reopened",
   "spatialCoverage": { "@type": "AdministrativeArea", "name": "Harris County, Texas" },
   "announcementLocation": { "@type": "Place", "name": "The Salvation Army — Greater Houston" }
 }

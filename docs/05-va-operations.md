@@ -44,7 +44,7 @@ So the opening line is never "can we get your information." It's **"we send peop
 
 ### Step 1 · Open (0:15)
 
-> "Hi, this is [name] — I'm calling from <b><u style=Help That's Opencolor:#1B7A4BHelp That's Open>Help That's Open</u></b>, we're the site that lists which programs are taking applications. **We send people to you.** I've got about two minutes of questions so we're not sending you folks you can't help. Is now alright, or should I call back?"
+> "Hi, this is [name] — I'm calling from <b><u style=CornerHelpcolor:#1B7A4BCornerHelp>CornerHelp</u></b>, we're the site that lists which programs are taking applications. **We send people to you.** I've got about two minutes of questions so we're not sending you folks you can't help. Is now alright, or should I call back?"
 
 Offering the callback gets a yes more often than not offering it.
 
@@ -87,7 +87,7 @@ That last sentence is the supply-side hook. Every call plants it.
 ## Part 4 — Objections, with actual answers
 
 **"Who is this? / Are you selling something?"**
-> "It's <b><u style="color:#1B7A4B">Help That's Open</u></b> — nothing to sell, we don't charge anybody and we don't do applications. We're a directory. People search for rent help, we tell them who's actually open so they don't drive to a closed door."
+> "It's <b><u style="color:#1B7A4B">CornerHelp</u></b> — nothing to sell, we don't charge anybody and we don't do applications. We're a directory. People search for rent help, we tell them who's actually open so they don't drive to a closed door."
 
 **"Just look at our website."**
 > "I did — it says you're open, but it doesn't say whether the funding's still there this month, and that's the part people get burned on. That's really all I'm asking."
