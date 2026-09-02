@@ -22,14 +22,19 @@ def main(listings, geo, out):
             csv.DictReader(open(f'{geo}/zips.csv', encoding='utf-8'))
             if (r['population'] or '').strip()}
 
+    files = sorted(pathlib.Path(listings).glob('*.jsonl')) if pathlib.Path(listings).is_dir() \
+            else [pathlib.Path(listings)]
     orgs = collections.OrderedDict()
-    for line in open(listings, encoding='utf-8'):
+    for line in (l for f in files for l in open(f, encoding='utf-8')):
         if not line.strip():
             continue
         r = json.loads(line)
         o = orgs.setdefault(r['org_name'], {'city': r['city'], 'phone': r['phone'],
-                                            'programs': set(), 'counties': set(), 'zips': set()})
+                                            'address': r.get('address'),
+                                            'programs': set(), 'counties': set(), 'zips': set(),
+                                            'needs': set(), 'source': r['source_name']})
         o['programs'].add(CODE.get(r['program_name'], r['program_name']))
+        o['needs'] |= set(r.get('need_tags') or [])
         o['counties'] |= set(r['service_counties'])
         o['zips'] |= set(r['service_zips'])
 
@@ -37,7 +42,10 @@ def main(listings, geo, out):
     for name, o in orgs.items():
         cs, zs = sorted(o['counties']), sorted(o['zips'])
         rows.append({
-            'org_name': name, 'city': o['city'], 'phone': o['phone'],
+            'org_name': name, 'city': o['city'], 'address': o.get('address') or '',
+            'phone': o['phone'],
+            'needs': ', '.join(sorted(o['needs'])),
+            'source': o['source'],
             'programs': ', '.join(sorted(o['programs'], key=lambda p: ORDER.get(p, 9))),
             'counties_count': len(cs), 'zips_count': len(zs),
             'population_reach': sum(zpop.get(z, 0) for z in zs) or sum(pop.get(c, 0) for c in cs),
@@ -48,8 +56,8 @@ def main(listings, geo, out):
     for i, r in enumerate(rows, 1):
         r['rank'] = i
 
-    cols = ['rank', 'org_name', 'city', 'phone', 'programs', 'counties_count', 'zips_count',
-            'population_reach', 'counties', 'zips']
+    cols = ['rank', 'org_name', 'city', 'address', 'phone', 'programs', 'needs',
+            'counties_count', 'zips_count', 'population_reach', 'counties', 'zips', 'source']
     pathlib.Path(out).parent.mkdir(parents=True, exist_ok=True)
     with open(out, 'w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, fieldnames=cols)
@@ -66,7 +74,7 @@ def main(listings, geo, out):
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
-    ap.add_argument('--listings', default='data/listings/tdhca-subrecipients.jsonl')
+    ap.add_argument('--listings', default='data/listings')
     ap.add_argument('--geo', default='data/geo')
     ap.add_argument('--out', default='data/call-sheets/master-provider-list.csv')
     a = ap.parse_args()

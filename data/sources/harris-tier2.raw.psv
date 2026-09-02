@@ -1,0 +1,68 @@
+# Harris County Tier 2 leads — organizations beyond the TDHCA subrecipient list
+# retrieved: 2026-09-02   extraction: language model reading published web pages
+# DRAFT. Every row is a LEAD TO CALL, not a listing. See data/CONTRACT.md.
+#
+# SOURCE KEYS
+#   NHPB  https://www.needhelppayingbills.com/html/harris_county_assistance_progr.html
+#         AGGREGATOR, not primary. Lowest confidence — exactly the kind of stale
+#         third-party list this product exists to replace. Verify everything.
+#   HCPL  https://hcpl.net/news/food-banks-and-food-assistance/   (Harris County Public Library)
+#   SALV  https://salvationarmyhouston.org/houston/ccc/            (organisation's own site)
+#   CCGH  https://catholiccharities.org/about-us/locations/        (organisation's own site)
+#
+# columns: SOURCE|NAME|ADDRESS|CITY|ZIP|COUNTY|PHONE|SERVICES
+SALV|The Salvation Army — Conroe Community Center|304 Avenue E|Conroe|77301|Montgomery||community center
+SALV|The Salvation Army — Northwest Community Center|12507 Windfern Rd|Houston|77064|Harris||community center
+SALV|The Salvation Army — International Community Center|7920 Cook Rd|Houston|77072|Harris||community center
+SALV|The Salvation Army — Aldine Westfield Community Center|2600 Aldine Westfield Rd|Houston|77093|Harris||community center
+SALV|The Salvation Army — Temple Community Center|4516 Irvington Blvd|Houston|77009|Harris||community center
+SALV|The Salvation Army — East Harris County Community Center|2732 Cherry Brook Ln|Pasadena|77502|Harris||community center
+CCGH|Catholic Charities — Main Office|2900 Louisiana Street|Houston|77006|Harris|713-526-4611|social services
+CCGH|Catholic Charities — Guadalupe Basic Needs Center|326 South Jensen Drive|Houston|77003|Harris|713-526-4611|basic needs
+CCGH|Catholic Charities — St. Frances Cabrini Center|5599 San Felipe Street, Suite 300|Houston|77056|Harris|713-595-4100|legal services
+CCGH|Catholic Charities — San Jose Clinic|2615 Fannin St|Houston|77002|Harris|713-874-6590|free clinic
+CCGH|Catholic Charities — Mamie George Community Center|1111 Collins Road|Richmond|77469|Fort Bend|281-202-6200|social services
+CCGH|Catholic Charities — San Jose Clinic Rosenberg|1615 Avenue E|Rosenberg|77471|Fort Bend|713-874-6590|free clinic
+CCGH|Catholic Charities — Beacon of Hope Center|4700 Broadway, Suite B-101|Galveston|77551|Galveston|409-762-2064|social services
+HCPL|Clear Lake Food Pantry|15700 Space Center Blvd|Houston|77062|Harris||food pantry; Mondays and Thursdays 8-10am
+HCPL|Klein United Methodist Church Food Pantry|5290 FM 2920|Spring|77388|Harris|713-859-3405|food pantry; call or email for pick up time
+HCPL|Trinity Klein Food Pantry|5201 Spring Cypress Rd|Spring|77379|Harris|281-290-4925|food pantry; Mon and Wed 9am-12pm; appointment required
+HCPL|Galveston County Food Bank|624 4th Avenue N.|Texas City|77590|Galveston||food bank
+HCPL|Target Hunger||||Harris||food fairs no appointment
+HCPL|YMCA of Greater Houston||||Harris||food distributions
+NHPB|Society of St. Vincent de Paul of Harris County||||Harris|713-741-8234|utilities; rent; housing; food pantry; thrift vouchers
+NHPB|Southeast Area Ministries|2102 Houston Blvd|South Houston|77587|Harris|713-944-0093|housing; utilities; rent; security deposits; prescriptions; gas vouchers; clothing
+NHPB|Wheeler Avenue Baptist Church Social Service Center|3826 Wheeler Ave|Houston|77004|Harris|713-748-5240|food; rent and mortgage; utilities
+NHPB|St. Joseph Social Ministry|4040 W Fuqua St|Houston|77045|Harris|713-222-8903|food; utilities (77007 only)
+NHPB|St. Mary Magdalene Social Services||Humble||Harris|281-540-1907|food; energy bill help
+NHPB|St. Justin Martyr Social Ministry||||Harris|281-556-5116|electric; water; gas; rent; housing
+NHPB|Christian Community Service Center, Inc.|3434 Branard St|Houston|77027|Harris|713-871-9741|food; utilities; rent; clothing; dental; prescriptions; employment
+NHPB|Cypress Assistance Ministries|12930 Cypress North Houston Rd|Cypress|77429|Harris|281-955-7684|clothing; household items; limited financial assistance
+NHPB|Covenant House Texas|1111 Lovett Blvd.|Houston|77006|Harris|713-523-2231|crisis shelter; transitional apartments; medical; clothing
+NHPB|Windsor Village United Methodist Church|6011 W Orem Dr|Houston|77085|Harris|713-723-8187|food; rent and mortgage; utilities; senior meals
+NHPB|Memorial Assistance Ministries||||Harris|713-468-4516|rent; utilities; case management; debt counseling; credit repair; legal
+NHPB|Northwest Assistance Ministries||||Harris|281-885-4555|groceries; hot meals; gas; water; rent; mortgage; bus tokens; prescriptions; deposits
+NHPB|St. Pius Catholic Church|824 Main St|Pasadena|77506|Harris|713-473-9484|food; bills; rent; utilities (Pasadena and South Houston only)
+NHPB|Harris County Area Agency on Aging|8000 N Stadium Dr|Houston|77054|Harris|832-393-4301|senior meals; Medicare benefits counseling; senior information
+NHPB|My Brother's Keeper Outreach Center|12621 Bissonnet St|Houston|77099|Harris|281-498-9933|food pantry; rent; utilities; holiday meals
+NHPB|St. John Vianney Social Ministry|625 Nottingham Oaks Trail|Houston|77079|Harris|281-497-1500|rent; utilities; clothing; food; appliances
+NHPB|Humble Area Assistance Ministries|1302 First Street|Humble||Harris|281-446-3663|eviction assistance; re-housing; light bill; rent; deposits; legal; credit repair
+NHPB|LINC Houston Community Services|800 Houston Ave|Houston|77007|Harris|713-426-2451|food; prescriptions; eyeglasses; bus tickets; gas vouchers; rent; benefits applications
+NHPB|Riceville Mt. Olive Baptist Church|11539 S Gessner Rd|Houston|77071|Harris|713-774-4880|food; clothing; emergency financial assistance; school supplies
+NHPB|West Houston Assistance Ministries||||Harris|713-977-9942|rent and mortgage; utility and cooling; food; clothing; senior chore work
+NHPB|Interfaith Caring Ministries||||Harris|281-332-3881|food; utilities; rent; homelessness prevention
+NHPB|Katy Christian Ministries|23232 Kingsland Blvd|Katy|77494|Harris|281-391-5261|utilities; rent; case management; job placement; holiday assistance
+NHPB|Cathedral Health and Outreach Ministries|1212 Prairie St|Houston|77002|Harris|713-220-9737|hot meals; clothing; laundry; immunizations; medical and dental; legal
+NHPB|Tomball Emergency Assistance Ministries|300 W Main St|Tomball|77375|Harris|281-351-6700|prescriptions; rent; cooling bills; utilities; gas; overnight lodging
+NHPB|AIDS Foundation Houston, Inc.|6260 Westpark Dr|Houston|77057|Harris|713-623-6796|rent; cooling and electric; medical transportation; gas cards
+NHPB|Bering Omega Community Services||||Harris|713-529-6071|housing; medical support; rent; medical transportation
+NHPB|Brentwood Community Foundation|13033 1/2 Landmark Street|Houston|77045|Harris|713-852-2551|rent; mortgage; food; utilities; support groups
+NHPB|Houston Area Urban League||||Harris|713-393-8700|foreclosure counseling; homebuying; job training; credit repair; debt management
+NHPB|Harris County Community Services|9418 Jensen Dr|Houston|77093|Harris|713-696-7900|bills; food; shelter; utilities; groceries; burial; CEAP; cooling; housing
+NHPB|Harris County Community Services — NW Satellite Office|15555 Kuykendahl|Houston|77090|Harris|713-696-7900|utilities; rent; legal advice; public benefits
+NHPB|Star of Hope||||Harris||emergency homeless shelter; transitional housing
+NHPB|Wesley Community Center, Inc.|1410 Lee St|Houston|77009|Harris|713-223-8131|rent; cooling and utilities; hardship loans; budgeting classes; legal; case management
+NHPB|Collaborative for Children||||Harris|713-600-1100|childcare vouchers; childcare referral
+NHPB|Avance Inc.||||Harris|713-812-0033|Head Start; Early Head Start
+NHPB|Harris County Department of Education||||Harris|713-273-3211|Head Start; Early Head Start
+NHPB|United Way of Greater Houston||||Harris|713-685-2300|211 referral; transportation; food
