@@ -11,7 +11,9 @@ the VA script are sound. These are the things that will cost days if they reach 
 
 ## A. Blocking — the DDL as written does not run
 
-### A1. The `staff` table is never defined — **verified**
+### A1. The `staff` table is never defined — **FIXED 2026-09-02**
+Defined in db/001_schema.sql with va_id, name, email, role, is_active.
+
 `status_log.va_id` and `call_attempts.va_id` both declare `REFERENCES staff`, and no
 `CREATE TABLE staff` exists anywhere in the repo. Running Part 1 → Part 2 in order
 halts here:
@@ -23,12 +25,16 @@ ERROR:  relation "staff" does not exist
 Needs defining before `status_log`, with at minimum `va_id`, name, and active flag —
 the QA model in `05-va-operations.md` also implies role (VA vs supervisor).
 
-### A2. `status_log` forward-references `call_attempts` — **verified**
+### A2. `status_log` forward-references `call_attempts` — **FIXED 2026-09-02**
+contacts and call_attempts now precede status_log in db/001_schema.sql.
+
 `status_log.call_id REFERENCES call_attempts` appears in Part 2; `call_attempts` is
 created in Part 4. Move `contacts` and `call_attempts` ahead of `status_log`, or add
 the FK afterward with `ALTER TABLE`.
 
-### A3. `rebuild_queue()` does not compile — **verified**
+### A3. `rebuild_queue()` does not compile — **FIXED 2026-09-02**
+Cast to numeric before ROUND. Function compiles and returns a row count.
+
 ```
 ERROR:  function round(double precision, integer) does not exist
 ```
@@ -37,7 +43,9 @@ no `round(double precision, integer)` — only `round(numeric, integer)`. Cast t
 `ROUND((0.30*reach + ...)::numeric, 2)`. The five component columns need the same cast
 to land in their `numeric(5,2)` columns.
 
-### A4. Cold-start staleness is 0, not 100 — **verified**
+### A4. Cold-start staleness is 0, not 100 — **FIXED 2026-09-02**
+Never-verified is now explicitly 100. Measured cold-start score 74.75, was 49.75.
+
 The doc states: *"with `last_verified_at` null, staleness pins at 100."* It does not.
 With both `last_verified_at` and `next_verify_due` null, the denominator
 `NULLIF(EXTRACT(epoch FROM p.next_verify_due - p.last_verified_at), 0)` is NULL, so the
@@ -65,7 +73,9 @@ the bottom forever.
 Fix: coalesce the interval from the tier rather than from `next_verify_due`, so an
 unverified record has a real denominator.
 
-### A5. The three-attempt rule resets `contactability` to full — **verified**
+### A5. The three-attempt rule resets `contactability` to full — **FIXED 2026-09-02**
+failed_attempts resets only on outcome reached/partial. Measured: 4 attempts -> contactability 20, was resetting to 100.
+
 `05-va-operations.md` says: after three attempts the record drops to `unknown` with a
 public note, and *"`contactability` decays so it stops recirculating."*
 
@@ -87,7 +97,9 @@ opposite of what the operating model claims. Either that final commit uses a dis
 method, or `failed_attempts` resets only on a *successful contact* status rather than
 on any non-`unreachable` method.
 
-### A6. A backfilled log entry overwrites newer status and moves freshness backwards — **verified**
+### A6. A backfilled log entry overwrites newer status and moves freshness backwards — **FIXED 2026-09-02**
+Trigger guarded on observed_at >= last_verified_at. Measured: backfilled entry is logged but does not overwrite.
+
 `apply_status_log()` writes `NEW` unconditionally. Any entry inserted out of
 chronological order — a backfill, a delayed sync, a VA correcting yesterday's call —
 overwrites current state with older data. Measured:
@@ -122,7 +134,9 @@ The machine-readable feed has three shapes across the docs: `/data/[state].json`
 `distribution.contentUrl`). County-level feeds and a state feed are different things —
 decide whether both exist.
 
-### B2. `verify_method` has two definitions
+### B2. `verify_method` has two definitions — **FIXED 2026-09-02**
+Split into verify_method (channel) and verify_outcome (result) in db/002_status_log.sql.
+
 `02-data-model.md`: `phone | email | web | agency_self_report`.
 `03-database.md` CHECK: adds `partial` and `unreachable`.
 
@@ -142,7 +156,9 @@ for alerts, and the need category. **Nothing else.**"*
 A life-event trigger is not a need category. Both positions are defensible; they cannot
 both be in force. Worth resolving deliberately — see D1.
 
-### B4. Practicals history is claimed but not stored
+### B4. Practicals history is claimed but not stored — **FIXED 2026-09-02**
+status_log.practicals jsonb snapshot; the trigger applies it to programs via COALESCE.
+
 `programs` marks `how_to_apply`, `documents_required`, `application_window`, `hours`,
 `daily_cap`, `disqualifier` as *"overwritten on each verification (history lives in
 status_log)."* `status_log` has no columns for any of them. The prior values are simply
@@ -223,7 +239,9 @@ Missing rule: what fraction of a county's records must be verified before that c
 page ships? It determines the whole launch sequence — the first week of calls is a
 gating dependency, not a parallel workstream.
 
-### D3. County derivation is unspecified
+### D3. County derivation is unspecified — **FIXED 2026-09-02**
+program_counties table stores the declared counties. Re-deriving them from program_zips inflated reach enough to rank rural multi-county providers above Harris County; measured and fixed.
+
 `SOURCES.md` says to expand county-level sources to ZIPs *"and mark the derivation."*
 `program_zips` has no derivation column and no `res_ratio`. Since county pages are
 built by joining through `zip_counties`, a program serving one edge ZIP that clips a
@@ -237,7 +255,9 @@ Not mentioned in the stack or the DDL. Both Neon and Supabase support it, but it
 provisioning step. Nothing in the documented queries actually uses the centroid — if
 distance sort isn't in scope for v1, dropping the column removes the dependency.
 
-### D5. `rebuild_queue()` empties the queue while it runs
+### D5. `rebuild_queue()` empties the queue while it runs — **FIXED 2026-09-02**
+Builds into a temp table and swaps inside one transaction.
+
 `TRUNCATE` then `INSERT` in a plain SQL function. Between the two, `verification_queue`
 is empty. It runs nightly, so a VA on a late shift can pull an empty queue. Build into
 a temp table and swap, or run inside an explicit transaction. Also worth confirming the
@@ -288,3 +308,30 @@ enforcement rather than by reading, which means a live test:
    on the sister property. The experiment does not sit next to the earner.
 
 Sources: support.google.com/adspolicy/answer/17260489, support.google.com/adspolicy/answer/13156083
+
+---
+
+## F. Fixes applied 2026-09-02
+
+`db/001_schema.sql` and `db/002_status_log.sql` supersede the DDL in
+`03-database.md`. Loaded clean against Postgres 16 and regression-tested: every
+defect above reproduces on the old DDL and does not on the new.
+
+Two problems the seed load surfaced that no amount of reading would have:
+
+**Organizations duplicated on every run.** `ON CONFLICT DO NOTHING` needs a
+uniqueness key to conflict against. Without `UNIQUE (name, org_type)` the loader
+produced 119 organizations from 44. Fixed and confirmed idempotent — a second run
+inserts zero.
+
+**Reach could not be computed, then computed wrongly.** `zips.population` is null
+until a Census API key is available, so `SUM(z.population)` was 0 and every record
+scored an identical 55.00 — the queue could not rank at all. Falling back to county
+population fixed the tie, but walking `program_zips -> zip_counties -> counties`
+re-expanded through cross-county ZIPs and picked up neighbouring counties the
+program does not serve. With 34% of Texas ZIPs crossing a line, that inflated reach
+enough to rank rural multi-county providers above Harris County. `program_counties`
+now stores what the source declared. The queue's top eight now match the standalone
+call-sheet ranking exactly, which is the cross-check that says both are right.
+
+Still open: `res_ratio` (HUD token) and ZCTA population (Census key). Both free.
