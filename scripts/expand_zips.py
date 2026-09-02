@@ -7,9 +7,12 @@ and is recorded with geo_derivation='crosswalk_expanded'.
 
 --min-ratio drops marginal ZIP-county pairs so a program serving one county does not
 surface on a neighbouring county's page because a ZIP clips the line. It filters on
-res_ratio when present and falls back to area_ratio, which is a weaker signal --
-see scripts/ingest_geo.py. Default 0.0 keeps every pair; raise it once res_ratio
-is populated from the HUD crosswalk.
+res_ratio (HUD, share of a ZIP's residential addresses) when present, falling back to
+area_ratio (Census land overlap) otherwise.
+
+Default is 0.05. Measured on Texas: 19.4% of ZIP-county pairs carry under 5% of the
+ZIP's residents, and the threshold drops 1,179 of 10,194 program-ZIP pairs (11.6%)
+without leaving any program with zero ZIPs.
 """
 import csv, json, argparse, pathlib, collections
 
@@ -64,6 +67,6 @@ if __name__ == '__main__':
     ap.add_argument('--listings', default='data/listings/tdhca-subrecipients.jsonl')
     ap.add_argument('--geo', default='data/geo')
     ap.add_argument('--out', default='data/listings/tdhca-subrecipients.jsonl')
-    ap.add_argument('--min-ratio', type=float, default=0.0)
+    ap.add_argument('--min-ratio', type=float, default=0.05)
     a = ap.parse_args()
     main(a.listings, a.geo, a.out, a.min_ratio)

@@ -239,7 +239,7 @@ Missing rule: what fraction of a county's records must be verified before that c
 page ships? It determines the whole launch sequence — the first week of calls is a
 gating dependency, not a parallel workstream.
 
-### D3. County derivation is unspecified — **FIXED 2026-09-02**
+### D3. County derivation is unspecified — **CLOSED 2026-09-02**
 program_counties table stores the declared counties. Re-deriving them from program_zips inflated reach enough to rank rural multi-county providers above Harris County; measured and fixed.
 
 `SOURCES.md` says to expand county-level sources to ZIPs *"and mark the derivation."*
@@ -335,3 +335,32 @@ now stores what the source declared. The queue's top eight now match the standal
 call-sheet ranking exactly, which is the cross-check that says both are right.
 
 Still open: `res_ratio` (HUD token) and ZCTA population (Census key). Both free.
+
+---
+
+## G. HUD crosswalk loaded 2026-09-02
+
+`scripts/ingest_hud_crosswalk.py` filled `res_ratio` on 2,780 of 2,894 ZIP-county
+pairs from the HUD USPS crosswalk (TX, 2025Q4). The 114 unfilled pairs are ZCTAs
+HUD does not list, having no residential addresses. A further 628 HUD pairs have no
+Census counterpart, which is the expected ZIP-vs-ZCTA divergence.
+
+**The area proxy was biased in the dangerous direction, and the numbers say so.**
+Comparing `area_ratio` against the real residential share across those 2,780 pairs:
+
+| | pairs |
+|---|---|
+| differ by more than 25 points | 328 (11.8%) |
+| looks significant by area (≥20%) but under 5% of residents | **171** |
+| looks negligible by area (under 5%) but ≥20% of residents | 2 |
+
+So the errors are 85-to-1 in one direction: land area invents county coverage that
+does not exist. Those 171 pairs are phantom county listings — a program shown as
+serving a county where almost nobody in the overlapping ZIP actually lives. On a
+site whose entire claim is "we checked", that is the failure mode that matters.
+
+Threshold now applied by default at `res_ratio >= 0.05`, dropping 1,179 of 10,194
+program-ZIP pairs (11.6%). No program is left with zero ZIPs. Contract still passes.
+
+Remaining open item: ZCTA population, which needs a free Census API key. Until then
+queue reach is county-granular.
