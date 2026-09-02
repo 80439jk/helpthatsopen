@@ -1,13 +1,22 @@
 #!/usr/bin/env python3
-"""HUD USPS ZIP-County crosswalk -> res_ratio on data/geo/zip_counties.csv.
+"""HUD USPS ZIP-County crosswalk -> data/geo/zips.csv and data/geo/zip_counties.csv.
 
-res_ratio is the share of a ZIP's RESIDENTIAL ADDRESSES falling in each county.
-That is the number the county-page inclusion threshold needs. The Census
-relationship file used by ingest_geo.py gives land-area overlap only, which
-over-weights rural ZIPs that cross a county line across empty acreage.
+HUD is the AUTHORITY for which ZIP codes exist. The Census ZCTA file that seeds
+counties.csv is not a ZIP list: ZCTAs are statistical areas built from census
+blocks, so they omit PO-box-only and single-building ZIPs. Texas has 2,433
+deliverable ZIPs and 1,992 ZCTAs — using ZCTAs meant 448 real ZIPs (18.4%) could
+not be resolved at all when a visitor typed one in.
 
-Auth: reads HUD_API_TOKEN from the environment or from .env in the repo root.
-The token is never printed and .env is gitignored.
+HUD also supplies res_ratio, the share of a ZIP's RESIDENTIAL addresses in each
+county, which is what the county-page inclusion threshold needs. The Census file
+gives land-area overlap, which over-weights rural ZIPs crossing a county line
+across empty acreage.
+
+ZIP population comes from ZCTA population where the ZIP matches a ZCTA. The extra
+HUD ZIPs are largely PO-box and single-building and carry little or no residential
+population, so their population is left null rather than estimated.
+
+Auth: HUD_API_TOKEN from the environment or .env. Never printed; .env is gitignored.
 
   python3 scripts/ingest_hud_crosswalk.py --state TX
 """
@@ -35,72 +44,67 @@ def fetch(state, year, quarter, tok):
     url = f'{API}?type={TYPE_ZIP_COUNTY}&query={state}&year={year}&quarter={quarter}'
     req = urllib.request.Request(url, headers={'Authorization': f'Bearer {tok}'})
     try:
-        with urllib.request.urlopen(req, timeout=120) as r:
-            return json.loads(r.read().decode())
+        with urllib.request.urlopen(req, timeout=180) as r:
+            payload = json.loads(r.read().decode())
     except urllib.error.HTTPError as e:
-        body = e.read().decode()[:400]
-        sys.exit(f'HUD API {e.code}: {body}\n(401/403 = token problem; 400 = bad year/quarter)')
-
-
-def results(payload):
-    """HUD nests results under data.results; tolerate shape drift."""
-    if isinstance(payload, dict):
-        for path in (('data', 'results'), ('results',)):
-            node = payload
-            for k in path:
-                node = node.get(k) if isinstance(node, dict) else None
-                if node is None:
-                    break
-            if isinstance(node, list):
-                return node
-    sys.exit(f'Unexpected HUD response shape. Top-level keys: '
-             f'{list(payload)[:10] if isinstance(payload, dict) else type(payload)}')
+        sys.exit(f'HUD API {e.code}: {e.read().decode()[:300]}\n'
+                 '(401/403 = token; 400 = year/quarter not published yet)')
+    node = payload.get('data', payload)
+    rows = node.get('results') if isinstance(node, dict) else None
+    if not isinstance(rows, list):
+        sys.exit(f'Unexpected HUD response shape: {list(payload)[:8]}')
+    return rows
 
 
 def main(state, year, quarter, geo):
-    rows = results(fetch(state, year, quarter, token()))
-    print(f'HUD returned {len(rows):,} ZIP-county pairs for {state} {year}Q{quarter}')
-    if rows:
-        print(f'  fields: {sorted(rows[0])}')
+    rows = fetch(state, year, quarter, token())
+    print(f'HUD {state} {year}Q{quarter}: {len(rows):,} ZIP-county pairs')
 
-    hud = {}
+    gd = pathlib.Path(geo)
+    # existing area_ratio (Census) and ZCTA population, to carry across where available
+    area = {}
+    old_zc = gd / 'zip_counties.csv'
+    if old_zc.exists():
+        for r in csv.DictReader(open(old_zc, encoding='utf-8')):
+            if r.get('area_ratio'):
+                area[(r['zip'], r['county_fips'])] = r['area_ratio']
+    zpop = {}
+    old_z = gd / 'zips.csv'
+    if old_z.exists():
+        for r in csv.DictReader(open(old_z, encoding='utf-8')):
+            if (r.get('population') or '').strip():
+                zpop[r['zip']] = r['population']
+
+    pairs, zips = [], {}
     for r in rows:
         z = str(r.get('zip', '')).zfill(5)
-        fips = str(r.get('geoid') or r.get('county') or '').zfill(5)
+        fips = str(r.get('geoid') or '').zfill(5)
+        if len(z) != 5 or len(fips) != 5:
+            continue
         try:
-            hud[(z, fips)] = round(float(r.get('res_ratio', 0)), 4)
+            res = round(float(r.get('res_ratio', 0)), 4)
         except (TypeError, ValueError):
-            pass
+            res = ''
+        pairs.append({'zip': z, 'county_fips': fips, 'area_ratio': area.get((z, fips), ''),
+                      'res_ratio': res})
+        zips.setdefault(z, {'zip': z, 'primary_state': r.get('state') or state,
+                            'population': zpop.get(z, '')})
 
-    path = pathlib.Path(geo) / 'zip_counties.csv'
-    existing = list(csv.DictReader(open(path, encoding='utf-8')))
-    filled = missing = 0
-    for r in existing:
-        v = hud.get((r['zip'], r['county_fips']))
-        if v is None:
-            missing += 1
-        else:
-            r['res_ratio'] = v
-            filled += 1
-    with open(path, 'w', newline='', encoding='utf-8') as f:
+    with open(gd / 'zips.csv', 'w', newline='', encoding='utf-8') as f:
+        w = csv.DictWriter(f, fieldnames=['zip', 'primary_state', 'population'])
+        w.writeheader(); w.writerows(sorted(zips.values(), key=lambda r: r['zip']))
+    with open(gd / 'zip_counties.csv', 'w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, fieldnames=['zip', 'county_fips', 'area_ratio', 'res_ratio'])
-        w.writeheader()
-        w.writerows([{k: r.get(k, '') for k in w.fieldnames} for r in existing])
+        w.writeheader(); w.writerows(sorted(pairs, key=lambda r: (r['zip'], r['county_fips'])))
 
-    only_hud = set(hud) - {(r['zip'], r['county_fips']) for r in existing}
-    print(f'  res_ratio filled: {filled:,} of {len(existing):,} pairs')
-    if missing:
-        print(f'  {missing:,} pairs HUD does not list (ZCTAs with no residential addresses)')
-    if only_hud:
-        print(f'  {len(only_hud):,} HUD pairs absent from the Census file (ZIP vs ZCTA differ)')
-
-    # how much would a threshold actually drop?
+    withpop = sum(1 for v in zips.values() if str(v['population']).strip())
+    print(f'  {len(zips):,} ZIP codes -> {gd/"zips.csv"}   ({withpop:,} with population)')
+    print(f'  {len(pairs):,} ZIP-county pairs -> {gd/"zip_counties.csv"}')
+    print(f'  {len(pairs)-len(zips):,} ZIPs span more than one county')
     for t in (0.01, 0.05, 0.10):
-        n = sum(1 for r in existing if r['res_ratio'] not in ('', None)
-                and float(r['res_ratio']) < t)
-        print(f'  pairs below res_ratio {t:.0%}: {n:,}  '
-              f'({100*n/max(filled,1):.1f}% of filled)')
-    print('\nNext: re-run scripts/expand_zips.py --min-ratio 0.05 to apply a threshold.')
+        n = sum(1 for p in pairs if p['res_ratio'] != '' and float(p['res_ratio']) < t)
+        print(f'  pairs below res_ratio {t:.0%}: {n:,}')
+    print('\nNext: scripts/expand_zips.py, then scripts/build_call_list.py')
 
 
 if __name__ == '__main__':

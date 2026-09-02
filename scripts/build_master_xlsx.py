@@ -32,8 +32,9 @@ if pathlib.Path(LISTINGS).exists():
 
 CONTEXT = [('week1','WEEK 1',9),('rank','#',5),('org_name','Organization',40),
            ('city','City',14),('phone','Phone',15),('programs','Programs',17),
-           ('counties_count','Counties',9),('population_reach','People reached',13),
-           ('counties','Counties served',80)]
+           ('counties_count','Counties',9),('zips_count','ZIPs',8),
+           ('population_reach','People reached',13),
+           ('counties','Counties served',70),('zips','ZIP codes served',70)]
 CAPTURE = [('status','Status',18),('funding_lasts_until','Funding lasts until',21),
            ('reopens_on','Reopens on',13),('how_to_apply','How to apply',14),
            ('hours','Hours',24),('daily_cap','Daily cap',10),
@@ -80,13 +81,13 @@ for r,row in enumerate(rows, HR+1):
             v = 'WEEK 1' if row['org_name'] in week1 else ''
         else:
             v = row.get(k,'')
-            if k in ('rank','counties_count','population_reach'):
+            if k in ('rank','counties_count','zips_count','population_reach'):
                 v = int(v) if str(v).strip() else ''
         c = ws.cell(r, i, v)
         c.font = Font(name='Arial', size=10,
                       bold=(k=='week1' and v!=''), color=CRIMSON if k=='week1' and v else '000000')
         c.border = bd
-        c.alignment = Alignment(vertical='top', wrap_text=k in ('org_name','counties'),
+        c.alignment = Alignment(vertical='top', wrap_text=k in ('org_name','counties','zips'),
                                 horizontal='center' if k=='week1' else None)
         if k in capkeys: c.fill = PatternFill('solid', fgColor=YELLOW)
         elif r % 2 == 0: c.fill = PatternFill('solid', fgColor=LAV)
@@ -131,6 +132,11 @@ r = line(r,'Start with WEEK 1',f'{len(week1)} organizations flagged in column A.
         '74% of the state. Filter column A to WEEK 1 and work that set first.')
 r = line(r,'One row = one call','An organization runs several programs (CEAP, CSBG, WAP). One call '
         'covers all of them. The Programs column says which apply.')
+r = line(r,'Counties vs ZIPs','Counties are what the source declared. ZIP codes are the crosswalk '
+        'expansion and are what the site actually searches on — HUD residential-share data, '
+        'marginal slivers under 5% dropped. If an agency tells you their service area is '
+        'different from what is listed, say so in Note; that correction is worth more than any '
+        'other field on the row.')
 r = line(r,'Which cells to edit','Only the YELLOW columns, from Status rightward. Navy columns are '
         'call context — leave them alone; they are how the row matches back to the database.')
 r = line(r,'Blank beats guessed','If it was not said, leave it empty and put the reason in Note '
