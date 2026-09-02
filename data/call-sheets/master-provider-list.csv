@@ -1,0 +1,45 @@
+rank,org_name,city,phone,programs,counties_count,population_reach,counties
+1,BakerRipley,Houston,+17136679400,"CEAP, CSBG",3,5789933,Brazoria; Galveston; Harris
+2,Gulf Coast Community Services Association,Houston,+17133934700,"CEAP, CSBG",3,5789933,Brazoria; Galveston; Harris
+3,"Community Services, Inc.",Corsicana,+19038722401,"CEAP, WAP",10,3254583,Anderson; Collin; Denton; Ellis; Henderson; Hunt; Kaufman; Navarro; Rockwall; Van Zandt
+4,Texoma Council of Governments,Sherman,+19038932161,"CEAP, CSBG, WAP",19,3107798,Bowie; Camp; Cass; Collin; Cooke; Delta; Denton; Fannin; Franklin; Grayson; Hopkins; Hunt; Lamar; Marion; Morris; Rains; Red River; Rockwall; Titus
+5,Alamo Area Council of Governments,San Antonio,+12103625200,"CEAP, CSBG, WAP",12,2879722,Atascosa; Bandera; Bexar; Comal; Frio; Gillespie; Guadalupe; Karnes; Kendall; Kerr; Medina; Wilson
+6,Community Council of Greater Dallas,Dallas,+12148715065,"CEAP, CSBG, WAP",1,2656028,Dallas
+7,Dallas County Department of Health and Human Services,Dallas,+12148191848,"CEAP, CSBG, WAP",1,2656028,Dallas
+8,Greater East Texas Community Action Program (GETCAP),Nacogdoches,+18006215746,"CEAP, CSBG, WAP",30,2398525,Anderson; Angelina; Chambers; Cherokee; Galveston; Gregg; Hardin; Harrison; Henderson; Houston; Jasper; Jefferson; Kaufman; Liberty; Nacogdoches; Newton; Orange; Panola; Polk; Rusk; Sabine; San Augustine; San Jacinto; Shelby; Smith; Trinity; Tyler; Upshur; Van Zandt; Wood
+9,"Fort Worth, City of, Neighborhood Services Department",Fort Worth,+18173925790,"CEAP, CSBG, WAP",1,2230708,Tarrant
+10,Bexar County Department of Community Resources,San Antonio,+12103353666,"CEAP, CSBG, WAP",1,2127737,Bexar
+11,"San Antonio, City of, Department of Human Services",San Antonio,+12102078198,"CEAP, CSBG, WAP",1,2127737,Bexar
+12,Community Action Corporation of South Texas,Alice,+13616640145,"CEAP, CSBG, WAP",14,1913209,Bee; Brooks; Cameron; Duval; Hidalgo; Jim Hogg; Jim Wells; Kenedy; Kleberg; San Patricio; Starr; Webb; Willacy; Zapata
+13,"Combined Community Action, Inc.",Giddings,+19795402980,"CEAP, CSBG, WAP",10,1571177,Austin; Bastrop; Blanco; Caldwell; Colorado; Fayette; Fort Bend; Hays; Lee; Wharton
+14,Brazos Valley Community Action Programs,Bryan,+19795952800,"CEAP, CSBG, WAP",12,1458960,Brazos; Burleson; Chambers; Grimes; Leon; Liberty; Madison; Montgomery; Robertson; Walker; Waller; Washington
+15,"Hill Country Community Action Association, Inc.",San Saba,+13253725167,"CEAP, CSBG, WAP",13,1419307,Bell; Burnet; Coryell; Erath; Hamilton; Lampasas; Llano; Mason; Milam; Mills; San Saba; Somervell; Williamson
+16,City of Austin Health and Human Services Department,Austin,+15129725000,"CEAP, CSBG, WAP",1,1363767,Travis
+17,Travis County Health & Human Services/Veterans Services,Austin,+15128547250,"CEAP, CSBG, WAP",1,1363767,Travis
+18,"Community Council of South Central Texas, Inc.",Seguin,+18303034376,"CEAP, CSBG, WAP",30,970756,Atascosa; Bandera; Brewster; Comal; Crane; Culberson; Dimmit; Edwards; Frio; Gillespie; Guadalupe; Hudspeth; Jeff Davis; Karnes; Kendall; Kerr; Kinney; La Salle; Live Oak; Maverick; McMullen; Medina; Pecos; Presidio; Real; Terrell; Uvalde; Val Verde; Wilson; Zavala
+19,Hidalgo County Community Services Agency,Edinburg,+19563836240,"CEAP, CSBG, WAP",1,914820,Hidalgo
+20,Economic Opportunities Advancement Corporation,Waco,+12547530331,"CEAP, CSBG, WAP",9,888575,Bosque; Ellis; Falls; Freestone; Hill; Johnson; Limestone; McLennan; Navarro
+21,"El Paso Community Action, Project BRAVO",El Paso,+19155624100,"CEAP, CSBG, WAP",1,875784,El Paso
+22,Rolling Plains Management Corporation,Crowell,+19406841571,"CEAP, CSBG, WAP",28,861815,Archer; Baylor; Brown; Callahan; Clay; Comanche; Cottle; Eastland; Foard; Hardeman; Haskell; Hood; Jack; Jones; Kent; Knox; Montague; Palo Pinto; Parker; Shackelford; Stephens; Stonewall; Taylor; Throckmorton; Wichita; Wilbarger; Wise; Young
+23,"Williamson-Burnet County Opportunities, Inc.",Georgetown,+15127631400,"CEAP, CSBG, WAP",2,783202,Burnet; Williamson
+24,Crossroads Community Action,Victoria,+18006950314,"CEAP, CSBG, WAP",15,763035,Aransas; Bee; Brazoria; Calhoun; DeWitt; Goliad; Gonzales; Jackson; Lavaca; Live Oak; Matagorda; McMullen; Refugio; Victoria; Wharton
+25,Texas Neighborhood Services,Weatherford,+18175985700,"CEAP, CSBG, WAP",7,625480,Erath; Hood; Johnson; Palo Pinto; Parker; Somervell; Wise
+26,"West Texas Opportunities, Inc.",Lamesa,+18068728354,"CEAP, CSBG, WAP",18,521481,Andrews; Borden; Dawson; Ector; Fisher; Gaines; Glasscock; Howard; Loving; Martin; Midland; Mitchell; Nolan; Reeves; Scurry; Upton; Ward; Winkler
+27,"South Plains Community Action Association, Inc.",Levelland,+18068946104,"CEAP, CSBG, WAP",15,445960,Bailey; Cochran; Crosby; Dickens; Floyd; Garza; Hale; Hockley; King; Lamb; Lubbock; Lynn; Motley; Terry; Yoakum
+28,Panhandle Community Services,Amarillo,+18063722531,"CEAP, CSBG, WAP",26,438048,Armstrong; Briscoe; Carson; Castro; Childress; Collingsworth; Dallam; Deaf Smith; Donley; Gray; Hall; Hansford; Hartley; Hemphill; Hutchinson; Lipscomb; Moore; Ochiltree; Oldham; Parmer; Potter; Randall; Roberts; Sherman; Swisher; Wheeler
+29,Southeast Texas Regional Planning Commission,Beaumont,+14098998444,CEAP,3,398733,Hardin; Jefferson; Orange
+30,Community Action Inc. of Central Texas,San Marcos,+15123921161,"CEAP, CSBG, WAP",3,357817,Blanco; Caldwell; Hays
+31,Nueces County Community Action Agency,Corpus Christi,+13618837201,"CEAP, CSBG, WAP",1,353125,Nueces
+32,Guadalupe Economic Services Corporation,Lubbock,+18067444416,WAP,1,327394,Lubbock
+33,"Lubbock, City of, Community Development Department",Lubbock,+18067752296,"CEAP, WAP",1,327394,Lubbock
+34,"Community Services of Northeast Texas, Inc.",Linden,+19037565596,"CEAP, CSBG, WAP",12,318807,Bowie; Camp; Cass; Delta; Franklin; Hopkins; Lamar; Marion; Morris; Rains; Red River; Titus
+35,Webb County Community Action Agency,Laredo,+19565234222,"CEAP, CSBG, WAP",1,272823,Webb
+36,"Tri-County Community Action, Inc.",Center,+19365986315,"CEAP, CSBG, WAP",9,245834,Harrison; Jasper; Newton; Panola; Sabine; San Augustine; Shelby; Tyler; Upshur
+37,Concho Valley Community Action Agency,San Angelo,+13256532411,"CEAP, CSBG, WAP",14,172748,Coke; Coleman; Concho; Crockett; Irion; Kimble; McCulloch; Menard; Reagan; Runnels; Schleicher; Sterling; Sutton; Tom Green
+38,Cornerstone Community Action Agency,Coleman,+13256254167,"CEAP, CSBG, WAP",7,111084,Brown; Callahan; Coleman; Comanche; Eastland; McCulloch; Runnels
+39,South Texas Development Council,Laredo,+19567223995,"CEAP, WAP",3,84989,Jim Hogg; Starr; Zapata
+40,Economic Action Committee of the Gulf Coast,Bay City,+19792456901,"CEAP, WAP",2,78426,Matagorda; Wharton
+41,Community Action Social Services & Education,Eagle Pass,+18307737274,"CEAP, WAP",1,58829,Maverick
+42,"Aspermont Small Business Development Center, Inc.",Aspermont,+19409893538,"CEAP, CSBG, WAP",6,33010,Haskell; Jones; Kent; Knox; Stonewall; Throckmorton
+43,Kleberg County Human Services,Kingsville,+13615958572,"CEAP, WAP",2,30772,Kenedy; Kleberg
+44,Pecos County Community Action Agency,Fort Stockton,+14323367526,"CEAP, WAP",3,20024,Crane; Pecos; Terrell
