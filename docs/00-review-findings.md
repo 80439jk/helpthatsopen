@@ -364,3 +364,33 @@ program-ZIP pairs (11.6%). No program is left with zero ZIPs. Contract still pas
 
 Remaining open item: ZCTA population, which needs a free Census API key. Until then
 queue reach is county-granular.
+
+---
+
+## H. ZCTA population loaded 2026-09-02
+
+`scripts/ingest_zcta_population.py` filled population on all 1,992 Texas ZCTAs from
+the 2020 Decennial DHC — 29,145,599 people, which is the state's 2020 census count.
+`zips.population` is no longer null, so `rebuild_queue` uses the ZIP branch of the
+reach expression rather than the county fallback.
+
+**The effect is smaller than expected, and the reason is worth recording.** Reach
+ordering barely moved: Dallas and Alamo swapped places, everything else held. The
+prediction that BakerRipley and Gulf Coast would separate was wrong. They declare
+the same three counties, so the crosswalk expands them to identical ZIP sets and
+they still tie at 97.9.
+
+That is not a defect. It is a property of the sources. **ZIP-granular reach cannot
+pay off while every listing is county-level**, and TDHCA, the HUD PHA report and the
+Feeding Texas member list all are. The expansion can only ever produce identical ZIP
+sets for two providers declaring the same counties.
+
+Where it starts to matter is Tier 2 — food bank partner locators, the 211 database,
+Salvation Army corps — which give street addresses and therefore real ZIPs. At that
+point reach distinguishes a pantry serving four Houston ZIPs from one serving forty,
+which is the whole point of the field. Also once a VA records the actual service
+area on a call, which the script already asks for.
+
+So the geography layer is now complete and correct ahead of the data that needs it,
+rather than the other way round. Both remaining review gaps (res_ratio, ZCTA
+population) are closed.
