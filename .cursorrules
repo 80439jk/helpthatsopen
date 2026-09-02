@@ -38,24 +38,31 @@ Listing phone numbers must be the provider's actual number. Never substitute a
 tracking or pooled number on an agency listing. Call tracking is fine on **our own**
 CTAs only, clearly labeled as ours.
 
-### 5. The commercial boundary is drawn by trigger, not by timing alone
-Commercial products are discovered in the interview, never pre-sold on the page. On
-top of that, three hard limits:
+### 5. The commercial boundary is timing plus consent
+Commercial products are discovered in the interview, never pre-sold on the page. Two
+hard limits, and one script requirement:
 
 - **No commercial mention before navigation is delivered.** The caller gets at least
   two specific program referrals, with what-to-bring, before anything commercial is
   raised. Measured as time-to-first-commercial-mention on recordings. The promise is
   printed on the site; an agent who pivots early makes the page copy false.
-- **No energy pitch on `utility_shutoff_notice`.** Not a taste rule. Switching retail
-  suppliers does not stop a disconnection, takes a billing cycle to take effect, and a
-  switch in progress can interfere with how a crisis payment posts to the account. The
-  pitch can actively worsen the outcome the caller phoned about. `new_lease` and
-  `relocation` remain open and are the better energy moment anyway — new service
-  address, no active crisis, nothing to disturb.
 - **`aging_into_65` never produces a Medicare call from this property, and no trigger
   produces an ACA path.** Consent does not travel. A phone number left on a rent-help
   page is not valid TPMO consent, and ACA carries strict-responsibility exposure.
   These flag a record for a separately-consented door; they never dial from here.
+
+**Energy is open on every trigger, including `utility_shutoff_notice`** — decided
+2026-09-02 on measured revenue: energy runs $12.46 per call against $6.00 for internet,
+and shutoff is the highest-volume trigger on the property.
+
+One script requirement comes with it, because it is a real mechanic rather than a
+preference. A retail supplier switch does not stop a pending disconnection, takes a
+billing cycle to take effect, and a switch in progress can interfere with how a crisis
+payment posts to the account. So on `utility_shutoff_notice` the agent handles the
+assistance application first and presents the switch as *after this is sorted* — never
+as the thing that solves the shutoff. An agent who lets a caller believe switching
+suppliers will stop their disconnection has mis-sold, and that is a QA failure whatever
+the revenue.
 
 Loosening this later with conversion data is easy. Tightening it after a complaint is
 not — by then you are explaining yourself rather than deciding.

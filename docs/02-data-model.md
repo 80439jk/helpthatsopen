@@ -74,7 +74,7 @@ legal_aid  id_documents  burial_assistance
 
 | Trigger | Resource match | What it opens on the call |
 |---|---|---|
-| `utility_shutoff_notice` | crisis utility funds, CEAP | Retail electric rate — they're on a month-to-month holdover rate |
+| `utility_shutoff_notice` | crisis utility funds, CEAP | Retail electric rate — they're on a month-to-month holdover rate. Open (see `.cursorrules` rule 5): assistance first, switch framed as *after this is sorted*, never as what stops the disconnection |
 | `eviction_notice` | emergency rent, legal aid | Nothing directly. Serve it straight. |
 | `job_loss` / `hours_cut` | rent, food, utility | Tax (prior-year returns, unclaimed refund), debt |
 | `income_drop` | all | Tax, debt |
@@ -90,6 +90,23 @@ legal_aid  id_documents  burial_assistance
 Two hard rules on this table:
 - `aging_into_65` never produces a Medicare call from this property. A phone number left on a rent-help page is not valid TPMO consent. It flags a record for the separately-consented Medicare door.
 - No trigger produces an ACA path from this property, for the same reason plus the strict-responsibility rule.
+
+**Measured revenue per call, 2026-09-02** (2,300 calls on the existing properties), which
+is what should drive which product a trigger reaches for:
+
+| Product | RPC | Share of volume | Share of revenue |
+|---|---|---|---|
+| ACA | $19.80 | 13.0% | 31.7% |
+| Energy | $12.46 | 13.0% | 19.9% |
+| EDU | $10.23 | 4.6% | 5.7% |
+| Home internet | $6.00 | 53.0% | 39.0% |
+| Medicare | $5.16 | 5.7% | 3.6% |
+
+Internet is the volume workhorse and the cheapest product on the board. So the rule is
+**route to the highest-value product the trigger legitimately supports, with internet as
+the floor that always applies** — not internet first because it is most common. EDU is
+currently absent from this table and is worth 1.7x internet per call; `job_loss`,
+`hours_cut` and `income_drop` are its natural triggers.
 
 ### 5c. `eligibility_tags[]` — the filter
 ```
