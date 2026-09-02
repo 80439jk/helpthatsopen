@@ -20,6 +20,11 @@ def main(listings, geo, out, program_filter, limit):
     pop = {}
     for r in csv.DictReader(open(f'{geo}/counties.csv', encoding='utf-8')):
         pop[r['name'].replace(' County', '')] = int(r['population'] or 0)
+    # ZIP population, when loaded, is the same basis rebuild_queue uses -- so the
+    # sheet and the database rank identically instead of drifting apart.
+    zpop = {r['zip']: int(r['population'] or 0)
+            for r in csv.DictReader(open(f'{geo}/zips.csv', encoding='utf-8'))
+            if (r['population'] or '').strip()}
 
     rows = []
     for line in open(listings, encoding='utf-8'):
@@ -29,7 +34,8 @@ def main(listings, geo, out, program_filter, limit):
         r = json.loads(line)
         if program_filter and program_filter.lower() not in r['program_name'].lower():
             continue
-        reach_pop = sum(pop.get(c, 0) for c in r['service_counties'])
+        reach_pop = (sum(zpop.get(z, 0) for z in r['service_zips'])
+                     if zpop else sum(pop.get(c, 0) for c in r['service_counties']))
         # log-normalised exactly as docs/03-database.md rebuild_queue does
         reach = min(100, 100 * math.log(1 + reach_pop) / math.log(1 + 8_000_000))
         vol = TIER_VOL[r['volatility_tier']]
