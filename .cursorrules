@@ -38,7 +38,29 @@ Listing phone numbers must be the provider's actual number. Never substitute a
 tracking or pooled number on an agency listing. Call tracking is fine on **our own**
 CTAs only, clearly labeled as ours.
 
-### 5. status_log is append-only
+### 5. The commercial boundary is drawn by trigger, not by timing alone
+Commercial products are discovered in the interview, never pre-sold on the page. On
+top of that, three hard limits:
+
+- **No commercial mention before navigation is delivered.** The caller gets at least
+  two specific program referrals, with what-to-bring, before anything commercial is
+  raised. Measured as time-to-first-commercial-mention on recordings. The promise is
+  printed on the site; an agent who pivots early makes the page copy false.
+- **No energy pitch on `utility_shutoff_notice`.** Not a taste rule. Switching retail
+  suppliers does not stop a disconnection, takes a billing cycle to take effect, and a
+  switch in progress can interfere with how a crisis payment posts to the account. The
+  pitch can actively worsen the outcome the caller phoned about. `new_lease` and
+  `relocation` remain open and are the better energy moment anyway — new service
+  address, no active crisis, nothing to disturb.
+- **`aging_into_65` never produces a Medicare call from this property, and no trigger
+  produces an ACA path.** Consent does not travel. A phone number left on a rent-help
+  page is not valid TPMO consent, and ACA carries strict-responsibility exposure.
+  These flag a record for a separately-consented door; they never dial from here.
+
+Loosening this later with conversion data is easy. Tightening it after a complaint is
+not — by then you are explaining yourself rather than deciding.
+
+### 6. status_log is append-only
 - `UPDATE` and `DELETE` are revoked at the grant level. Never write code that
   attempts either.
 - `programs.current_status` and `last_verified_at` are maintained by trigger only.
@@ -46,14 +68,14 @@ CTAs only, clearly labeled as ours.
 - Dialer webhooks write to `call_attempts`. **Webhooks never write to `status_log`.**
   Only a VA commit does.
 
-### 6. Never fabricate freshness
+### 7. Never fabricate freshness
 - `dateModified` in JSON-LD must equal the real `last_verified_at`. If they diverge,
   the crawler learns to distrust the domain.
 - Never seed, mock, or default a status to `accepting`. Unknown is `unknown`.
 - If a county's records are past due, unpublish the county page rather than serve
   stale green statuses.
 
-### 7. Nothing is Texas-specific
+### 8. Nothing is Texas-specific
 Texas is the first market, not the model. Every route, query, copy string, and
 component takes a geo parameter. No hardcoded state names, county lists, ZIP
 ranges, or "254 counties" outside of data.
@@ -81,21 +103,29 @@ status change within minutes.
 
 ```
 /                                   ZIP entry, geo-detected
-/tx/                                state hub
-/tx/harris-county/                  county hub
-/tx/harris-county/rent/             county × need
-/tx/77021/                          ZIP page
+/texas/                             state hub
+/texas/harris-county/               county hub
+/texas/harris-county/rent/          county × need
+/texas/77021/                       ZIP page
 /programs/bakerripley-ceap/         program page — the citable atom
 /how-we-verify/                     methodology
 /corrections/                       public correction log
 /for-agencies/                      claim a listing
 /guides/[slug]/
-/data/[state].json                  machine-readable feed
+/data/[state].json                  machine-readable feed — state roll-up
+/data/[state]/[county].json         machine-readable feed — county; this is
+                                    what Dataset.distribution.contentUrl points at
 /llms.txt
 ```
 
 Path is canonical. `?geo=` query params are for paid traffic only and must not
 create indexable duplicates — canonical tag always points at the path form.
+
+**The state segment is the full state name, never the postal abbreviation.**
+`/texas/`, not `/tx/`. Two-letter codes at the root collide with locale prefixes
+(`in`, `de`, `pa`, `it` are all both US states and language codes), and a Spanish
+route set is a matter of when, not if, on this audience. It also matches the county
+slug convention, which is already spelled out (`harris-county`, not `harris`).
 
 **Every geo page is a landing page.** Most traffic arrives from search directly on
 a county or ZIP page, never seeing the homepage. Full header, value prop, disclosure,

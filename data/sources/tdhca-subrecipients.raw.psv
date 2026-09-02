@@ -1,0 +1,55 @@
+# TDHCA Master List of Community Affairs Subrecipients
+# source: https://www.tdhca.texas.gov/sites/default/files/community-affairs/docs/CA-SubRecip.pdf
+# retrieved: 2026-09-02   document dated: February 2026
+# extraction: language model, from PDF. DRAFT — see data/CONTRACT.md rule 6.
+# known extraction defects, corrected in ingest_tdhca.py (not edited here, so this
+# file stays a faithful record of what the extractor produced):
+#   - extractor reported "47 of 47 organizations" but emitted 44
+#   - 'Davis' appears alongside 'Jeff Davis'; there is no Davis County in Texas
+#   - 'LaSalle' appears alongside 'La Salle'
+#   - three rows repeat a county within the row
+# columns: ORG_NAME|CITY|PHONE|PROGRAMS|COUNTIES_SERVED
+Alamo Area Council of Governments|San Antonio|(210) 362-5200|WAP, CEAP, CSBG|Atascosa, Bandera, Bexar, Comal, Frio, Gillespie, Guadalupe, Karnes, Kendall, Kerr, Medina, Wilson
+Aspermont Small Business Development Center, Inc.|Aspermont|(940) 989-3538|WAP, CEAP, CSBG|Haskell, Jones, Kent, Knox, Stonewall, Throckmorton
+City of Austin Health and Human Services Department|Austin|(512) 972-5000|WAP, CEAP, CSBG|Travis
+BakerRipley|Houston|(713) 667-9400|CEAP, CSBG|Harris, Brazoria, Galveston
+Bexar County Department of Community Resources|San Antonio|(210) 335-3666|WAP, CEAP, CSBG|Bexar
+Brazos Valley Community Action Programs|Bryan|(979) 595-2800|WAP, CEAP, CSBG|Brazos, Burleson, Grimes, Leon, Madison, Montgomery, Robertson, Walker, Waller, Washington, Chambers, Liberty
+Cornerstone Community Action Agency|Coleman|(325) 625-4167|WAP, CEAP, CSBG|Brown, Callahan, Coleman, Comanche, Eastland, McCulloch, Runnels
+Combined Community Action, Inc.|Giddings|(979) 540-2980|WAP, CEAP, CSBG|Austin, Bastrop, Blanco, Caldwell, Colorado, Fayette, Fort Bend, Hays, Lee, Wharton
+Crossroads Community Action|Victoria|(800) 695-0314|WAP, CEAP, CSBG|Aransas, Bee, Brazoria, Calhoun, DeWitt, Goliad, Gonzales, Jackson, Lavaca, Live Oak, Matagorda, McMullen, Refugio, Victoria, Wharton
+Community Action Corporation of South Texas|Alice|(361) 664-0145|WAP, CEAP, CSBG|Brooks, Cameron, Duval, Hidalgo, Jim Hogg, Jim Wells, Kenedy, Kleberg, San Patricio, Starr, Webb, Willacy, Zapata, Bee
+Community Action Inc. of Central Texas|San Marcos|(512) 392-1161|WAP, CEAP, CSBG|Blanco, Caldwell, Hays
+Community Action Social Services & Education|Eagle Pass|(830) 773-7274|WAP, CEAP|Maverick
+Community Council of South Central Texas, Inc.|Seguin|(830) 303-4376|WAP, CEAP, CSBG|Brewster, Crane, Culberson, Davis, Dimmit, Edwards, Hudspeth, Jeff Davis, Kinney, LaSalle, Maverick, Pecos, Presidio, Real, Terrell, Uvalde, Val Verde, Zavala, Atascosa, Bandera, Comal, Frio, Gillespie, Guadalupe, Karnes, Kendall, Kerr, La Salle, Live Oak, McMullen, Medina, Wilson
+Community Council of Greater Dallas|Dallas|(214) 871-5065|WAP, CEAP, CSBG|Dallas
+Community Services, Inc.|Corsicana|(903) 872-2401|WAP, CEAP|Anderson, Collin, Denton, Ellis, Henderson, Hunt, Kaufman, Navarro, Rockwall, Van Zandt
+Community Services of Northeast Texas, Inc.|Linden|(903) 756-5596|WAP, CEAP, CSBG|Bowie, Camp, Cass, Delta, Franklin, Hopkins, Lamar, Marion, Morris, Rains, Red River, Titus
+Concho Valley Community Action Agency|San Angelo|(325) 653-2411|WAP, CEAP, CSBG|Coke, Coleman, Concho, Crockett, Irion, Kimble, McCulloch, Menard, Reagan, Runnels, Schleicher, Sterling, Sutton, Tom Green
+Dallas County Department of Health and Human Services|Dallas|(214) 819-1848|WAP, CEAP, CSBG|Dallas
+Economic Action Committee of the Gulf Coast|Bay City|(979) 245-6901|WAP, CEAP|Matagorda, Wharton, Matagorda
+Economic Opportunities Advancement Corporation|Waco|(254) 753-0331|WAP, CEAP, CSBG|Bosque, Ellis, Falls, Freestone, Hill, Johnson, Limestone, McLennan, Navarro, Johnson
+El Paso Community Action, Project BRAVO|El Paso|(915) 562-4100|WAP, CEAP, CSBG|El Paso
+Fort Worth, City of, Neighborhood Services Department|Fort Worth|(817) 392-5790|WAP, CEAP, CSBG|Tarrant
+Greater East Texas Community Action Program (GETCAP)|Nacogdoches|(800) 621-5746|WAP, CEAP, CSBG|Anderson, Angelina, Chambers, Cherokee, Galveston, Gregg, Hardin, Harrison, Henderson, Houston, Jasper, Jefferson, Kaufman, Liberty, Nacogdoches, Newton, Orange, Panola, Polk, Rusk, Sabine, San Augustine, San Jacinto, Shelby, Smith, Trinity, Tyler, Upshur, Van Zandt, Wood
+Guadalupe Economic Services Corporation|Lubbock|(806) 744-4416|WAP|Lubbock
+Gulf Coast Community Services Association|Houston|(713) 393-4700|CEAP, CSBG|Brazoria, Galveston, Harris
+Hidalgo County Community Services Agency|Edinburg|(956) 383-6240|WAP, CEAP, CSBG|Hidalgo
+Hill Country Community Action Association, Inc.|San Saba|(325) 372-5167|WAP, CEAP, CSBG|Bell, Burnet, Coryell, Erath, Hamilton, Lampasas, Llano, Mason, Milam, Mills, San Saba, Somervell, Williamson
+Kleberg County Human Services|Kingsville|(361) 595-8572|WAP, CEAP|Kenedy, Kleberg
+Lubbock, City of, Community Development Department|Lubbock|(806) 775-2296|WAP, CEAP|Lubbock
+Nueces County Community Action Agency|Corpus Christi|(361) 883-7201|WAP, CEAP, CSBG|Nueces
+Panhandle Community Services|Amarillo|(806) 372-2531|WAP, CEAP, CSBG|Armstrong, Briscoe, Carson, Castro, Childress, Collingsworth, Dallam, Deaf Smith, Donley, Gray, Hall, Hansford, Hartley, Hemphill, Hutchinson, Lipscomb, Moore, Ochiltree, Oldham, Parmer, Potter, Randall, Roberts, Sherman, Swisher, Wheeler
+Pecos County Community Action Agency|Fort Stockton|(432) 336-7526|WAP, CEAP|Crane, Pecos, Terrell
+Rolling Plains Management Corporation|Crowell|(940) 684-1571|WAP, CEAP, CSBG|Archer, Baylor, Brown, Callahan, Clay, Comanche, Cottle, Eastland, Foard, Hardeman, Haskell, Hood, Jack, Jones, Kent, Knox, Montague, Palo Pinto, Parker, Shackelford, Stephens, Stonewall, Taylor, Throckmorton, Wichita, Wilbarger, Wise, Young
+San Antonio, City of, Department of Human Services|San Antonio|(210) 207-8198|WAP, CEAP, CSBG|Bexar
+Southeast Texas Regional Planning Commission|Beaumont|(409) 899-8444|CEAP|Hardin, Jefferson, Orange
+South Plains Community Action Association, Inc.|Levelland|(806) 894-6104|WAP, CEAP, CSBG|Bailey, Cochran, Crosby, Dickens, Floyd, Garza, Hale, Hockley, King, Lamb, Lubbock, Lynn, Motley, Terry, Yoakum
+South Texas Development Council|Laredo|(956) 722-3995|WAP, CEAP|Jim Hogg, Starr, Zapata
+Texoma Council of Governments|Sherman|(903) 893-2161|WAP, CEAP, CSBG|Bowie, Camp, Cass, Collin, Cooke, Delta, Denton, Fannin, Franklin, Grayson, Hopkins, Hunt, Lamar, Marion, Morris, Rains, Red River, Rockwall, Titus, Cooke, Fannin, Grayson
+Texas Neighborhood Services|Weatherford|(817) 598-5700|WAP, CEAP, CSBG|Erath, Hood, Johnson, Palo Pinto, Parker, Somervell, Wise
+Travis County Health & Human Services/Veterans Services|Austin|(512) 854-7250|WAP, CEAP, CSBG|Travis
+Tri-County Community Action, Inc.|Center|(936) 598-6315|WAP, CEAP, CSBG|Harrison, Jasper, Newton, Panola, Sabine, San Augustine, Shelby, Tyler, Upshur
+Webb County Community Action Agency|Laredo|(956) 523-4222|WAP, CEAP, CSBG|Webb
+West Texas Opportunities, Inc.|Lamesa|(806) 872-8354|WAP, CEAP, CSBG|Andrews, Borden, Dawson, Ector, Fisher, Gaines, Glasscock, Howard, Loving, Martin, Midland, Mitchell, Nolan, Reeves, Scurry, Upton, Ward, Winkler
+Williamson-Burnet County Opportunities, Inc.|Georgetown|(512) 763-1400|WAP, CEAP, CSBG|Burnet, Williamson
