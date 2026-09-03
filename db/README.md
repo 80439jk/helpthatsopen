@@ -22,7 +22,24 @@ was empty, so reshaping it cost nothing.
 | `004_fix_review_defects.sql` | A5, A6, B2, B4, D3 — outcome split, practicals snapshot, `program_counties`, `stated_service_area`, `blocked` disposition, guarded trigger, append-only enforcement |
 | `005_fix_rebuild_queue.sql` | A3, A4, D5 — numeric cast, never-verified is maximal staleness, transactional swap |
 | `006_queue_includes_unpublished.sql` | The deadlock: the queue filtered on `is_published`, but nothing is published until verified and nothing is verified until it comes off the queue |
-| `007_launch_gate.sql` | D2 — `program_freshness`, `zip_publish_status`, `county_publish_status`, and `min_verified_to_publish()` |
+| `007_launch_gate.sql` | D2 — `program_freshness`, `zip_publish_status`, `county_publish_status`, `service_area_verified`, and `min_verified_to_publish()` |
+| `008_rls_policies.sql` | **NOT APPLIED.** Row Level Security. Review before running — see below. |
+
+## 008 is not applied, deliberately
+
+Supabase flags RLS as disabled on all 15 tables at critical priority: anyone holding the
+anon key — which ships to every browser by design — can read **and write** every row.
+
+`008_rls_policies.sql` is written but unapplied, because enabling RLS without policies
+blocks all access and it has to go in as one piece. It splits the tables by what the public
+actually needs: read-only on the directory, and no public access at all to `staff`,
+`contacts`, `call_attempts`, `status_log`, `search_events` and `verification_queue`.
+`status_log` carries who said what on a recorded call and should never be reachable with a
+browser key. `search_events` gets one narrow insert-only exception so the site can feed the
+demand signal.
+
+Run it before anything is publicly reachable, then confirm the app still renders — the
+publish-status views inherit the policies of their base tables.
 
 ## The launch gate
 
