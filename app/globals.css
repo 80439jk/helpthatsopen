@@ -1,0 +1,75 @@
+/* CornerHelp design tokens — .cursorrules. Crimson is brand and action only, never a
+   status. Funds-out is grey, never red. Body copy is 600 weight, not 400. */
+:root{
+  --navy:#1C2B5E; --navy-2:#3D4E85; --navy-3:#6B78A0;
+  --crimson:#C41F4E; --pink:#F9D9E5; --lav:#F1F4FC; --line:#DFE4F2;
+  --open:#1B7A4B; --wait:#B0741A; --shut:#DDE2EE;
+  --ground:#FFFFFF;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--ground); color:var(--navy);
+  font-family:Nunito,-apple-system,"Segoe UI",system-ui,sans-serif;
+  font-weight:600; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--crimson)}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+h1,h2,h3{margin:0;font-weight:900;letter-spacing:-.015em;text-wrap:balance}
+h1{font-size:clamp(26px,4vw,38px);line-height:1.1}
+h2{font-size:clamp(19px,2.4vw,24px)}
+
+/* disclosure bar and footer disclaimer are required on every page and must not be
+   removed, collapsed, or conditionally rendered (.cursorrules rule 2) */
+.disclosure{background:var(--navy);color:#fff;font-size:12.5px;padding:8px 0;font-weight:700}
+.disclosure .wrap{display:flex;gap:8px;align-items:center}
+
+header.site{border-bottom:2px solid var(--line);padding:16px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy)}
+.pane{width:18px;height:18px;border:2.5px solid var(--navy);border-radius:3px;position:relative;flex:none}
+.pane::after{content:"";position:absolute;inset:2px 2px 50% 50%;background:var(--crimson);border-radius:1px}
+.brandname{font-weight:900;font-size:18px;letter-spacing:-.02em}
+
+.promise{font-size:15px;color:var(--navy-2);margin-top:4px}
+main{padding:28px 0 56px}
+.stack{display:flex;flex-direction:column;gap:14px}
+.band{background:var(--lav);padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+.card{border:2px solid var(--line);border-radius:20px;padding:18px 20px;background:#fff;
+      display:flex;flex-direction:column;gap:10px}
+.cardhead{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.org{font-size:13px;color:var(--navy-3);font-weight:700}
+.pname{font-size:18px;font-weight:800;line-height:1.25}
+
+.status{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:4px 12px;
+        font-size:13px;font-weight:800;white-space:nowrap}
+.dot{width:9px;height:9px;border-radius:2px;flex:none}
+.s-open{background:#E8F4ED;color:var(--open)} .s-open .dot{background:var(--open)}
+.s-wait{background:#F7EEDF;color:var(--wait)} .s-wait .dot{background:var(--wait)}
+.s-shut{background:#EEF1F7;color:var(--navy-3)} .s-shut .dot{background:var(--navy-3)}
+
+.verified{font-size:12.5px;color:var(--navy-3);font-weight:700}
+.facts{display:flex;flex-direction:column;gap:6px;font-size:14.5px;color:var(--navy-2)}
+.facts b{color:var(--navy)}
+.catch{background:var(--pink);border-radius:12px;padding:10px 14px;font-size:14px;color:var(--navy)}
+.tel{display:inline-block;background:var(--crimson);color:#fff;text-decoration:none;
+     border-radius:999px;padding:9px 18px;font-weight:800;font-size:15px}
+
+.zipform{display:flex;gap:10px;flex-wrap:wrap}
+.zipform input{border:2px solid var(--line);border-radius:999px;padding:11px 18px;font:inherit;
+               font-weight:700;width:170px}
+.zipform button{background:var(--crimson);color:#fff;border:0;border-radius:999px;
+                padding:11px 22px;font:inherit;font-weight:800;cursor:pointer}
+.zipform input:focus-visible,.zipform button:focus-visible,a:focus-visible{
+  outline:3px solid var(--crimson);outline-offset:2px}
+
+.notlive{border:2px dashed var(--line);border-radius:20px;padding:22px;background:var(--lav)}
+.muted{color:var(--navy-3);font-size:14px}
+footer.site{border-top:2px solid var(--line);padding:24px 0 40px;font-size:13px;color:var(--navy-3)}
+.crumb{font-size:13px;color:var(--navy-3);font-weight:700}
+.crumb a{color:var(--navy-3)}
+ul.plain{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.countylink{border:2px solid var(--line);border-radius:14px;padding:10px 14px;text-decoration:none;
+            color:var(--navy);font-weight:700;font-size:14.5px;display:block}

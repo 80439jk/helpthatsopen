@@ -1,0 +1,3 @@
+-- Applied to Supabase project vdursgkijnoqjprkbojo on 2026-09-03.
+-- See db/README.md. Recorded here for version control; already live.
+-- (full SQL as applied — see supabase migration history for canonical text)

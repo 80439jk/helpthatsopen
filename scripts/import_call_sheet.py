@@ -205,9 +205,52 @@ def load(rows, dsn, batch):
     cur.execute("SELECT rebuild_queue()"); conn.commit()
 
 
+def emit_sql(rows, batch):
+    """Emit INSERTs for a connection we only reach over an MCP tool, not a DSN."""
+    def q(v):
+        if v is None or v == '':
+            return 'NULL'
+        return "'" + str(v).replace("'", "''") + "'"
+    out = [f"-- call sheet import, batch {batch}",
+           f"DELETE FROM status_log WHERE import_batch = {q(batch)};"]
+    for r in rows:
+        out.append(f"""
+WITH p AS (SELECT program_id FROM programs WHERE slug = {q(r['slug'])}),
+     v AS (INSERT INTO staff (name) SELECT {q(r['va'])}
+             WHERE NOT EXISTS (SELECT 1 FROM staff WHERE name = {q(r['va'])})
+           RETURNING va_id),
+     va AS (SELECT va_id FROM v UNION ALL
+            SELECT va_id FROM staff WHERE name = {q(r['va'])} LIMIT 1),
+     c AS (INSERT INTO call_attempts (program_id, va_id, started_at, disposition)
+           SELECT p.program_id, va.va_id, {q(r['observed_at'])}::timestamptz,
+                  {q(r['disposition'])}
+           FROM p, va RETURNING call_id)
+INSERT INTO status_log (program_id, observed_at, status, verify_method, verify_outcome,
+                        va_id, spoke_with, funds_last_until, reopens_on, note,
+                        practicals, call_id, null_reasons, import_batch)
+SELECT p.program_id, {q(r['observed_at'])}::timestamptz, {q(r['status'])},
+       {q(r['verify_method'])}, {q(r['verify_outcome'])}, va.va_id,
+       {q(r['spoke_with'])}, {q(r['funds_last_until'])},
+       {q(r['reopens_on'])}::date, {q(r['note'])},
+       {q(json.dumps(r['practicals']) if r['practicals'] else None)}::jsonb,
+       c.call_id,
+       {q(json.dumps(r['null_reasons']) if r['null_reasons'] else None)}::jsonb,
+       {q(batch)}
+FROM p, va, c;""".strip())
+        if r['stated_service_area'] or r['languages_stated']:
+            out.append(f"UPDATE programs SET stated_service_area = "
+                       f"COALESCE({q(r['stated_service_area'])}, stated_service_area), "
+                       f"languages_stated = COALESCE({q(r['languages_stated'])}, languages_stated) "
+                       f"WHERE slug = {q(r['slug'])};")
+    out.append("SELECT rebuild_queue();")
+    return '\n'.join(out)
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--csv', required=True)
+    ap.add_argument('--emit-sql', action='store_true',
+                    help='print SQL instead of connecting (for MCP-only connections)')
     ap.add_argument('--dsn')
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--batch')
@@ -215,6 +258,8 @@ if __name__ == '__main__':
     batch = a.batch or ('sheet-' + hashlib.sha1(
         pathlib.Path(a.csv).read_bytes()).hexdigest()[:8])
     rows, problems = parse(a.csv, batch)
+    if a.emit_sql:
+        print(emit_sql(rows, batch)); sys.exit(0)
     report(rows, problems)
     if a.dry_run or not a.dsn:
         print('\n(dry run — nothing written)')
