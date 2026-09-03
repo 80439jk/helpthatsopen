@@ -1,12 +1,14 @@
-import { db } from '@/lib/db';
+import { getDb, dbConfigured } from '@/lib/db';
 export const metadata = { title: 'Corrections' };
 export const revalidate = 300;
 
 export default async function Corrections() {
-  const { data } = await db.from('corrections')
-    .select('reported_at, field, was, now_is, resolved_at, programs(name)')
-    .eq('is_public', true).order('reported_at', { ascending: false }).limit(100);
-  const rows = data ?? [];
+  const rows = dbConfigured()
+    ? ((await getDb().from('corrections')
+        .select('reported_at, field, was, now_is, resolved_at, programs(name)')
+        .eq('is_public', true).order('reported_at', { ascending: false })
+        .limit(100)).data ?? [])
+    : [];
   return (
     <div className="wrap stack">
       <h1>Corrections</h1>

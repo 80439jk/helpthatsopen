@@ -1,12 +1,13 @@
 import { notFound } from 'next/navigation';
-import { db, SITE, STATUS_LABEL, whenVerified } from '@/lib/db';
+import { getDb, dbConfigured, SITE, STATUS_LABEL, whenVerified } from '@/lib/db';
 import { StatusPill, JsonLd } from '../../components';
 import type { Metadata } from 'next';
 
 export const revalidate = 300;
 
 async function load(slug: string) {
-  const { data } = await db.from('programs')
+  if (!dbConfigured()) return null;
+  const { data } = await getDb().from('programs')
     .select('slug, name, current_status, last_verified_at, intake_phone, how_to_apply, ' +
             'documents_required, disqualifier, application_window, stated_service_area, ' +
             'service_area_verified, organizations(name, website, org_type)')

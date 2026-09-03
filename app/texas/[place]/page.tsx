@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { db, SITE, whenVerified } from '@/lib/db';
+import { getDb, dbConfigured, SITE, whenVerified } from '@/lib/db';
 import { ProgramCard, NotLiveYet, JsonLd, ProgramRow } from '../../components';
 import type { Metadata } from 'next';
 
@@ -13,26 +13,27 @@ const PROGRAM_COLS =
 const isZip = (p: string) => /^\d{5}$/.test(p);
 
 async function loadZip(zip: string) {
-  const { data: gate } = await db.from('zip_publish_status')
+  const { data: gate } = await getDb().from('zip_publish_status')
     .select('*').eq('zip', zip).maybeSingle();
   if (!gate) return null;
-  const { data: rows } = await db.from('program_zips')
+  const { data: rows } = await getDb().from('program_zips')
     .select(`programs(${PROGRAM_COLS})`).eq('zip', zip);
-  const { data: counties } = await db.from('zip_counties')
+  const { data: counties } = await getDb().from('zip_counties')
     .select('counties(name, slug)').eq('zip', zip);
   return { gate, rows: rows ?? [], counties: counties ?? [], label: `ZIP ${zip}` };
 }
 
 async function loadCounty(slug: string) {
-  const { data: gate } = await db.from('county_publish_status')
+  const { data: gate } = await getDb().from('county_publish_status')
     .select('*').eq('slug', slug).maybeSingle();
   if (!gate) return null;
-  const { data: rows } = await db.from('program_counties')
+  const { data: rows } = await getDb().from('program_counties')
     .select(`programs(${PROGRAM_COLS})`).eq('county_fips', gate.county_fips);
   return { gate, rows: rows ?? [], counties: [], label: `${gate.name} County, Texas` };
 }
 
 async function load(place: string) {
+  if (!dbConfigured()) return null;
   return isZip(place) ? loadZip(place) : loadCounty(place);
 }
 

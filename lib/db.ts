@@ -1,11 +1,32 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-// Read-only anon client. Every table this queries is public directory data.
-export const db = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  { auth: { persistSession: false } }
-);
+/** Lazily constructed.
+ *
+ *  Creating the client at module scope ran it during `next build` page-data collection —
+ *  including for /_not-found, which never queries anything — so a missing env var failed
+ *  the whole build with "supabaseUrl is required" rather than one page at request time.
+ *  Building and running are different moments and only one of them needs credentials. */
+let _db: SupabaseClient | null = null;
+
+export function getDb(): SupabaseClient {
+  if (_db) return _db;
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) {
+    throw new Error(
+      'Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and ' +
+      'NEXT_PUBLIC_SUPABASE_ANON_KEY (see .env.example).'
+    );
+  }
+  _db = createClient(url, key, { auth: { persistSession: false } });
+  return _db;
+}
+
+/** True when the app can reach a database at all. Pages use this to degrade to an honest
+ *  message instead of a 500 — a directory that says "we can't load this right now" is
+ *  still better than a stack trace. */
+export const dbConfigured = () =>
+  Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 
 export const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://cornerhelp.com';
 

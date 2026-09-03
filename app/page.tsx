@@ -1,18 +1,20 @@
-import { db, SITE } from '@/lib/db';
+import { getDb, dbConfigured, SITE } from '@/lib/db';
 import { JsonLd } from './components';
 
 export const revalidate = 300;
 
 export default async function Home() {
-  const { data: counties } = await db
-    .from('county_publish_status')
-    .select('name, slug, state, verified_programs, accepting_now, is_live')
-    .order('name');
+  const counties = dbConfigured()
+    ? ((await getDb()
+        .from('county_publish_status')
+        .select('name, slug, state, verified_programs, accepting_now, is_live')
+        .order('name')).data ?? [])
+    : [];
 
-  const live = (counties ?? []).filter((c: any) => c.is_live);
-  const totalVerified = (counties ?? []).reduce(
+  const live = counties.filter((c: any) => c.is_live);
+  const totalVerified = counties.reduce(
     (n: number, c: any) => n + (c.verified_programs ?? 0), 0);
-  const totalAccepting = (counties ?? []).reduce(
+  const totalAccepting = counties.reduce(
     (n: number, c: any) => n + (c.accepting_now ?? 0), 0);
 
   return (
