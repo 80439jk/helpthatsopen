@@ -25,7 +25,7 @@ HDR = ['WEEK 1', '#', 'Organization', 'City', 'Address', 'Phone', 'Programs',
        'Spoke with', 'Call outcome', 'Note', 'Called (date)', 'VA']
 
 recs = {}
-for f in ('nc-county-dss', 'fl-liheap-providers'):
+for f in ('nc-county-dss', 'fl-liheap-providers', 'field-research'):
     for line in open(f'data/listings/{f}.jsonl'):
         r = json.loads(line)
         recs[r['slug']] = r

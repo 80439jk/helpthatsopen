@@ -1,56 +1,77 @@
 org_name,slug,primary_need,rent_slug,unlit_records
 "AIDS Foundation Houston, Inc.",aids-foundation-houston-inc,utility,,
 "Agricultural and Labor Program, Inc.",agricultural-and-labor-program-liheap,utility,,
+Alachua County Emergency Financial Assistance Program (EFAP) - Housing/Rent,alachua-county-emergency-financial-assistance-program-efap-housing-rent,utility,,
 Alamance County Department of Social Services,alamance-county-department-of-social-services-energy,utility,alamance-county-department-of-social-services-emergency,alamance-county-department-of-social-services-fns
 Alamo Area Council of Governments,alamo-area-council-of-governments-ceap,utility,alamo-area-council-of-governments-csbg,alamo-area-council-of-governments-wap
+Albemarle Commission — Community Housing / Housing Repair Resources,albemarle-commission-community-housing-housing-repair-resources,rent,,
 Alexander County Department of Social Services,alexander-county-department-of-social-services-energy,utility,alexander-county-department-of-social-services-emergency,alexander-county-department-of-social-services-fns
+All Faiths Food Bank — Food Assistance Network,all-faiths-food-bank-food-assistance-network,other,,
 Alleghany County Department of Social Services,alleghany-county-department-of-social-services-energy,utility,alleghany-county-department-of-social-services-emergency,alleghany-county-department-of-social-services-fns
 Anson County Department of Social Services,anson-county-department-of-social-services-energy,utility,anson-county-department-of-social-services-emergency,anson-county-department-of-social-services-fns
 Ashe County Department of Social Services,ashe-county-department-of-social-services-energy,utility,ashe-county-department-of-social-services-emergency,ashe-county-department-of-social-services-fns
+Asheville Buncombe Community Christian Ministry (ABCCM) Crisis Assistance,asheville-buncombe-community-christian-ministry-abccm-crisis-assistance,rent,,
 "Aspermont Small Business Development Center, Inc.",aspermont-small-business-development-center-inc-ceap,utility,aspermont-small-business-development-center-inc-csbg,aspermont-small-business-development-center-inc-wap
 Avance Inc.,avance-inc,other,,
 Avery County Department of Social Services,avery-county-department-of-social-services-energy,utility,avery-county-department-of-social-services-emergency,avery-county-department-of-social-services-fns
 BakerRipley,bakerripley-ceap,utility,bakerripley-csbg,
 "Bay County Council on Aging, Inc.",bay-county-council-on-aging-liheap,utility,,
+Bay County Housing / Emergency Assistance Services,bay-county-housing-emergency-assistance-services,rent,,
 Beaufort County Department of Social Services,beaufort-county-department-of-social-services-energy,utility,beaufort-county-department-of-social-services-emergency,beaufort-county-department-of-social-services-fns
 Bering Omega Community Services,bering-omega-community-services,rent,,
 Bertie County Department of Social Services,bertie-county-department-of-social-services-energy,utility,bertie-county-department-of-social-services-emergency,bertie-county-department-of-social-services-fns
 Bexar County Department of Community Resources,bexar-county-department-of-community-resources-ceap,utility,bexar-county-department-of-community-resources-csbg,bexar-county-department-of-community-resources-wap
+Big Lake Mission Outreach — Food Assistance,big-lake-mission-outreach-food-assistance,other,,
 Bladen County Department of Social Services,bladen-county-department-of-social-services-energy,utility,bladen-county-department-of-social-services-emergency,bladen-county-department-of-social-services-fns
+Blue Ridge Opportunity Commission — Housing / Community Action Services,blue-ridge-opportunity-commission-housing-community-action-services,rent,,
+Bonifay First United Methodist Church — Food Pantry,bonifay-first-united-methodist-church-food-pantry,other,,
 Brazos Valley Community Action Programs,brazos-valley-community-action-programs-ceap,utility,brazos-valley-community-action-programs-csbg,brazos-valley-community-action-programs-wap
 Brentwood Community Foundation,brentwood-community-foundation,utility,,
 Brevard County Department of Housing and Human Services,brevard-county-department-of-housing-and-human-services-liheap,utility,,
 "Broward County Department of Human Services, Community Action Agency",broward-county-department-of-human-services-community-action-agency-liheap,utility,,
 Brunswick County Department of Social Services,brunswick-county-department-of-social-services-energy,utility,brunswick-county-department-of-social-services-emergency,brunswick-county-department-of-social-services-fns
 Buncombe County Department of Social Services,buncombe-county-department-of-social-services-energy,utility,buncombe-county-department-of-social-services-emergency,buncombe-county-department-of-social-services-fns
+Buncombe County Tenant-Based Rental Assistance,buncombe-county-tenant-based-rental-assistance,rent,,
 Burke County Department of Social Services,burke-county-department-of-social-services-energy,utility,burke-county-department-of-social-services-emergency,burke-county-department-of-social-services-fns
+Burke United Christian Ministries,burke-united-christian-ministries,rent,,
 Cabarrus County Department of Social Services,cabarrus-county-department-of-social-services-energy,utility,cabarrus-county-department-of-social-services-emergency,cabarrus-county-department-of-social-services-fns
 Caldwell County Department of Social Services,caldwell-county-department-of-social-services-energy,utility,caldwell-county-department-of-social-services-emergency,caldwell-county-department-of-social-services-fns
+Caldwell County Food & Nutrition Services,caldwell-county-food-nutrition-services,other,,
 Camden County Department of Social Services,camden-county-department-of-social-services-energy,utility,camden-county-department-of-social-services-emergency,camden-county-department-of-social-services-fns
 "Capital Area Community Action Agency, Inc.",capital-area-community-action-agency-liheap,utility,,
+Caring & Sharing of South Walton — Emergency Food Pantry,caring-sharing-of-south-walton-emergency-food-pantry,rent,,
 Carteret County Department of Social Services,carteret-county-department-of-social-services-energy,utility,carteret-county-department-of-social-services-emergency,carteret-county-department-of-social-services-fns
 Caswell County Department of Social Services,caswell-county-department-of-social-services-energy,utility,caswell-county-department-of-social-services-emergency,caswell-county-department-of-social-services-fns
 Catawba County Department of Social Services,catawba-county-department-of-social-services-energy,utility,catawba-county-department-of-social-services-emergency,catawba-county-department-of-social-services-fns
 Cathedral Health and Outreach Ministries,cathedral-health-and-outreach-ministries,other,,
+Catholic Charities St. Augustine — Emergency/Rural Food Assistance,catholic-charities-st-augustine-emergency-rural-food-assistance,other,,
+Catholic Charities St. Augustine — Rural Outreach / Food Assistance,catholic-charities-st-augustine-rural-outreach-food-assistance,rent,,
 Catholic Charities — Beacon of Hope Center,catholic-charities-beacon-of-hope-center,rent,,
+Catholic Charities — Food Distribution,catholic-charities-food-distribution,other,,
 Catholic Charities — Guadalupe Basic Needs Center,catholic-charities-guadalupe-basic-needs-center,rent,,
 Catholic Charities — Main Office,catholic-charities-main-office,rent,,
 Catholic Charities — Mamie George Community Center,catholic-charities-mamie-george-community-center,rent,,
 Catholic Charities — San Jose Clinic,catholic-charities-san-jose-clinic,other,,
 Catholic Charities — San Jose Clinic Rosenberg,catholic-charities-san-jose-clinic-rosenberg,other,,
 Catholic Charities — St. Frances Cabrini Center,catholic-charities-st-frances-cabrini-center,other,,
+"Catholic Charities, Diocese of St. Petersburg — Financial Assistance",catholic-charities-diocese-of-st-petersburg-financial-assistance,rent,,
 "Central Florida Community Action Agency, Inc.",central-florida-community-action-agency-liheap,utility,,
 Charlotte County Department of Human Services,charlotte-county-department-of-human-services-liheap,utility,,
 Chatham County Department of Social Services,chatham-county-department-of-social-services-energy,utility,chatham-county-department-of-social-services-emergency,chatham-county-department-of-social-services-fns
 Cherokee County Department of Social Services,cherokee-county-department-of-social-services-energy,utility,cherokee-county-department-of-social-services-emergency,cherokee-county-department-of-social-services-fns
 Chowan County Department of Social Services,chowan-county-department-of-social-services-energy,utility,chowan-county-department-of-social-services-emergency,chowan-county-department-of-social-services-fns
 "Christian Community Service Center, Inc.",christian-community-service-center-inc,utility,,
+Christian Service Center of Columbia County — Food Pantry,christian-service-center-of-columbia-county-food-pantry,other,,
+Church & Community Services Food Pantry / Scotland County FNS,church-community-services-food-pantry-scotland-county-fns,utility,,
 Citrus County Division of Housing Services,citrus-county-division-of-housing-services-liheap,utility,,
 City of Austin Health and Human Services Department,city-of-austin-health-and-human-services-department-ceap,utility,city-of-austin-health-and-human-services-department-csbg,city-of-austin-health-and-human-services-department-wap
+City of Concord Housing Department,city-of-concord-housing-department,rent,,
 Clay County Department of Social Services,clay-county-department-of-social-services-energy,utility,clay-county-department-of-social-services-emergency,clay-county-department-of-social-services-fns
 Clear Lake Food Pantry,clear-lake-food-pantry,other,,
 Cleveland County Department of Social Services,cleveland-county-department-of-social-services-energy,utility,cleveland-county-department-of-social-services-emergency,cleveland-county-department-of-social-services-fns
 Collaborative for Children,collaborative-for-children,other,,
+Collier County Community & Human Services — Social Services,collier-county-community-human-services-social-services,rent,,
+Columbia County SHIP / Local Housing Assistance Program,columbia-county-ship-local-housing-assistance-program,rent,,
 Columbus County Department of Social Services,columbus-county-department-of-social-services-energy,utility,columbus-county-department-of-social-services-emergency,columbus-county-department-of-social-services-fns
 "Combined Community Action, Inc.",combined-community-action-inc-ceap,utility,combined-community-action-inc-csbg,combined-community-action-inc-wap
 Community Action Corporation of South Texas,community-action-corporation-of-south-texas-ceap,utility,community-action-corporation-of-south-texas-csbg,community-action-corporation-of-south-texas-wap
@@ -62,10 +83,14 @@ Community Council of Greater Dallas,community-council-of-greater-dallas-ceap,uti
 "Community Services of Northeast Texas, Inc.",community-services-of-northeast-texas-inc-ceap,utility,community-services-of-northeast-texas-inc-csbg,community-services-of-northeast-texas-inc-wap
 "Community Services, Inc.",community-services-inc-ceap,utility,,community-services-inc-wap
 Concho Valley Community Action Agency,concho-valley-community-action-agency-ceap,utility,concho-valley-community-action-agency-csbg,concho-valley-community-action-agency-wap
+Cooperative Christian Ministry — Crisis Assistance,cooperative-christian-ministry-crisis-assistance,utility,,
 Cornerstone Community Action Agency,cornerstone-community-action-agency-ceap,utility,cornerstone-community-action-agency-csbg,cornerstone-community-action-agency-wap
 Covenant House Texas,covenant-house-texas,rent,,
 Craven County Department of Social Services,craven-county-department-of-social-services-energy,utility,craven-county-department-of-social-services-emergency,craven-county-department-of-social-services-fns
+Crawfordville United Methodist Church — Food Pantry / Second Harvest Partner,crawfordville-united-methodist-church-food-pantry-second-harvest-partner,other,,
+Crisis Control Ministry — Stokes County Emergency Assistance,crisis-control-ministry-stokes-county-emergency-assistance,utility,,
 Crossroads Community Action,crossroads-community-action-ceap,utility,crossroads-community-action-csbg,crossroads-community-action-wap
+Cumberland County Coordinated Entry / Homeless Services,cumberland-county-coordinated-entry-homeless-services,rent,,
 Cumberland County Department of Social Services,cumberland-county-department-of-social-services-energy,utility,cumberland-county-department-of-social-services-emergency,cumberland-county-department-of-social-services-fns
 Currituck County Department of Social Services,currituck-county-department-of-social-services-energy,utility,currituck-county-department-of-social-services-emergency,currituck-county-department-of-social-services-fns
 Cypress Assistance Ministries,cypress-assistance-ministries,other,,
@@ -76,45 +101,82 @@ Davie County Department of Social Services,davie-county-department-of-social-ser
 Desoto County Board of Commissioners,desoto-county-board-of-commissioners-liheap,utility,,
 Duplin County Department of Social Services,duplin-county-department-of-social-services-energy,utility,duplin-county-department-of-social-services-emergency,duplin-county-department-of-social-services-fns
 Durham County Department of Social Services,durham-county-department-of-social-services-energy,utility,durham-county-department-of-social-services-emergency,durham-county-department-of-social-services-fns
+Eastern Catawba Cooperative Christian Ministry,eastern-catawba-cooperative-christian-ministry,rent,,
 Economic Action Committee of the Gulf Coast,economic-action-committee-of-the-gulf-coast-ceap,utility,,economic-action-committee-of-the-gulf-coast-wap
 Economic Opportunities Advancement Corporation,economic-opportunities-advancement-corporation-ceap,utility,economic-opportunities-advancement-corporation-csbg,economic-opportunities-advancement-corporation-wap
 "Economic Opportunities Council of Indian River County, Inc.",economic-opportunities-council-of-indian-river-county-liheap,utility,,
 Edgecombe County Department of Social Services,edgecombe-county-department-of-social-services-energy,utility,edgecombe-county-department-of-social-services-emergency,edgecombe-county-department-of-social-services-fns
 "El Paso Community Action, Project BRAVO",el-paso-community-action-project-bravo-ceap,utility,el-paso-community-action-project-bravo-csbg,el-paso-community-action-project-bravo-wap
+Emergency Rental Assistance — Catholic Charities / Interfaith Ministries / Opening Doors,emergency-rental-assistance-catholic-charities-interfaith-ministries-opening-doo,rent,,
+Escambia County SHIP / Housing Assistance,escambia-county-ship-housing-assistance,rent,,
+Farm Share — Emergency Food Assistance Referral,farm-share-emergency-food-assistance-referral,other,,
+Feeding Tampa Bay — Food Assistance Network,feeding-tampa-bay-food-assistance-network,other,,
+Flagler County Human Services — Emergency Assistance,flagler-county-human-services-emergency-assistance,rent,,
+Florida Department of Health in Duval County — WIC,florida-department-of-health-in-duval-county-wic,other,,
+Florida Department of Health in Escambia County — WIC,florida-department-of-health-in-escambia-county-wic,other,,
+Florida Department of Health in Gadsden County — WIC,florida-department-of-health-in-gadsden-county-wic,other,,
+Florida Department of Health in Lafayette County — WIC,florida-department-of-health-in-lafayette-county-wic,other,,
+Florida Department of Health — WIC,florida-department-of-health-wic,other,,
 FloridaCommerce (state administers LIHEAP directly),floridacommerce-state-administers-liheap-directly-liheap,utility,,
+"Food Pantry of Gilchrist County, Inc.",food-pantry-of-gilchrist-county-inc,other,,
 Forsyth County Department of Social Services,forsyth-county-department-of-social-services-energy,utility,forsyth-county-department-of-social-services-emergency,forsyth-county-department-of-social-services-fns
 "Fort Worth, City of, Neighborhood Services Department",fort-worth-city-of-neighborhood-services-department-ceap,utility,fort-worth-city-of-neighborhood-services-department-csbg,fort-worth-city-of-neighborhood-services-department-wap
 Franklin County Department of Social Services,franklin-county-department-of-social-services-energy,utility,franklin-county-department-of-social-services-emergency,franklin-county-department-of-social-services-fns
+Franklin County Food Pantry — Franklin's Promise Coalition,franklin-county-food-pantry-franklin-s-promise-coalition,other,,
+Franklin County SHIP — Housing Assistance,franklin-county-ship-housing-assistance,rent,,
+Franklin-Vance-Warren Opportunity — Housing Choice Voucher / Section 8,franklin-vance-warren-opportunity-housing-choice-voucher-section-8,utility,,
+Gadsden County SHIP / Community Development Housing Assistance,gadsden-county-ship-community-development-housing-assistance,rent,,
 Galveston County Food Bank,galveston-county-food-bank,other,,
 Gaston County Department of Social Services,gaston-county-department-of-social-services-energy,utility,gaston-county-department-of-social-services-emergency,gaston-county-department-of-social-services-fns
 Gates County Department of Social Services,gates-county-department-of-social-services-energy,utility,gates-county-department-of-social-services-emergency,gates-county-department-of-social-services-fns
+Glades County Social Services / Emergency Rental Assistance,glades-county-social-services-emergency-rental-assistance,rent,,
 Graham County Department of Social Services,graham-county-department-of-social-services-energy,utility,graham-county-department-of-social-services-emergency,graham-county-department-of-social-services-fns
 Granville County Department of Social Services,granville-county-department-of-social-services-energy,utility,granville-county-department-of-social-services-emergency,granville-county-department-of-social-services-fns
 Greater East Texas Community Action Program (GETCAP),greater-east-texas-community-action-program-getcap-ceap,utility,greater-east-texas-community-action-program-getcap-csbg,greater-east-texas-community-action-program-getcap-wap
 Greene County Department of Social Services,greene-county-department-of-social-services-energy,utility,greene-county-department-of-social-services-emergency,greene-county-department-of-social-services-fns
+Greensboro Housing Authority — HOME-ARP Tenant-Based Rental Assistance,greensboro-housing-authority-home-arp-tenant-based-rental-assistance,rent,,
 Guadalupe Economic Services Corporation,guadalupe-economic-services-corporation-wap,other,,
 Guilford County Department of Social Services,guilford-county-department-of-social-services-energy,utility,guilford-county-department-of-social-services-emergency,guilford-county-department-of-social-services-fns
 Gulf Coast Community Services Association,gulf-coast-community-services-association-ceap,utility,gulf-coast-community-services-association-csbg,
+Gulf County SHIP / Affordable Housing Assistance,gulf-county-ship-affordable-housing-assistance,rent,,
 Halifax County Department of Social Services,halifax-county-department-of-social-services-energy,utility,halifax-county-department-of-social-services-emergency,halifax-county-department-of-social-services-fns
+Hamilton County Community Resources & Second Harvest of the Big Bend,hamilton-county-community-resources-second-harvest-of-the-big-bend,other,,
+Hamilton County SHIP,hamilton-county-ship,rent,,
+Hardee Help Center — Crisis Food Assistance,hardee-help-center-crisis-food-assistance,rent,,
 Harnett County Department of Social Services,harnett-county-department-of-social-services-energy,utility,harnett-county-department-of-social-services-emergency,harnett-county-department-of-social-services-fns
+Harnett County HUD Office — Housing Choice Voucher/Rental Subsidy,harnett-county-hud-office-housing-choice-voucher-rental-subsidy,rent,,
 Harris County Area Agency on Aging,harris-county-area-agency-on-aging,other,,
 Harris County Community Services,harris-county-community-services,utility,,
 Harris County Community Services — NW Satellite Office,harris-county-community-services-nw-satellite-office,utility,,
 Harris County Department of Education,harris-county-department-of-education,other,,
+Harry Chapin Food Bank of Southwest Florida — TEFAP / Local Partner Pantries,harry-chapin-food-bank-of-southwest-florida-tefap-local-partner-pantries,other,,
+Harvest Time International / Seminole County Food Pantry Network,harvest-time-international-seminole-county-food-pantry-network,other,,
 Haywood County Department of Social Services,haywood-county-department-of-social-services-energy,utility,haywood-county-department-of-social-services-emergency,haywood-county-department-of-social-services-fns
+Heartland Food Bank / Local Partner Pantry Network,heartland-food-bank-local-partner-pantry-network,other,,
 Henderson County Department of Social Services,henderson-county-department-of-social-services-energy,utility,henderson-county-department-of-social-services-emergency,henderson-county-department-of-social-services-fns
+Hendry County SHIP / Housing Assistance,hendry-county-ship-housing-assistance,rent,,
+Hernando County Housing & Supportive Services — SHIP / Temporary Rental Assistance,hernando-county-housing-supportive-services-ship-temporary-rental-assistance,rent,,
 Hertford County Department of Social Services,hertford-county-department-of-social-services-energy,utility,hertford-county-department-of-social-services-emergency,hertford-county-department-of-social-services-fns
 Hidalgo County Community Services Agency,hidalgo-county-community-services-agency-ceap,utility,hidalgo-county-community-services-agency-csbg,hidalgo-county-community-services-agency-wap
+Highlands County Housing / SHIP,highlands-county-housing-ship,rent,,
 "Hill Country Community Action Association, Inc.",hill-country-community-action-association-inc-ceap,utility,hill-country-community-action-association-inc-csbg,hill-country-community-action-association-inc-wap
 Hillsborough County Social Services Department,hillsborough-county-social-services-department-liheap,utility,,
 Hoke County Department of Social Services,hoke-county-department-of-social-services-energy,utility,hoke-county-department-of-social-services-emergency,hoke-county-department-of-social-services-fns
+Hoke County Housing Authority,hoke-county-housing-authority,rent,,
+House Wake! / Wake County Housing Assistance,house-wake-wake-county-housing-assistance,rent,,
 Houston Area Urban League,houston-area-urban-league,rent,,
 Humble Area Assistance Ministries,humble-area-assistance-ministries,utility,,
 Hyde County Department of Social Services,hyde-county-department-of-social-services-energy,utility,hyde-county-department-of-social-services-emergency,hyde-county-department-of-social-services-fns
+Impact Clay / Clay County Community Resource Guide — Rental and Homelessness Assistance,impact-clay-clay-county-community-resource-guide-rental-and-homelessness-assista,rent,,
+In the Image of Christ — Utility Assistance,in-the-image-of-christ-utility-assistance,utility,,
+Innovative Charities — Liberty County Food Pantry,innovative-charities-liberty-county-food-pantry,other,,
 Interfaith Caring Ministries,interfaith-caring-ministries,utility,,
+Interfaith Emergency Services — Emergency Food Pantry,interfaith-emergency-services-emergency-food-pantry,other,,
 Iredell County Department of Social Services,iredell-county-department-of-social-services-energy,utility,iredell-county-department-of-social-services-emergency,iredell-county-department-of-social-services-fns
 Jackson County Department of Social Services,jackson-county-department-of-social-services-energy,utility,jackson-county-department-of-social-services-emergency,jackson-county-department-of-social-services-fns
+Jackson County Housing Assistance Office — SHIP,jackson-county-housing-assistance-office-ship,rent,,
 Jackson County Senior Citizens Org. Inc.,jackson-county-senior-citizens-org-liheap,utility,,
+Jacksonville Emergency Assistance Program — Rent/Mortgage Assistance,jacksonville-emergency-assistance-program-rent-mortgage-assistance,rent,,
 Johnston County Department of Social Services,johnston-county-department-of-social-services-energy,utility,johnston-county-department-of-social-services-emergency,johnston-county-department-of-social-services-fns
 Jones County Department of Social Services,jones-county-department-of-social-services-energy,utility,jones-county-department-of-social-services-emergency,jones-county-department-of-social-services-fns
 Katy Christian Ministries,katy-christian-ministries,utility,,
@@ -125,11 +187,18 @@ LINC Houston Community Services,linc-houston-community-services,rent,,
 Lee County Department of Human Services,lee-county-department-of-human-services-liheap,utility,,
 Lee County Department of Social Services,lee-county-department-of-social-services-energy,utility,lee-county-department-of-social-services-emergency,lee-county-department-of-social-services-fns
 Lenoir County Department of Social Services,lenoir-county-department-of-social-services-energy,utility,lenoir-county-department-of-social-services-emergency,lenoir-county-department-of-social-services-fns
+Leon County SHIP Housing Rental Assistance,leon-county-ship-housing-rental-assistance,rent,,
+Levy County SHIP Housing Assistance,levy-county-ship-housing-assistance,rent,,
+Liberty County Grants / Housing Assistance,liberty-county-grants-housing-assistance,rent,,
 Lincoln County Department of Social Services,lincoln-county-department-of-social-services-energy,utility,lincoln-county-department-of-social-services-emergency,lincoln-county-department-of-social-services-fns
+Local Food Pantry Network / Second Harvest & Partner Agencies,local-food-pantry-network-second-harvest-partner-agencies,other,,
+Local Housing/Rent Assistance Referral — Calhoun County,local-housing-rent-assistance-referral-calhoun-county,rent,,
 "Lubbock, City of, Community Development Department",lubbock-city-of-community-development-department-ceap,utility,,lubbock-city-of-community-development-department-wap
 Macon County Department of Social Services,macon-county-department-of-social-services-energy,utility,macon-county-department-of-social-services-emergency,macon-county-department-of-social-services-fns
 Madison County Department of Social Services,madison-county-department-of-social-services-energy,utility,madison-county-department-of-social-services-emergency,madison-county-department-of-social-services-fns
+Marion County Community Services — Rental / Rapid Rehousing Assistance,marion-county-community-services-rental-rapid-rehousing-assistance,rent,,
 Martin County Department of Social Services,martin-county-department-of-social-services-energy,utility,martin-county-department-of-social-services-emergency,martin-county-department-of-social-services-fns
+Martin County Human Services — Emergency Financial Assistance / Rental Assistance,martin-county-human-services-emergency-financial-assistance-rental-assistance,utility,,
 McDowell County Department of Social Services,mcdowell-county-department-of-social-services-energy,utility,mcdowell-county-department-of-social-services-emergency,mcdowell-county-department-of-social-services-fns
 Mecklenburg County Department of Social Services,mecklenburg-county-department-of-social-services-energy,utility,mecklenburg-county-department-of-social-services-emergency,mecklenburg-county-department-of-social-services-fns
 Memorial Assistance Ministries,memorial-assistance-ministries,utility,,
@@ -138,6 +207,7 @@ Mitchell County Department of Social Services,mitchell-county-department-of-soci
 Monroe County Board of County Commissioners,monroe-county-board-of-county-commissioners-liheap,utility,,
 Montgomery County Department of Social Services,montgomery-county-department-of-social-services-energy,utility,montgomery-county-department-of-social-services-emergency,montgomery-county-department-of-social-services-fns
 Moore County Department of Social Services,moore-county-department-of-social-services-energy,utility,moore-county-department-of-social-services-emergency,moore-county-department-of-social-services-fns
+Mountain Projects — Section 8 Housing Choice Voucher,mountain-projects-section-8-housing-choice-voucher,rent,,
 My Brother's Keeper Outreach Center,my-brother-s-keeper-outreach-center,utility,,
 Nash County Department of Social Services,nash-county-department-of-social-services-energy,utility,nash-county-department-of-social-services-emergency,nash-county-department-of-social-services-fns
 New Hanover County Department of Social Services,new-hanover-county-department-of-social-services-energy,utility,new-hanover-county-department-of-social-services-emergency,new-hanover-county-department-of-social-services-fns
@@ -145,42 +215,64 @@ Northampton County Department of Social Services,northampton-county-department-o
 "Northeast Florida Community Action Agency, Inc.",northeast-florida-community-action-agency-liheap,utility,,
 Northwest Assistance Ministries,northwest-assistance-ministries,utility,,
 Nueces County Community Action Agency,nueces-county-community-action-agency-ceap,utility,nueces-county-community-action-agency-csbg,nueces-county-community-action-agency-wap
+Okeechobee County / Salvation Army Emergency Assistance,okeechobee-county-salvation-army-emergency-assistance,rent,,
+One-Time Rental Assistance — Salvation Army / United Way of Lake & Sumter,one-time-rental-assistance-salvation-army-united-way-of-lake-sumter,rent,,
 Onslow County Department of Social Services,onslow-county-department-of-social-services-energy,utility,onslow-county-department-of-social-services-emergency,onslow-county-department-of-social-services-fns
+Orange County Citizens Commission for Children / Community Food Resources,orange-county-citizens-commission-for-children-community-food-resources,rent,,
 Orange County Department of Social Services,orange-county-department-of-social-services-energy,utility,orange-county-department-of-social-services-emergency,orange-county-department-of-social-services-fns
+Orange County Emergency Housing Assistance (EHA),orange-county-emergency-housing-assistance-eha,rent,,
 Orange County Youth and Family Services Division,orange-county-youth-and-family-services-division-liheap,utility,,
 "Osceola County Council on Aging, Inc",osceola-county-council-on-aging-liheap,utility,,
+Osceola County Housing & Community Services — Homeless Services Program,osceola-county-housing-community-services-homeless-services-program,rent,,
 Palm Beach County,palm-beach-county-liheap,utility,,
 Pamlico County Department of Social Services,pamlico-county-department-of-social-services-energy,utility,pamlico-county-department-of-social-services-emergency,pamlico-county-department-of-social-services-fns
 Panhandle Community Services,panhandle-community-services-ceap,utility,panhandle-community-services-csbg,panhandle-community-services-wap
 Pasquotank County Department of Social Services,pasquotank-county-department-of-social-services-energy,utility,pasquotank-county-department-of-social-services-emergency,pasquotank-county-department-of-social-services-fns
 Pecos County Community Action Agency,pecos-county-community-action-agency-ceap,utility,,pecos-county-community-action-agency-wap
 Pender County Department of Social Services,pender-county-department-of-social-services-energy,utility,pender-county-department-of-social-services-emergency,pender-county-department-of-social-services-fns
+People Helping People in Hernando County — Food Pantry,people-helping-people-in-hernando-county-food-pantry,other,,
 Perquimans County Department of Social Services,perquimans-county-department-of-social-services-energy,utility,perquimans-county-department-of-social-services-emergency,perquimans-county-department-of-social-services-fns
 Person County Department of Social Services,person-county-department-of-social-services-energy,utility,person-county-department-of-social-services-emergency,person-county-department-of-social-services-fns
+Person County Habitat for Humanity / Housing Assistance,person-county-habitat-for-humanity-housing-assistance,rent,,
+Pinellas County Adult Emergency Financial Assistance Program / Catholic Charities,pinellas-county-adult-emergency-financial-assistance-program-catholic-charities,rent,,
 "Pinellas County Urban League, Inc.",pinellas-county-urban-league-liheap,utility,,
 Pitt County Department of Social Services,pitt-county-department-of-social-services-energy,utility,pitt-county-department-of-social-services-emergency,pitt-county-department-of-social-services-fns
 Polk County Department of Social Services,polk-county-department-of-social-services-energy,utility,polk-county-department-of-social-services-emergency,polk-county-department-of-social-services-fns
+Polk County Housing & Neighborhood Development — Tenant-Based Rental Assistance (TBRA),polk-county-housing-neighborhood-development-tenant-based-rental-assistance-tbra,rent,,
 Randolph County Department of Social Services,randolph-county-department-of-social-services-energy,utility,randolph-county-department-of-social-services-emergency,randolph-county-department-of-social-services-fns
 Riceville Mt. Olive Baptist Church,riceville-mt-olive-baptist-church,other,,
 Richmond County Department of Social Services,richmond-county-department-of-social-services-energy,utility,richmond-county-department-of-social-services-emergency,richmond-county-department-of-social-services-fns
+Roanoke-Chowan Regional Housing Authority — Housing Choice Voucher/Public Housing,roanoke-chowan-regional-housing-authority-housing-choice-voucher-public-housing,rent,,
 Robeson County Department of Social Services,robeson-county-department-of-social-services-energy,utility,robeson-county-department-of-social-services-emergency,robeson-county-department-of-social-services-fns
 Rockingham County Department of Social Services,rockingham-county-department-of-social-services-energy,utility,rockingham-county-department-of-social-services-emergency,rockingham-county-department-of-social-services-fns
 Rolling Plains Management Corporation,rolling-plains-management-corporation-ceap,utility,rolling-plains-management-corporation-csbg,rolling-plains-management-corporation-wap
 Rowan County Department of Social Services,rowan-county-department-of-social-services-energy,utility,rowan-county-department-of-social-services-emergency,rowan-county-department-of-social-services-fns
 Rutherford County Department of Social Services,rutherford-county-department-of-social-services-energy,utility,rutherford-county-department-of-social-services-emergency,rutherford-county-department-of-social-services-fns
+Salvation Army Hope House — Emergency Rent / Rapid Re-Housing Assistance,salvation-army-hope-house-emergency-rent-rapid-re-housing-assistance,rent,,
 Sampson County Department of Social Services,sampson-county-department-of-social-services-energy,utility,sampson-county-department-of-social-services-emergency,sampson-county-department-of-social-services-fns
 "San Antonio, City of, Department of Human Services",san-antonio-city-of-department-of-human-services-ceap,utility,san-antonio-city-of-department-of-human-services-csbg,san-antonio-city-of-department-of-human-services-wap
+Santa Rosa County Feeding Programs / Feeding the Gulf Coast Network,santa-rosa-county-feeding-programs-feeding-the-gulf-coast-network,other,,
+Sarasota County Human Services / Community Housing & Homeless Resources,sarasota-county-human-services-community-housing-homeless-resources,rent,,
 Scotland County Department of Social Services,scotland-county-department-of-social-services-energy,utility,scotland-county-department-of-social-services-emergency,scotland-county-department-of-social-services-fns
+Second Harvest / Local Food Pantry Network,second-harvest-local-food-pantry-network,other,,
+Second Harvest Food Bank of Central Florida — TEFAP / Food Pantry Network,second-harvest-food-bank-of-central-florida-tefap-food-pantry-network,other,,
+Second Harvest of the Big Bend — TEFAP / Local Food Pantry Network,second-harvest-of-the-big-bend-tefap-local-food-pantry-network,other,,
+Seminole County Community Assistance — Prevention Assistance / Good Neighbor Utility Fund,seminole-county-community-assistance-prevention-assistance-good-neighbor-utility,utility,,
+Sharing House — Food & Fresh Produce,sharing-house-food-fresh-produce,utility,,
 Society of St. Vincent de Paul of Harris County,society-of-st-vincent-de-paul-of-harris-county,utility,,
 "South Plains Community Action Association, Inc.",south-plains-community-action-association-inc-ceap,utility,south-plains-community-action-association-inc-csbg,south-plains-community-action-association-inc-wap
 South Texas Development Council,south-texas-development-council-ceap,utility,,south-texas-development-council-wap
 Southeast Area Ministries,southeast-area-ministries,utility,,
 Southeast Texas Regional Planning Commission,southeast-texas-regional-planning-commission-ceap,utility,,
 St. John Vianney Social Ministry,st-john-vianney-social-ministry,utility,,
+St. Johns County Social Services — Emergency Assistance,st-johns-county-social-services-emergency-assistance,rent,,
 St. Joseph Social Ministry,st-joseph-social-ministry,utility,,
+St. Joseph's Catholic Church / Martin County Food Assistance Network,st-joseph-s-catholic-church-martin-county-food-assistance-network,other,,
 St. Justin Martyr Social Ministry,st-justin-martyr-social-ministry,utility,,
+St. Lucie County Food Assistance Sites / Local Pantry Network,st-lucie-county-food-assistance-sites-local-pantry-network,rent,,
 St. Mary Magdalene Social Services,st-mary-magdalene-social-services,utility,,
 St. Pius Catholic Church,st-pius-catholic-church,utility,,
+Stanly Community Christian Ministry — Financial Assistance,stanly-community-christian-ministry-financial-assistance,utility,,
 Stanly County Department of Social Services,stanly-county-department-of-social-services-energy,utility,stanly-county-department-of-social-services-emergency,stanly-county-department-of-social-services-fns
 Star of Hope,star-of-hope,rent,,
 "Step Up Suncoast, Inc.",step-up-suncoast-liheap,utility,,
@@ -191,6 +283,7 @@ Swain County Department of Social Services,swain-county-department-of-social-ser
 Target Hunger,target-hunger,other,,
 Texas Neighborhood Services,texas-neighborhood-services-ceap,utility,texas-neighborhood-services-csbg,texas-neighborhood-services-wap
 Texoma Council of Governments,texoma-council-of-governments-ceap,utility,texoma-council-of-governments-csbg,texoma-council-of-governments-wap
+The Children's Table / Christ Central / Farm Share Food Distributions,the-children-s-table-christ-central-farm-share-food-distributions,other,,
 The Salvation Army,the-salvation-army-liheap,utility,,
 The Salvation Army — Aldine Westfield Community Center,the-salvation-army-aldine-westfield-community-center,rent,,
 The Salvation Army — Conroe Community Center,the-salvation-army-conroe-community-center,rent,,
@@ -204,11 +297,17 @@ Travis County Health & Human Services/Veterans Services,travis-county-health-hum
 "Tri-County Community Action, Inc.",tri-county-community-action-inc-ceap,utility,tri-county-community-action-inc-csbg,tri-county-community-action-inc-wap
 "Tri-County Community Council, Inc.",tri-county-community-council-liheap,utility,,
 Trinity Klein Food Pantry,trinity-klein-food-pantry,other,,
+Troy/Montgomery Senior Center — Housing Assistance / Referral,troy-montgomery-senior-center-housing-assistance-referral,rent,,
+Turning Points — HOME TBRA / Rental Assistance,turning-points-home-tbra-rental-assistance,rent,,
 Tyrrell County Department of Social Services,tyrrell-county-department-of-social-services-energy,utility,tyrrell-county-department-of-social-services-emergency,tyrrell-county-department-of-social-services-fns
 Union County Department of Social Services,union-county-department-of-social-services-energy,utility,union-county-department-of-social-services-emergency,union-county-department-of-social-services-fns
+United Way of Central Florida — George W. Jenkins End Hunger Initiative,united-way-of-central-florida-george-w-jenkins-end-hunger-initiative,other,,
 United Way of Greater Houston,united-way-of-greater-houston,other,,
+United Way of Lake & Sumter / Local Food Pantry Network,united-way-of-lake-sumter-local-food-pantry-network,other,,
+United Way of Wayne County — U-CAN Utility Assistance,united-way-of-wayne-county-u-can-utility-assistance,utility,,
 Vance County Department of Social Services,vance-county-department-of-social-services-energy,utility,vance-county-department-of-social-services-emergency,vance-county-department-of-social-services-fns
 Volusia County Community Assistance Division,volusia-county-community-assistance-division-liheap,utility,,
+WAMY Community Action — Housing Program / Urgent Repair / Home Rehabilitation,wamy-community-action-housing-program-urgent-repair-home-rehabilitation,rent,,
 Wake County Department of Social Services,wake-county-department-of-social-services-energy,utility,wake-county-department-of-social-services-emergency,wake-county-department-of-social-services-fns
 Warren County Department of Social Services,warren-county-department-of-social-services-energy,utility,warren-county-department-of-social-services-emergency,warren-county-department-of-social-services-fns
 Washington County Department of Social Services,washington-county-department-of-social-services-energy,utility,washington-county-department-of-social-services-emergency,washington-county-department-of-social-services-fns
