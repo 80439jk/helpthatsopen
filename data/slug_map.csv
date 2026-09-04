@@ -1,6 +1,6 @@
 org_name,slug,primary_need,rent_slug,unlit_records
 "AIDS Foundation Houston, Inc.",aids-foundation-houston-inc,utility,,
-"Agricultural and Labor Program, Inc.",agricultural-and-labor-program-inc-liheap,utility,,
+"Agricultural and Labor Program, Inc.",agricultural-and-labor-program-liheap,utility,,
 Alamance County Department of Social Services,alamance-county-department-of-social-services-energy,utility,alamance-county-department-of-social-services-emergency,alamance-county-department-of-social-services-fns
 Alamo Area Council of Governments,alamo-area-council-of-governments-ceap,utility,alamo-area-council-of-governments-csbg,alamo-area-council-of-governments-wap
 Alexander County Department of Social Services,alexander-county-department-of-social-services-energy,utility,alexander-county-department-of-social-services-emergency,alexander-county-department-of-social-services-fns
@@ -11,7 +11,7 @@ Ashe County Department of Social Services,ashe-county-department-of-social-servi
 Avance Inc.,avance-inc,other,,
 Avery County Department of Social Services,avery-county-department-of-social-services-energy,utility,avery-county-department-of-social-services-emergency,avery-county-department-of-social-services-fns
 BakerRipley,bakerripley-ceap,utility,bakerripley-csbg,
-"Bay County Council on Aging, Inc.",bay-county-council-on-aging-inc-liheap,utility,,
+"Bay County Council on Aging, Inc.",bay-county-council-on-aging-liheap,utility,,
 Beaufort County Department of Social Services,beaufort-county-department-of-social-services-energy,utility,beaufort-county-department-of-social-services-emergency,beaufort-county-department-of-social-services-fns
 Bering Omega Community Services,bering-omega-community-services,rent,,
 Bertie County Department of Social Services,bertie-county-department-of-social-services-energy,utility,bertie-county-department-of-social-services-emergency,bertie-county-department-of-social-services-fns
@@ -27,8 +27,7 @@ Burke County Department of Social Services,burke-county-department-of-social-ser
 Cabarrus County Department of Social Services,cabarrus-county-department-of-social-services-energy,utility,cabarrus-county-department-of-social-services-emergency,cabarrus-county-department-of-social-services-fns
 Caldwell County Department of Social Services,caldwell-county-department-of-social-services-energy,utility,caldwell-county-department-of-social-services-emergency,caldwell-county-department-of-social-services-fns
 Camden County Department of Social Services,camden-county-department-of-social-services-energy,utility,camden-county-department-of-social-services-emergency,camden-county-department-of-social-services-fns
-Capital Area Community Action Agency,capital-area-community-action-agency-liheap,utility,,
-"Capital Area Community Action Agency, Inc.",capital-area-community-action-agency-inc-liheap,utility,,
+"Capital Area Community Action Agency, Inc.",capital-area-community-action-agency-liheap,utility,,
 Carteret County Department of Social Services,carteret-county-department-of-social-services-energy,utility,carteret-county-department-of-social-services-emergency,carteret-county-department-of-social-services-fns
 Caswell County Department of Social Services,caswell-county-department-of-social-services-energy,utility,caswell-county-department-of-social-services-emergency,caswell-county-department-of-social-services-fns
 Catawba County Department of Social Services,catawba-county-department-of-social-services-energy,utility,catawba-county-department-of-social-services-emergency,catawba-county-department-of-social-services-fns
@@ -40,7 +39,7 @@ Catholic Charities — Mamie George Community Center,catholic-charities-mamie-ge
 Catholic Charities — San Jose Clinic,catholic-charities-san-jose-clinic,other,,
 Catholic Charities — San Jose Clinic Rosenberg,catholic-charities-san-jose-clinic-rosenberg,other,,
 Catholic Charities — St. Frances Cabrini Center,catholic-charities-st-frances-cabrini-center,other,,
-"Central Florida Community Action Agency, Inc.",central-florida-community-action-agency-inc-liheap,utility,,
+"Central Florida Community Action Agency, Inc.",central-florida-community-action-agency-liheap,utility,,
 Charlotte County Department of Human Services,charlotte-county-department-of-human-services-liheap,utility,,
 Chatham County Department of Social Services,chatham-county-department-of-social-services-energy,utility,chatham-county-department-of-social-services-emergency,chatham-county-department-of-social-services-fns
 Cherokee County Department of Social Services,cherokee-county-department-of-social-services-energy,utility,cherokee-county-department-of-social-services-emergency,cherokee-county-department-of-social-services-fns
@@ -56,7 +55,7 @@ Columbus County Department of Social Services,columbus-county-department-of-soci
 "Combined Community Action, Inc.",combined-community-action-inc-ceap,utility,combined-community-action-inc-csbg,combined-community-action-inc-wap
 Community Action Corporation of South Texas,community-action-corporation-of-south-texas-ceap,utility,community-action-corporation-of-south-texas-csbg,community-action-corporation-of-south-texas-wap
 Community Action Inc. of Central Texas,community-action-inc-of-central-texas-ceap,utility,community-action-inc-of-central-texas-csbg,community-action-inc-of-central-texas-wap
-"Community Action Program Committee, Inc.",community-action-program-committee-inc-liheap,utility,,
+"Community Action Program Committee, Inc.",community-action-program-committee-liheap,utility,,
 Community Action Social Services & Education,community-action-social-services-education-ceap,utility,,community-action-social-services-education-wap
 Community Council of Greater Dallas,community-council-of-greater-dallas-ceap,utility,community-council-of-greater-dallas-csbg,community-council-of-greater-dallas-wap
 "Community Council of South Central Texas, Inc.",community-council-of-south-central-texas-inc-ceap,utility,community-council-of-south-central-texas-inc-csbg,community-council-of-south-central-texas-inc-wap
@@ -79,7 +78,7 @@ Duplin County Department of Social Services,duplin-county-department-of-social-s
 Durham County Department of Social Services,durham-county-department-of-social-services-energy,utility,durham-county-department-of-social-services-emergency,durham-county-department-of-social-services-fns
 Economic Action Committee of the Gulf Coast,economic-action-committee-of-the-gulf-coast-ceap,utility,,economic-action-committee-of-the-gulf-coast-wap
 Economic Opportunities Advancement Corporation,economic-opportunities-advancement-corporation-ceap,utility,economic-opportunities-advancement-corporation-csbg,economic-opportunities-advancement-corporation-wap
-"Economic Opportunities Council of Indian River County, Inc.",economic-opportunities-council-of-indian-river-county-inc-liheap,utility,,
+"Economic Opportunities Council of Indian River County, Inc.",economic-opportunities-council-of-indian-river-county-liheap,utility,,
 Edgecombe County Department of Social Services,edgecombe-county-department-of-social-services-energy,utility,edgecombe-county-department-of-social-services-emergency,edgecombe-county-department-of-social-services-fns
 "El Paso Community Action, Project BRAVO",el-paso-community-action-project-bravo-ceap,utility,el-paso-community-action-project-bravo-csbg,el-paso-community-action-project-bravo-wap
 FloridaCommerce (state administers LIHEAP directly),floridacommerce-state-administers-liheap-directly-liheap,utility,,
@@ -115,14 +114,14 @@ Hyde County Department of Social Services,hyde-county-department-of-social-servi
 Interfaith Caring Ministries,interfaith-caring-ministries,utility,,
 Iredell County Department of Social Services,iredell-county-department-of-social-services-energy,utility,iredell-county-department-of-social-services-emergency,iredell-county-department-of-social-services-fns
 Jackson County Department of Social Services,jackson-county-department-of-social-services-energy,utility,jackson-county-department-of-social-services-emergency,jackson-county-department-of-social-services-fns
-Jackson County Senior Citizens Org. Inc.,jackson-county-senior-citizens-org-inc-liheap,utility,,
+Jackson County Senior Citizens Org. Inc.,jackson-county-senior-citizens-org-liheap,utility,,
 Johnston County Department of Social Services,johnston-county-department-of-social-services-energy,utility,johnston-county-department-of-social-services-emergency,johnston-county-department-of-social-services-fns
 Jones County Department of Social Services,jones-county-department-of-social-services-energy,utility,jones-county-department-of-social-services-emergency,jones-county-department-of-social-services-fns
 Katy Christian Ministries,katy-christian-ministries,utility,,
 Kleberg County Human Services,kleberg-county-human-services-ceap,utility,,kleberg-county-human-services-wap
 Klein United Methodist Church Food Pantry,klein-united-methodist-church-food-pantry,other,,
 LINC Houston Community Services,linc-houston-community-services,rent,,
-"Lake Community Action Agency, Inc.",lake-community-action-agency-inc-liheap,utility,,
+"Lake Community Action Agency, Inc.",lake-community-action-agency-liheap,utility,,
 Lee County Department of Human Services,lee-county-department-of-human-services-liheap,utility,,
 Lee County Department of Social Services,lee-county-department-of-social-services-energy,utility,lee-county-department-of-social-services-emergency,lee-county-department-of-social-services-fns
 Lenoir County Department of Social Services,lenoir-county-department-of-social-services-energy,utility,lenoir-county-department-of-social-services-emergency,lenoir-county-department-of-social-services-fns
@@ -143,13 +142,13 @@ My Brother's Keeper Outreach Center,my-brother-s-keeper-outreach-center,utility,
 Nash County Department of Social Services,nash-county-department-of-social-services-energy,utility,nash-county-department-of-social-services-emergency,nash-county-department-of-social-services-fns
 New Hanover County Department of Social Services,new-hanover-county-department-of-social-services-energy,utility,new-hanover-county-department-of-social-services-emergency,new-hanover-county-department-of-social-services-fns
 Northampton County Department of Social Services,northampton-county-department-of-social-services-energy,utility,northampton-county-department-of-social-services-emergency,northampton-county-department-of-social-services-fns
-"Northeast Florida Community Action Agency, Inc.",northeast-florida-community-action-agency-inc-liheap,utility,,
+"Northeast Florida Community Action Agency, Inc.",northeast-florida-community-action-agency-liheap,utility,,
 Northwest Assistance Ministries,northwest-assistance-ministries,utility,,
 Nueces County Community Action Agency,nueces-county-community-action-agency-ceap,utility,nueces-county-community-action-agency-csbg,nueces-county-community-action-agency-wap
 Onslow County Department of Social Services,onslow-county-department-of-social-services-energy,utility,onslow-county-department-of-social-services-emergency,onslow-county-department-of-social-services-fns
 Orange County Department of Social Services,orange-county-department-of-social-services-energy,utility,orange-county-department-of-social-services-emergency,orange-county-department-of-social-services-fns
 Orange County Youth and Family Services Division,orange-county-youth-and-family-services-division-liheap,utility,,
-"Osceola County Council on Aging, Inc",osceola-county-council-on-aging-inc-liheap,utility,,
+"Osceola County Council on Aging, Inc",osceola-county-council-on-aging-liheap,utility,,
 Palm Beach County,palm-beach-county-liheap,utility,,
 Pamlico County Department of Social Services,pamlico-county-department-of-social-services-energy,utility,pamlico-county-department-of-social-services-emergency,pamlico-county-department-of-social-services-fns
 Panhandle Community Services,panhandle-community-services-ceap,utility,panhandle-community-services-csbg,panhandle-community-services-wap
@@ -158,7 +157,7 @@ Pecos County Community Action Agency,pecos-county-community-action-agency-ceap,u
 Pender County Department of Social Services,pender-county-department-of-social-services-energy,utility,pender-county-department-of-social-services-emergency,pender-county-department-of-social-services-fns
 Perquimans County Department of Social Services,perquimans-county-department-of-social-services-energy,utility,perquimans-county-department-of-social-services-emergency,perquimans-county-department-of-social-services-fns
 Person County Department of Social Services,person-county-department-of-social-services-energy,utility,person-county-department-of-social-services-emergency,person-county-department-of-social-services-fns
-"Pinellas County Urban League, Inc.",pinellas-county-urban-league-inc-liheap,utility,,
+"Pinellas County Urban League, Inc.",pinellas-county-urban-league-liheap,utility,,
 Pitt County Department of Social Services,pitt-county-department-of-social-services-energy,utility,pitt-county-department-of-social-services-emergency,pitt-county-department-of-social-services-fns
 Polk County Department of Social Services,polk-county-department-of-social-services-energy,utility,polk-county-department-of-social-services-emergency,polk-county-department-of-social-services-fns
 Randolph County Department of Social Services,randolph-county-department-of-social-services-energy,utility,randolph-county-department-of-social-services-emergency,randolph-county-department-of-social-services-fns
@@ -184,10 +183,10 @@ St. Mary Magdalene Social Services,st-mary-magdalene-social-services,utility,,
 St. Pius Catholic Church,st-pius-catholic-church,utility,,
 Stanly County Department of Social Services,stanly-county-department-of-social-services-energy,utility,stanly-county-department-of-social-services-emergency,stanly-county-department-of-social-services-fns
 Star of Hope,star-of-hope,rent,,
-"Step Up Suncoast, Inc.",step-up-suncoast-inc-liheap,utility,,
+"Step Up Suncoast, Inc.",step-up-suncoast-liheap,utility,,
 Stokes County Department of Social Services,stokes-county-department-of-social-services-energy,utility,stokes-county-department-of-social-services-emergency,stokes-county-department-of-social-services-fns
 Surry County Department of Social Services,surry-county-department-of-social-services-energy,utility,surry-county-department-of-social-services-emergency,surry-county-department-of-social-services-fns
-"Suwannee River Economic Council, Inc.",suwannee-river-economic-council-inc-liheap,utility,,
+"Suwannee River Economic Council, Inc.",suwannee-river-economic-council-liheap,utility,,
 Swain County Department of Social Services,swain-county-department-of-social-services-energy,utility,swain-county-department-of-social-services-emergency,swain-county-department-of-social-services-fns
 Target Hunger,target-hunger,other,,
 Texas Neighborhood Services,texas-neighborhood-services-ceap,utility,texas-neighborhood-services-csbg,texas-neighborhood-services-wap
@@ -203,7 +202,7 @@ Tomball Emergency Assistance Ministries,tomball-emergency-assistance-ministries,
 Transylvania County Department of Social Services,transylvania-county-department-of-social-services-energy,utility,transylvania-county-department-of-social-services-emergency,transylvania-county-department-of-social-services-fns
 Travis County Health & Human Services/Veterans Services,travis-county-health-human-services-veterans-services-ceap,utility,travis-county-health-human-services-veterans-services-csbg,travis-county-health-human-services-veterans-services-wap
 "Tri-County Community Action, Inc.",tri-county-community-action-inc-ceap,utility,tri-county-community-action-inc-csbg,tri-county-community-action-inc-wap
-"Tri-County Community Council, Inc",tri-county-community-council-inc-liheap,utility,,
+"Tri-County Community Council, Inc.",tri-county-community-council-liheap,utility,,
 Trinity Klein Food Pantry,trinity-klein-food-pantry,other,,
 Tyrrell County Department of Social Services,tyrrell-county-department-of-social-services-energy,utility,tyrrell-county-department-of-social-services-emergency,tyrrell-county-department-of-social-services-fns
 Union County Department of Social Services,union-county-department-of-social-services-energy,utility,union-county-department-of-social-services-emergency,union-county-department-of-social-services-fns

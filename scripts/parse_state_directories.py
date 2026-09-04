@@ -24,6 +24,16 @@ def text(s):
     s = re.sub(r'<[^>]+>', '', s)
     return html.unescape(s).replace('\xa0', ' ')
 
+# The map CSV drops the street number for two counties. Taken from those
+# counties' own NCDHHS detail pages, which carry the complete address:
+#   ncdhhs.gov/divisions/social-services/<county>-county-department-social-services
+# Verified 2026-09-04. Only exact transcriptions belong here, never a guess.
+NC_ADDRESS_FIX = {
+    'Alleghany': '182 Doctors St., Sparta, NC 28675',
+    'Wilson': '100 NE Gold St., Wilson, NC 27894',
+}
+
+
 def parse_nc(path):
     out = []
     for row in csv.DictReader(open(path, encoding='utf-8', errors='replace')):
@@ -32,15 +42,27 @@ def parse_nc(path):
             continue
         body = text(row.get('title') or '')
         lines = [l.strip() for l in body.split('\n') if l.strip()]
-        # address: the line carrying ", NC <zip>"
-        addr = next((l for l in lines if re.search(r',\s*NC\s*\d{5}', l)), '')
-        # phone: the first line labelled Phone, not Fax/Emergency/CPS/APS
+        # Address: the line ending in a ZIP. The county pages are inconsistent --
+        # "Oxford NC 27565" has no comma, Henderson writes "N.C.", Polk omits the
+        # state entirely, Randolph uses ZIP+4, and Caldwell splits street and city
+        # across two lines. Anchor on the ZIP and join the street line back on.
+        addr = ''
+        for i, l in enumerate(lines):
+            if re.search(r'\b\d{5}(-\d{4})?\s*$', l) and not re.match(r'P\.?O\.?\s*Box', l, re.I):
+                addr = l
+                if not re.match(r'\d', l) and i and re.match(r'\d', lines[i - 1]):
+                    addr = f'{lines[i - 1]}, {l}'
+                break
+        # Phone: the office's main line. Some counties label it "Main Number".
+        # Never Fax, Emergency, CPS, APS, or the director's direct line.
         phone = ''
         for l in lines:
-            m = re.match(r'Phone[^:]*:\s*([0-9][0-9\-\(\) \.]{9,})', l)
+            m = re.match(r'(?:Phone|Main\s*(?:Number|Phone|Line))[^:]*:\s*'
+                         r'([0-9(][0-9\-\(\) \.]{9,})', l, re.I)
             if m:
                 phone = re.sub(r'[^\d]', '', m.group(1))[:10]
                 break
+        addr = NC_ADDRESS_FIX.get(county, addr)
         out.append({
             'state': 'NC', 'county': county,
             'org_name': f'{county} County Department of Social Services',

@@ -50,7 +50,7 @@ for org in sorted(byorg):
     n += 1
     rows.append({
         'WEEK 1': '', '#': n, 'Organization': org,
-        'City': primary.get('city') or '', 'Address': '',
+        'City': primary.get('city') or '', 'Address': primary.get('address') or '',
         'Phone': primary.get('phone') or '',
         'Programs': '; '.join(sorted({p['program_name'] for p in progs})),
         'Help offered': ', '.join(tags),

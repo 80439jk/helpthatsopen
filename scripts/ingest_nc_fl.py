@@ -54,7 +54,8 @@ def nc_records():
             out.append({
                 'org_name': r['org_name'], 'program_name': pname, 'state': 'NC',
                 'slug': f'{base}-{key}', 'org_type': 'government',
-                'city': city or None, 'phone': r['phone'] or None,
+                'city': city or None, 'address': r['address'] or None,
+                'phone': r['phone'] or None,
                 'url': ('https://www.ncdhhs.gov' + r['url']
                         if r['url'].startswith('/') else r['url']) or None,
                 'volatility_tier': tier,
@@ -84,9 +85,15 @@ def fl_records():
     for r in rows:
         if not r['org_name']:
             continue
-        key = slugify(r['org_name'])
+        # "Capital Area Community Action Agency" and "...Agency, Inc." are the
+        # same agency written two ways on the state page. Normalise the
+        # corporate suffix for the grouping key only; keep the fullest name for
+        # display.
+        key = slugify(re.sub(r',?\s+(inc|incorporated|corp|llc)\.?$', '',
+                             r['org_name'], flags=re.I))
         byagency[key].append(r['county'])
-        meta.setdefault(key, r)
+        if key not in meta or len(r['org_name']) > len(meta[key]['org_name']):
+            meta[key] = r
     out = []
     for key, counties in byagency.items():
         r = meta[key]
@@ -94,11 +101,11 @@ def fl_records():
         out.append({
             'org_name': agency, 'state': 'FL',
             'program_name': 'Low-Income Home Energy Assistance Program (LIHEAP)',
-            'slug': f'{slugify(agency)}-liheap',
+            'slug': f'{key}-liheap',
             'org_type': 'government' if re.search(
                 r'\b(county|city|commission|department|floridacommerce)\b', agency, re.I)
                 else 'nonprofit',
-            'city': None,                    # the state list publishes no address
+            'city': None, 'address': None,   # the state list publishes no address
             'phone': r['phone'] or None, 'url': r['url'] or None,
             'volatility_tier': 'B',
             'need_tags': ['electric_bill', 'gas_bill', 'reconnect_fee', 'utility_deposit'],
