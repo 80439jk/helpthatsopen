@@ -31,11 +31,18 @@ if pathlib.Path(LISTINGS).exists():
             week1.add(r['org_name'])
 
 CONTEXT = [('week1','WEEK 1',9),('rank','#',5),('org_name','Organization',40),
-           ('city','City',14),('phone','Phone',15),('programs','Programs',17),
+           ('city','City',14),('address','Address',30),('phone','Phone',15),
+           ('programs','Programs',17),('needs','Help offered',36),
            ('counties_count','Counties',9),('zips_count','ZIPs',8),
            ('population_reach','People reached',13),
-           ('counties','Counties served',70),('zips','ZIP codes served',70)]
-CAPTURE = [('status','Status',18),('funding_lasts_until','Funding lasts until',21),
+           ('counties','Counties served',55),('zips','ZIP codes served',55),
+           ('source','Source',34)]
+CAPTURE = [('status','Status',18),
+           # THE GATING FIELD. A program cannot publish without it, however well its
+           # status is confirmed: the crosswalk gives every Harris org 130 ZIPs and WHAM
+           # actually serves five. Ask "which ZIP codes do you actually cover?" every call.
+           ('service_area_stated','SERVICE AREA — which ZIPs?',30),
+           ('funding_lasts_until','Funding lasts until',21),
            ('reopens_on','Reopens on',13),('how_to_apply','How to apply',14),
            ('hours','Hours',24),('daily_cap','Daily cap',10),
            ('documents_required','Documents required',38),
@@ -50,7 +57,7 @@ wb = Workbook(); ws = wb.active; ws.title = 'Master List'
 thin = Side(style='thin', color=LINE); bd = Border(left=thin,right=thin,top=thin,bottom=thin)
 
 ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=len(ALL))
-b = ws.cell(1,1,'CornerHelp — master provider call sheet · 44 organizations · all 254 Texas counties')
+b = ws.cell(1,1,f'CornerHelp — master provider call sheet · {len(rows)} organizations · all 254 Texas counties')
 b.font = Font(name='Arial', size=13, bold=True, color='FFFFFF')
 b.fill = PatternFill('solid', fgColor=NAVY); b.alignment = Alignment(vertical='center')
 ws.row_dimensions[1].height = 26
@@ -87,7 +94,7 @@ for r,row in enumerate(rows, HR+1):
         c.font = Font(name='Arial', size=10,
                       bold=(k=='week1' and v!=''), color=CRIMSON if k=='week1' and v else '000000')
         c.border = bd
-        c.alignment = Alignment(vertical='top', wrap_text=k in ('org_name','counties','zips'),
+        c.alignment = Alignment(vertical='top', wrap_text=k in ('org_name','counties','zips','needs','address','source'),
                                 horizontal='center' if k=='week1' else None)
         if k in capkeys: c.fill = PatternFill('solid', fgColor=YELLOW)
         elif r % 2 == 0: c.fill = PatternFill('solid', fgColor=LAV)
@@ -139,6 +146,11 @@ r = line(r,'Counties vs ZIPs','Counties are what the source declared. ZIP codes 
         'other field on the row.')
 r = line(r,'Which cells to edit','Only the YELLOW columns, from Status rightward. Navy columns are '
         'call context — leave them alone; they are how the row matches back to the database.')
+r = line(r,'Service area is gating','A program does NOT publish on status alone. "Which ZIP '
+        'codes do you actually cover?" is the second required question — the county list on '
+        'this row is a crosswalk guess, and it is wrong: it gives every Harris agency 130 '
+        'ZIPs when some serve five. Write what they say, verbatim, even if it is a '
+        'neighbourhood name rather than ZIPs.')
 r = line(r,'Blank beats guessed','If it was not said, leave it empty and put the reason in Note '
         '("refused", "did not know", "ran out of time"). A guessed field poisons the freshness '
         'claim, which is the whole product. VAs are measured on accuracy, never on how many cells '
@@ -187,6 +199,7 @@ for k,v in [('Status','accepting'),('Funding lasts until','around the 8th–10th
                                   '30 days income all adults'),
             ('Most common reason turned away','"People come in without the income for everybody in '
                                               'the house"'),
+            ('SERVICE AREA — which ZIPs?','77042, 77057, 77063, 77077, 77082'),
             ('Anything changing','new intake system starting November'),
             ('Spoke with','Denise, intake'),('Call outcome','reached'),
             ('Called (date)','2026-09-03'),('VA','JM')]:
