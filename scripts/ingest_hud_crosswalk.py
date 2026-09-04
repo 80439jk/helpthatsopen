@@ -18,7 +18,12 @@ population, so their population is left null rather than estimated.
 
 Auth: HUD_API_TOKEN from the environment or .env. Never printed; .env is gitignored.
 
-  python3 scripts/ingest_hud_crosswalk.py --state TX
+Multi-state: --state takes a comma-separated list and ONE run rebuilds the whole
+file. That is deliberate. Writing one state at a time overwrote the others --
+rule 8 says nothing here is Texas-specific, and a script that silently deletes
+Texas when you ask it for North Carolina is exactly that bug.
+
+  python3 scripts/ingest_hud_crosswalk.py --state TX,NC,FL
 """
 import csv, json, os, sys, argparse, pathlib, urllib.request, urllib.error
 
@@ -57,8 +62,17 @@ def fetch(state, year, quarter, tok):
 
 
 def main(state, year, quarter, geo):
-    rows = fetch(state, year, quarter, token())
-    print(f'HUD {state} {year}Q{quarter}: {len(rows):,} ZIP-county pairs')
+    states = [s.strip().upper() for s in state.split(',') if s.strip()]
+    tok = token()
+    rows = []
+    for st in states:
+        got = fetch(st, year, quarter, tok)
+        print(f'HUD {st} {year}Q{quarter}: {len(got):,} ZIP-county pairs')
+        for r in got:
+            r.setdefault('state', st)
+        rows += got
+    if len(states) > 1:
+        print(f'HUD total: {len(rows):,} pairs across {len(states)} states')
 
     gd = pathlib.Path(geo)
     # existing area_ratio (Census) and ZCTA population, to carry across where available
@@ -87,7 +101,7 @@ def main(state, year, quarter, geo):
             res = ''
         pairs.append({'zip': z, 'county_fips': fips, 'area_ratio': area.get((z, fips), ''),
                       'res_ratio': res})
-        zips.setdefault(z, {'zip': z, 'primary_state': r.get('state') or state,
+        zips.setdefault(z, {'zip': z, 'primary_state': r.get('state') or states[0],
                             'population': zpop.get(z, '')})
 
     with open(gd / 'zips.csv', 'w', newline='', encoding='utf-8') as f:
@@ -109,7 +123,8 @@ def main(state, year, quarter, geo):
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
-    ap.add_argument('--state', default='TX')
+    ap.add_argument('--state', default='TX',
+                    help='one state or a comma-separated list, e.g. TX,NC,FL')
     ap.add_argument('--year', type=int, default=2025)
     ap.add_argument('--quarter', type=int, default=4)
     ap.add_argument('--geo', default='data/geo')

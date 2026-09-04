@@ -28,7 +28,7 @@ REL_URL = ('https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/'
 POP_URL = ('https://www2.census.gov/programs-surveys/popest/datasets/2020-2024/'
            'counties/totals/co-est2024-alldata.csv')
 
-STATE_FIPS = {'48': 'TX'}   # extend as markets are added; nothing here is TX-specific
+STATE_FIPS = {'48': 'TX', '37': 'NC', '12': 'FL'}   # extend as markets are added
 
 
 def fetch(url, cache):
