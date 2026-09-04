@@ -72,7 +72,7 @@ def parse(csv_path, batch):
         if not slug:
             continue
 
-        outcome_raw = col(row, 'Outcome').lower().replace(' ', '_')
+        outcome_raw = col(row, 'Outcome', 'Call outcome').lower().replace(' ', '_')
         note = col(row, 'NOTE', 'Note')
         blankwhy = col(row, 'Blank fields — why', 'Blank fields why', 'Blank fields')
 
@@ -96,9 +96,12 @@ def parse(csv_path, batch):
 
         practicals = {}
         for key, *names in (('how_to_apply', 'How to apply'),
+                            ('hours', 'Hours'),
+                            ('anything_changing', 'Anything changing'),
                             ('daily_cap', 'Daily cap'),
                             ('documents_required', 'Documents required'),
-                            ('disqualifier', 'MOST COMMON DISQUALIFIER', 'Most common disqualifier')):
+                            ('disqualifier', 'MOST COMMON DISQUALIFIER', 'Most common disqualifier',
+                             'Most common reason turned away')):
             v = col(row, *names)
             # rule 5: a zero that means "not asked" is not a number
             if key == 'daily_cap':
@@ -116,7 +119,7 @@ def parse(csv_path, batch):
             problems.append(f'{slug}: status taken from a recording — recorded as '
                             'agency_self_report/partial, not a conversation')
 
-        date = col(row, 'Date called') or datetime.date.today().isoformat()
+        date = col(row, 'Date called', 'Called (date)') or datetime.date.today().isoformat()
         rows.append({
             'slug': slug,
             'org': col(row, 'Organization'),
@@ -128,11 +131,11 @@ def parse(csv_path, batch):
             'attempt': col(row, 'Att') or '1',
             'va': col(row, 'VA'),
             'spoke_with': spoke or None,
-            'funds_last_until': col(row, 'Funds last until') or None,
+            'funds_last_until': col(row, 'Funds last until', 'Funding lasts until') or None,
             'reopens_on': col(row, 'Reopens on') or None,
             'note': note or None,
             'practicals': practicals or None,
-            'stated_service_area': col(row, 'Service area') or None,
+            'stated_service_area': col(row, 'Service area', 'SERVICE AREA — whole county? which areas?') or None,
             'languages_stated': col(row, 'Languages') or None,
             'null_reasons': {'blank_fields': blankwhy} if blankwhy else None,
             'import_batch': batch,
