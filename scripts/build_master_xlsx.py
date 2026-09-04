@@ -38,10 +38,10 @@ CONTEXT = [('week1','WEEK 1',9),('rank','#',5),('org_name','Organization',40),
            ('counties','Counties served',55),('zips','ZIP codes served',55),
            ('source','Source',34)]
 CAPTURE = [('status','Status',18),
-           # THE GATING FIELD. A program cannot publish without it, however well its
-           # status is confirmed: the crosswalk gives every Harris org 130 ZIPs and WHAM
-           # actually serves five. Ask "which ZIP codes do you actually cover?" every call.
-           ('service_area_stated','SERVICE AREA — which ZIPs?',30),
+           # Ask in the rep's vocabulary, not ours. Nobody at a food pantry can recite a
+           # ZIP list; they can tell you whether they cover the whole county and where
+           # they turn people away. We convert that to ZIPs — that is our job, not theirs.
+           ('service_area_stated','SERVICE AREA — whole county? which areas?',32),
            ('funding_lasts_until','Funding lasts until',21),
            ('reopens_on','Reopens on',13),('how_to_apply','How to apply',14),
            ('hours','Hours',24),('daily_cap','Daily cap',10),
@@ -146,11 +146,15 @@ r = line(r,'Counties vs ZIPs','Counties are what the source declared. ZIP codes 
         'other field on the row.')
 r = line(r,'Which cells to edit','Only the YELLOW columns, from Status rightward. Navy columns are '
         'call context — leave them alone; they are how the row matches back to the database.')
-r = line(r,'Service area is gating','A program does NOT publish on status alone. "Which ZIP '
-        'codes do you actually cover?" is the second required question — the county list on '
-        'this row is a crosswalk guess, and it is wrong: it gives every Harris agency 130 '
-        'ZIPs when some serve five. Write what they say, verbatim, even if it is a '
-        'neighbourhood name rather than ZIPs.')
+r = line(r,'Service area — ask it their way','Do NOT ask "which ZIP codes do you serve" — '
+        'no intake worker can answer that. Ask: "Do you cover all of [county], or just part '
+        'of it?" and then, if part: "Where do you have to turn people away for being outside '
+        'your area?" Write down exactly what they say — "Spring Branch", "inside 610", '
+        '"anywhere in the county". Converting that to ZIP codes is our job.')
+r = line(r,'Some rows need no answer','Agencies running CEAP, CSBG or WAP have their counties '
+        'set by their TDHCA contract — the state publishes it and their answer cannot improve '
+        'on it. Those rows are already publishable; skip the question. It matters for the '
+        'pantries, churches and ministries, where a county is a guess.')
 r = line(r,'Blank beats guessed','If it was not said, leave it empty and put the reason in Note '
         '("refused", "did not know", "ran out of time"). A guessed field poisons the freshness '
         'claim, which is the whole product. VAs are measured on accuracy, never on how many cells '
@@ -199,7 +203,7 @@ for k,v in [('Status','accepting'),('Funding lasts until','around the 8th–10th
                                   '30 days income all adults'),
             ('Most common reason turned away','"People come in without the income for everybody in '
                                               'the house"'),
-            ('SERVICE AREA — which ZIPs?','77042, 77057, 77063, 77077, 77082'),
+            ('SERVICE AREA — whole county? which areas?','not the whole county — west side, roughly Spring Branch out to Katy'),
             ('Anything changing','new intake system starting November'),
             ('Spoke with','Denise, intake'),('Call outcome','reached'),
             ('Called (date)','2026-09-03'),('VA','JM')]:

@@ -37,6 +37,10 @@ STATUSES = {'accepting','waitlist','funds_exhausted','seasonal_closed',
             'appointment_only','unknown'}
 # a blank Outcome plus a DNC note means the dialer never placed the call
 DNC = re.compile(r'\bdnc\b|do not call|federal dnc', re.I)
+# A phone tree is the agency telling you what it recorded, not a conversation. The schema
+# already has a method for that; this keeps the information at its real confidence rather
+# than discarding it or overstating it.
+NO_PERSON = re.compile(r'\bvm\b|voice ?mail|recording|automated|answering machine', re.I)
 
 
 def col(row, *names):
@@ -105,18 +109,25 @@ def parse(csv_path, batch):
             if v:
                 practicals[key] = v
 
+        spoke = col(row, 'Spoke with')
+        method, outcome = 'phone', vout
+        if status != 'unknown' and (NO_PERSON.search(spoke) or NO_PERSON.search(note)):
+            method, outcome = 'agency_self_report', 'partial'
+            problems.append(f'{slug}: status taken from a recording — recorded as '
+                            'agency_self_report/partial, not a conversation')
+
         date = col(row, 'Date called') or datetime.date.today().isoformat()
         rows.append({
             'slug': slug,
             'org': col(row, 'Organization'),
             'observed_at': date,
             'status': status,
-            'verify_method': 'phone',
-            'verify_outcome': vout,
+            'verify_method': method,
+            'verify_outcome': outcome,
             'disposition': disp,
             'attempt': col(row, 'Att') or '1',
             'va': col(row, 'VA'),
-            'spoke_with': col(row, 'Spoke with') or None,
+            'spoke_with': spoke or None,
             'funds_last_until': col(row, 'Funds last until') or None,
             'reopens_on': col(row, 'Reopens on') or None,
             'note': note or None,
@@ -254,10 +265,26 @@ if __name__ == '__main__':
     ap.add_argument('--dsn')
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--batch')
+    ap.add_argument('--skip-qa', action='store_true',
+                    help='import despite blocking QA findings (needs a reason)')
     a = ap.parse_args()
     batch = a.batch or ('sheet-' + hashlib.sha1(
         pathlib.Path(a.csv).read_bytes()).hexdigest()[:8])
     rows, problems = parse(a.csv, batch)
+
+    if not a.skip_qa:
+        from qa_call_sheet import qa
+        flags = qa(rows)
+        blocking = {k: v for k, v in flags.items()
+                    if k in ('CONTAMINATION', 'CONTRADICTION', 'UNSUPPORTED') and v}
+        if blocking:
+            print('IMPORT BLOCKED — run scripts/qa_call_sheet.py for detail:')
+            for k, v in blocking.items():
+                print(f'  {k}: {len({r["slug"] for r, _ in v})} row(s)')
+            print('A contaminated row publishes a false listing and reads perfectly well '
+                  'on its own. Fix in the sheet and re-export, or pass --skip-qa.')
+            sys.exit(2)
+
     if a.emit_sql:
         print(emit_sql(rows, batch)); sys.exit(0)
     report(rows, problems)
