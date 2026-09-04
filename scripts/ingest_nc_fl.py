@@ -52,7 +52,7 @@ def nc_records():
             city = m.group(1).strip()
         for key, pname, tags, tier in NC_PROGRAMS:
             out.append({
-                'org_name': r['org_name'], 'program_name': pname,
+                'org_name': r['org_name'], 'program_name': pname, 'state': 'NC',
                 'slug': f'{base}-{key}', 'org_type': 'government',
                 'city': city or None, 'phone': r['phone'] or None,
                 'url': ('https://www.ncdhhs.gov' + r['url']
@@ -92,7 +92,7 @@ def fl_records():
         r = meta[key]
         agency = r['org_name']
         out.append({
-            'org_name': agency,
+            'org_name': agency, 'state': 'FL',
             'program_name': 'Low-Income Home Energy Assistance Program (LIHEAP)',
             'slug': f'{slugify(agency)}-liheap',
             'org_type': 'government' if re.search(

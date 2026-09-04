@@ -17,10 +17,17 @@ without leaving any program with zero ZIPs.
 import csv, json, argparse, pathlib, collections
 
 def main(listings, geo, out, min_ratio):
-    counties = {r['name']: r['county_fips']
-                for r in csv.DictReader(open(f'{geo}/counties.csv', encoding='utf-8'))}
-    # sources say "Harris"; the relationship file says "Harris County"
-    byshort = {n.replace(' County', ''): f for n, f in counties.items()}
+    # Keyed on (STATE, county). County names are not unique across states -- there
+    # is a Caldwell, a Cherokee, a Clay, a Franklin, a Henderson and a Jackson
+    # County in both Texas and North Carolina. Keying on the name alone silently
+    # gave every North Carolina office a set of Texas ZIP codes, because whichever
+    # state loaded last won. Every listing must declare its state.
+    counties = {}
+    for r in csv.DictReader(open(f'{geo}/counties.csv', encoding='utf-8')):
+        st, name = r['state'], r['name']
+        counties[(st, name)] = r['county_fips']
+        # sources say "Harris"; the relationship file says "Harris County"
+        counties[(st, name.replace(' County', ''))] = r['county_fips']
 
     fips_zips = collections.defaultdict(list)
     for r in csv.DictReader(open(f'{geo}/zip_counties.csv', encoding='utf-8')):
@@ -38,11 +45,16 @@ def main(listings, geo, out, min_ratio):
         if not line:
             continue
         r = json.loads(line)
+        st = r.get('state')
+        if not st:
+            raise SystemExit(
+                f"listing {r.get('slug')} has no state. Refusing to expand ZIPs: a "
+                f"bare county name is ambiguous across states.")
         zips = set()
         for c in r['service_counties']:
-            f = byshort.get(c) or counties.get(c)
+            f = counties.get((st, c))
             if not f:
-                unmatched[c] += 1
+                unmatched[f'{c} ({st})'] += 1
                 continue
             zips |= set(fips_zips.get(f, []))
         r['service_zips'] = sorted(zips)

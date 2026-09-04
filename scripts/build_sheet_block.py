@@ -34,7 +34,8 @@ for r in recs.values():
     byorg[r['org_name']].append(r)
 
 smap = {r['org_name']: r for r in csv.DictReader(open('data/slug_map.csv'))}
-pop = {r['name']: int(r['population'] or 0) for r in csv.DictReader(open('data/geo/counties.csv'))}
+pop = {(r['state'], r['name']): int(r['population'] or 0)
+       for r in csv.DictReader(open('data/geo/counties.csv'))}
 
 rows, n = [], 0
 for org in sorted(byorg):
@@ -54,7 +55,7 @@ for org in sorted(byorg):
         'Programs': '; '.join(sorted({p['program_name'] for p in progs})),
         'Help offered': ', '.join(tags),
         'Counties': len(counties), 'ZIPs': len(zips),
-        'People reached': f"{sum(pop.get(c + ' County', 0) for c in counties):,}",
+        'People reached': f"{sum(pop.get((primary['state'], c + ' County'), 0) for c in counties):,}",
         'Counties served': '; '.join(counties),
         'ZIP codes served': ' '.join(zips),
         'Source': primary['source_name'],
