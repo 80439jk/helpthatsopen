@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getDb, dbConfigured, SITE, STATUS_LABEL, whenVerified } from '@/lib/db';
 import { StatusPill, JsonLd } from '../../components';
 import type { Metadata } from 'next';
+import { HOME } from '@/lib/routes';
 
 export const revalidate = 300;
 
@@ -58,7 +59,7 @@ export default async function Program({ params }: { params: { slug: string } }) 
         }} />
       )}
       <div className="wrap stack">
-        <div className="crumb"><a href="/">CornerHelp</a> › Programs › {p.name}</div>
+        <div className="crumb"><a href={HOME}>CornerHelp</a> › Programs › {p.name}</div>
         {p.organizations?.name && <div className="org">{p.organizations.name}</div>}
         <h1>{p.name}</h1>
         <div><StatusPill status={p.current_status} /></div>

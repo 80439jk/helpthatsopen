@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CornerHelp — who's accepting applications right now</title>
+<meta name="description" content="Current application status for rent, utility, water and food assistance programs. Confirmed by phone, dated on every listing. We don't take applications — we tell you who's open.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Organization","@id":"https://cornerhelp.com/#org","name":"CornerHelp","url":"https://cornerhelp.com","disambiguatingDescription":"An independent private company. Not a government agency, not affiliated with any government program. We do not provide assistance, prepare applications, submit applications, or represent applicants.","areaServed":{"@type":"Country","name":"United States"},"publishingPrinciples":"https://cornerhelp.com/how-we-verify/","correctionsPolicy":"https://cornerhelp.com/corrections/"},
+{"@type":"WebSite","@id":"https://cornerhelp.com/#website","url":"https://cornerhelp.com","name":"CornerHelp","publisher":{"@id":"https://cornerhelp.com/#org"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://cornerhelp.com/search?zip={search_term_string}"},"query-input":"required name=search_term_string"}},
+{"@type":"Dataset","@id":"https://cornerhelp.com/tx/77021/#dataset","name":"Assistance program status for ZIP 77021, Harris County, Texas","description":"Current application status, eligibility requirements and required documents for rent, utility, water and food assistance programs serving ZIP 77021.","creator":{"@id":"https://cornerhelp.com/#org"},"dateModified":"2026-08-30T08:14:00-05:00","temporalCoverage":"2026-08-30/..","spatialCoverage":{"@type":"AdministrativeArea","name":"Harris County, Texas"},"measurementTechnique":"Direct telephone verification with each provider","isAccessibleForFree":true,"distribution":{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://cornerhelp.com/data/tx/77021.json"}},
+{"@type":"FAQPage","@id":"https://cornerhelp.com/#faq","mainEntity":[
+{"@type":"Question","name":"Do you help with the application?","acceptedAnswer":{"@type":"Answer","text":"No. We do not fill out applications, submit them, or represent anyone to any agency. We tell you which programs are open, what documents they require, and which to try first. You apply yourself."}},
+{"@type":"Question","name":"Are you a government agency?","acceptedAnswer":{"@type":"Answer","text":"No. CornerHelp is an independent private company. We are not affiliated with, endorsed by, or connected to any government agency or program."}},
+{"@type":"Question","name":"How do you know whether a program still has money?","acceptedAnswer":{"@type":"Answer","text":"We call. Programs whose funding cycles monthly are re-checked by phone every 14 days, waitlists every 45 days, stable programs every 90. Every listing shows when it was last confirmed."}},
+{"@type":"Question","name":"Does it cost anything?","acceptedAnswer":{"@type":"Answer","text":"No. The directory and the phone line are both free."}}]}
+]}
+</script>
+
+<style>
+:root{
+  --navy:#1C2B5E; --navy-2:#3D4E85; --navy-3:#6B78A0;
+  --crimson:#C41F4E; --crimson-hi:#A81842; --pink:#F9D9E5;
+  --lav:#F1F4FC; --line:#DFE4F2; --line-2:#EDF0F8;
+  --open:#1B7A4B; --wait:#B0741A; --shut:#DDE2EE; --shut-t:#8A93AC;
+  --pill:999px; --r:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--navy);font-family:Nunito,system-ui,sans-serif;font-weight:600;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+:focus-visible{outline:3px solid var(--crimson);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.hide{display:none!important}
+
+/* demo bar */
+.demo{background:#111827;color:#fff;padding:11px 26px;font-size:13.5px;font-weight:700;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.demo span{color:#9CA3AF;letter-spacing:.05em;text-transform:uppercase;font-size:11px}
+.demo button{background:#2A3444;color:#fff;border:0;border-radius:var(--pill);padding:7px 14px;font-family:Nunito;font-weight:800;font-size:12.5px;cursor:pointer}
+.demo button.on{background:var(--crimson)}
+.demo .dhome{background:#fff;color:#111827;border-radius:var(--pill);padding:7px 15px;font-weight:800;font-size:12.5px;text-decoration:none}
+.demo .dhome:hover{background:var(--pink)}
+.demo .dsep{width:1px;height:20px;background:#374151;margin:0 4px}
+
+.disc-bar{background:var(--navy);color:#fff;text-align:center;padding:13px 20px;font-size:15px;font-weight:700}
+
+/* nav */
+.nav{display:flex;align-items:center;gap:26px;padding:15px 0;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:12px;background:var(--pink);border-radius:var(--pill);padding:12px 24px 12px 18px;font-weight:800;font-size:19px;cursor:pointer;border:0;font-family:Nunito;color:var(--navy)}
+.nav ul{display:flex;gap:23px;list-style:none;margin:0;padding:0;font-size:15.5px;font-weight:700}
+.nav ul a{color:var(--navy);text-decoration:none;cursor:pointer}
+.geo{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--line);border-radius:var(--pill);padding:9px 16px 9px 13px;font-family:Nunito;font-weight:800;font-size:15px;color:var(--navy);cursor:pointer;white-space:nowrap}
+.geo:hover{border-color:var(--crimson)}
+.geo .pin{width:9px;height:9px;border-radius:50%;background:var(--open);flex:none}
+.geo small{font-weight:700;color:var(--navy-3);font-size:13.5px}
+.geo .car{color:var(--navy-3);font-size:12px}
+.navtel{font-size:18px;font-weight:900;color:var(--crimson);text-decoration:none;white-space:nowrap}
+@media(max-width:1080px){.geo small{display:none}}
+.nearby{border-top:2px solid var(--line-2);margin-top:36px;padding-top:26px}
+.nearby h3{font-size:13px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--navy-3);margin:0 0 6px}
+.nearby p{font-size:16px;font-weight:600;color:var(--navy-2);margin:0 0 16px;max-width:58ch;line-height:1.5}
+.nbgrid{display:flex;gap:10px;flex-wrap:wrap}
+.nav ul a:hover{color:var(--crimson)}
+.navr{margin-left:auto;display:flex;gap:10px;align-items:center}
+.btn{border:0;border-radius:var(--pill);padding:14px 26px;font-family:Nunito;font-size:15.5px;font-weight:800;cursor:pointer;background:var(--crimson);color:#fff;white-space:nowrap}
+.btn:hover{background:var(--crimson-hi)}
+.btn-ghost{background:none;color:var(--navy);border:2px solid var(--navy)}
+.btn-ghost:hover{background:var(--navy);color:#fff}
+@media(max-width:980px){.nav ul{display:none}}
+
+.crumb{background:var(--lav);padding:12px 0;font-size:14.5px;font-weight:700;color:var(--navy-3)}
+.crumb a{color:var(--navy-3);text-decoration:none;cursor:pointer}
+.crumb a:hover{color:var(--crimson)}
+
+/* hero */
+.hero{background:var(--lav);padding:24px 0 58px}
+.herog{display:grid;grid-template-columns:1.1fr .9fr;gap:54px;align-items:start}
+@media(max-width:940px){.herog{grid-template-columns:1fr;gap:34px}}
+.eyebrow{font-size:13.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--crimson);margin:0 0 15px}
+h1{font-size:clamp(34px,4.6vw,52px);font-weight:900;line-height:1.06;letter-spacing:-.022em;margin:0 0 26px;max-width:15ch}
+.ratio{background:#fff;border:2px solid var(--navy);border-radius:var(--r);padding:26px 28px;margin-bottom:24px}
+.rnums{display:flex;gap:36px;margin-bottom:18px;flex-wrap:wrap}
+.rn{display:flex;flex-direction:column}
+.rn b{font-size:clamp(44px,6.2vw,66px);font-weight:900;line-height:.9;letter-spacing:-.035em}
+.rn.o b{color:var(--open)} .rn.c b{color:var(--shut-t)}
+.rn small{font-size:15.5px;font-weight:700;margin-top:9px;color:var(--navy-2)}
+.bar{height:16px;border-radius:var(--pill);background:#DDE2EE;overflow:hidden}
+.bar i{display:block;background:var(--open);height:100%;transition:width .45s ease}
+.bar-l{display:flex;justify-content:space-between;gap:14px;font-size:13.5px;font-weight:700;color:var(--navy-3);margin-top:11px;flex-wrap:wrap}
+.hero .body{font-size:19px;font-weight:600;line-height:1.5;margin:0;max-width:44ch}
+
+/* zip card */
+.zcard{background:#fff;border:2px solid var(--navy);border-radius:var(--r);overflow:hidden}
+.zcard-h{background:var(--navy);color:#fff;text-align:center;padding:16px;font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.zcard-b{padding:30px 28px 28px}
+.zin{width:100%;font-size:30px;font-weight:800;letter-spacing:.1em;text-align:center;padding:18px;border:2px solid var(--line);border-radius:14px;font-family:Nunito;color:var(--navy);background:var(--lav);margin-bottom:14px}
+.zin:focus{outline:none;border-color:var(--crimson);background:#fff}
+.zcard-b .btn{width:100%;font-size:19px;padding:19px}
+.gets{list-style:none;margin:24px 0 0;padding:22px 0 0;border-top:2px solid var(--line-2);display:flex;flex-direction:column;gap:17px}
+.gets li{display:flex;gap:14px;align-items:flex-start}
+.tick{width:29px;height:29px;border-radius:50%;background:var(--pink);display:grid;place-items:center;flex:none;margin-top:1px}
+.gets b{display:block;font-size:17.5px;font-weight:800;line-height:1.25}
+.gets small{display:block;font-size:14.5px;font-weight:600;color:var(--navy-3);margin-top:3px;line-height:1.4}
+.zcall{text-align:center;font-size:17.5px;font-weight:800;color:var(--crimson);margin:16px 0 0}
+.zcall a{text-decoration:none;color:inherit}
+
+/* value prop */
+.vp{background:var(--navy);color:#fff;padding:58px 0}
+.vp h2{font-size:clamp(28px,3.7vw,42px);font-weight:900;letter-spacing:-.022em;margin:0 0 20px;color:#fff;max-width:22ch}
+.vpg{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+@media(max-width:880px){.vpg{grid-template-columns:1fr;gap:30px}}
+.vp p{font-size:19px;font-weight:600;color:#B9C4E2;line-height:1.55;margin:0 0 16px}
+.nots{list-style:none;margin:0;padding:0}
+.nots li{display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-bottom:1px solid #2E3D70;font-size:17.5px;font-weight:700}
+.nots li:first-child{border-top:1px solid #2E3D70}
+.x{color:#7B88B4;font-weight:900;flex:none;font-size:19px;line-height:1.2}
+.yes{color:var(--pink)}
+
+section{padding:60px 0}
+.alt{background:var(--lav)}
+h2.s{font-size:clamp(27px,3.5vw,38px);font-weight:900;letter-spacing:-.02em;line-height:1.1;margin:0 0 14px;max-width:22ch}
+.sub{font-size:18px;font-weight:600;color:var(--navy-2);max-width:60ch;margin:0 0 32px;line-height:1.55}
+
+/* local facts */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.fact{background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:26px}
+.fact h3{font-size:13px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--crimson);margin:0 0 11px}
+.fact p{margin:0;font-size:17px;font-weight:600;color:var(--navy-2);line-height:1.55}
+.fact b{color:var(--navy);font-weight:800}
+
+/* status trio */
+.trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:18px}
+.sbox{background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:26px}
+.sbox h3{font-size:15px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;margin:0 0 12px;display:flex;align-items:center;gap:11px}
+.sbox p{margin:0;font-size:16.5px;font-weight:600;color:var(--navy-2);line-height:1.55}
+
+/* verify */
+.vg{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
+@media(max-width:880px){.vg{grid-template-columns:1fr;gap:32px}}
+.tier{display:flex;justify-content:space-between;gap:18px;padding:17px 0;border-bottom:2px solid var(--line-2);align-items:baseline}
+.tier:first-child{border-top:2px solid var(--line-2)}
+.tier b{font-size:17px;font-weight:800;display:block}
+.tier small{font-size:15px;font-weight:600;color:var(--navy-3);display:block;margin-top:2px}
+.tier em{font-style:normal;font-size:15.5px;font-weight:800;color:var(--crimson);white-space:nowrap}
+
+/* counties */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(184px,1fr));gap:11px;margin-bottom:26px}
+.cty{background:#fff;border:2px solid var(--line);border-radius:var(--pill);padding:14px 22px;text-decoration:none;color:var(--navy);font-size:16px;font-weight:800;display:flex;justify-content:space-between;gap:10px;cursor:pointer}
+.cty:hover{border-color:var(--crimson)}
+.cty.off{cursor:default;opacity:.5}
+.cty.off:hover{border-color:var(--line)}
+.ctynote{font-size:14.5px;font-weight:600;color:var(--navy-3);margin:0 0 20px}
+.cty em{font-style:normal;color:var(--open);font-weight:700}
+
+/* guides */
+.ggrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(266px,1fr));gap:18px}
+.g{background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:26px;text-decoration:none;color:var(--navy);display:block}
+.g:hover{border-color:var(--crimson)}
+.gk{font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--crimson);margin-bottom:12px}
+.g h3{font-size:20px;font-weight:800;margin:0 0 9px;line-height:1.25;letter-spacing:-.01em}
+.g p{margin:0;font-size:16px;font-weight:600;color:var(--navy-2);line-height:1.5}
+
+/* split panels */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:820px){.split{grid-template-columns:1fr}}
+.panel{background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:32px}
+.panel h3{font-size:24px;font-weight:900;letter-spacing:-.015em;margin:0 0 13px}
+.panel p{font-size:16.5px;font-weight:600;color:var(--navy-2);line-height:1.55;margin:0 0 18px}
+.who{display:flex;gap:14px;align-items:center;margin-bottom:15px}
+.av{width:46px;height:46px;border-radius:50%;background:var(--pink);flex:none;display:grid;place-items:center;font-size:15px;font-weight:900;color:var(--crimson)}
+.who b{display:block;font-size:16.5px;font-weight:800}
+.who small{font-size:14.5px;font-weight:600;color:var(--navy-3)}
+
+/* big cta */
+.cta{background:var(--navy);border-radius:var(--r);padding:52px;color:#fff;text-align:center}
+.cta h2{font-size:clamp(27px,3.5vw,38px);font-weight:900;letter-spacing:-.02em;color:#fff;margin:0 auto 16px;max-width:19ch}
+.cta p{font-size:19px;font-weight:600;color:#B9C4E2;max-width:56ch;margin:0 auto 30px;line-height:1.55}
+.cta .btn{font-size:20px;padding:20px 42px}
+.cta .call{margin:20px 0 0;font-size:19px;font-weight:800;color:var(--pink)}
+
+/* ===== RESULTS VIEW ===== */
+.rhead{background:var(--lav);padding:34px 0 30px}
+.rhead h1{font-size:clamp(28px,3.9vw,42px);margin:0 0 8px;max-width:24ch}
+.rsum{font-size:18px;font-weight:700;color:var(--navy-2);margin:0 0 20px}
+.rsum b{color:var(--open);font-size:21px;font-weight:900;
+  text-decoration:underline;text-decoration-style:double;text-decoration-color:rgba(27,122,75,.45);
+  text-decoration-thickness:1px;text-underline-offset:6px}
+.rbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.rzin{font-family:'IBM Plex Mono';font-size:17px;font-weight:500;letter-spacing:.08em;padding:12px 16px;border:2px solid var(--line);border-radius:12px;width:106px;background:#fff;color:var(--navy)}
+.rzin:focus{outline:none;border-color:var(--crimson)}
+.fchip{background:#fff;border:2px solid var(--line);border-radius:var(--pill);padding:10px 18px;font-size:14.5px;font-weight:800;cursor:pointer;color:var(--navy-2);font-family:Nunito}
+.fchip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+
+.lgroup{font-size:13px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--navy-3);padding:34px 0 14px;border-bottom:2px solid var(--line-2);margin-bottom:0}
+.L{display:grid;grid-template-columns:34px 1fr;gap:18px;padding:24px 0;border-bottom:2px solid var(--line-2);align-items:start}
+.Ltop{display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap;margin-bottom:3px}
+.Lorg{font-size:20px;font-weight:900;letter-spacing:-.015em}
+.Lstate{font-size:13px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap}
+.Lstate.open{color:var(--open)} .Lstate.wait{color:var(--wait)} .Lstate.shut{color:var(--shut-t)}
+.Lprog{font-size:16.5px;font-weight:600;color:var(--navy-2);margin:0 0 14px}
+.Lnote{background:var(--lav);border-radius:12px;padding:14px 17px;font-size:16px;font-weight:600;color:var(--navy-2);line-height:1.5;margin-bottom:14px}
+.Lnote b{color:var(--navy);font-weight:800}
+dl{display:grid;grid-template-columns:92px 1fr;gap:6px 16px;margin:0 0 14px;font-size:16px;line-height:1.5}
+dt{font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--navy-3);padding-top:4px}
+dd{margin:0;font-weight:600;color:var(--navy-2)}
+dd b{color:var(--navy);font-weight:800}
+@media(max-width:600px){dl{grid-template-columns:1fr;gap:2px}dt{padding-top:10px}}
+.Ltags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}
+.Ltag{font-family:'IBM Plex Mono';font-size:11.5px;font-weight:400;padding:4px 9px;background:var(--lav);border:1px solid var(--line);border-radius:6px;color:var(--navy-3)}
+.Lver{font-family:'IBM Plex Mono';font-size:12.5px;font-weight:400;color:var(--navy-3)}
+
+.rcta{background:#fff;border:2px solid var(--navy);border-radius:var(--r);padding:32px;margin:36px 0 0;display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.rcta h3{font-size:25px;font-weight:900;letter-spacing:-.02em;margin:0 0 10px}
+.rcta p{margin:0;font-size:17px;font-weight:600;color:var(--navy-2);line-height:1.55;max-width:50ch}
+.rctaL{flex:1;min-width:280px}
+
+/* 1 — position zero */
+.zero{background:var(--navy);color:#fff;border-radius:var(--r);padding:30px 34px;margin:26px 0 8px;display:flex;gap:40px;align-items:center;flex-wrap:wrap}
+.zeroL{flex:1;min-width:290px}
+.zlab{font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#9FB0DC;margin:0 0 9px;display:flex;align-items:center;gap:9px}
+.zdot{width:8px;height:8px;border-radius:50%;background:#2FBF74;box-shadow:0 0 0 0 rgba(47,191,116,.6);animation:zp 2s infinite;flex:none}
+@keyframes zp{70%{box-shadow:0 0 0 8px rgba(47,191,116,0)}100%{box-shadow:0 0 0 0 rgba(47,191,116,0)}}
+.zero h3{font-size:25px;font-weight:900;letter-spacing:-.022em;margin:0 0 10px;color:#fff;line-height:1.15}
+.zerostat{font-size:21px;font-weight:800;color:#fff;margin:0 0 9px;line-height:1.35;max-width:52ch;
+  text-decoration:underline;text-decoration-style:double;text-decoration-color:rgba(249,217,229,.45);
+  text-decoration-thickness:1px;text-underline-offset:6px}
+.zerostat b{color:#3FD186;font-weight:900}
+.zerostat i{font-style:normal;color:#fff;font-weight:900}
+.zeroL p.zsub{margin:0;font-size:16.5px;font-weight:600;color:#B9C4E2;line-height:1.55;max-width:52ch}
+@media(max-width:820px){.zerostat{font-size:19px}}
+.zeroR{flex:none;display:flex;flex-direction:column;align-items:stretch;gap:12px;min-width:236px}
+.zeronum{font-size:31px;font-weight:900;letter-spacing:-.025em;color:#fff;text-decoration:none;line-height:1;white-space:nowrap;text-align:center}
+.zeronum:hover{color:var(--pink)}
+.zero .btn{background:#fff;color:var(--navy);font-size:18px;padding:17px 30px;text-align:center;text-decoration:none;display:block}
+.zero .btn:hover{background:var(--pink)}
+.zeromicro{font-size:13.5px;font-weight:600;color:#8C9AC4;margin:0;text-align:center}
+@media(max-width:820px){.zero{gap:24px}.zeroR{min-width:100%}}
+
+/* 2 — inline friction trigger */
+.stuck{display:inline-flex;align-items:center;gap:9px;background:var(--crimson);border:0;border-radius:var(--pill);padding:11px 20px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;margin:0 0 13px;font-family:Nunito;text-align:left;line-height:1.35}
+.stuck:hover{background:#A81842}
+.stuck svg{flex:none}
+
+/* 3 — what happens when you call */
+.what{background:var(--lav);border:2px solid var(--line);border-radius:var(--r);padding:28px 30px;margin:34px 0 0}
+.what h3{font-size:20px;font-weight:900;letter-spacing:-.015em;margin:0 0 16px}
+.wsteps{list-style:none;margin:0 0 18px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
+.wsteps li{font-size:16px;font-weight:600;color:var(--navy-2);line-height:1.5}
+.wsteps b{display:block;font-size:12px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--crimson);margin-bottom:6px}
+.wfoot{font-size:16px;font-weight:700;border-top:2px solid var(--line);padding-top:16px;margin:0}
+.wfoot span{color:var(--navy-3);font-weight:600}
+
+/* 4 — sticky mobile bar */
+.sticky{position:fixed;left:0;right:0;bottom:0;background:var(--navy);padding:12px 18px calc(12px + env(safe-area-inset-bottom));display:none;gap:12px;align-items:center;z-index:40;box-shadow:0 -6px 24px rgba(28,43,94,.22)}
+.sticky div{flex:1;min-width:0}
+.sticky b{display:block;font-size:15px;font-weight:800;color:#fff;line-height:1.25}
+.sticky small{display:block;font-size:13px;font-weight:600;color:#9DAAD0}
+.sticky .btn{padding:13px 22px;font-size:15px}
+@media(max-width:760px){body.results .sticky{display:flex}body.results{padding-bottom:76px}}
+
+/* footer */
+footer{padding:58px 0 0;border-top:2px solid var(--line-2);margin-top:30px}
+.fg{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:34px;padding-bottom:50px}
+@media(max-width:1000px){.fg{grid-template-columns:1fr 1fr 1fr;gap:32px}}
+@media(max-width:700px){.fg{grid-template-columns:1fr 1fr;gap:30px}}
+.fg h4{font-size:14.5px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;margin:0 0 18px}
+.fg a{display:block;font-size:16.5px;font-weight:600;color:var(--navy-2);text-decoration:none;margin-bottom:12px}
+.fg a:hover{color:var(--crimson)}
+.fbrand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:20px;margin-bottom:16px}
+.fg p{font-size:16px;font-weight:600;color:var(--navy-2);line-height:1.55;margin:0 0 18px;max-width:34ch}
+.fphone{font-size:24px;font-weight:900;color:var(--crimson);margin:0 0 4px}
+.fhours{font-size:15px;font-weight:600;color:var(--navy-3)}
+.footbar{background:var(--navy);color:#fff;padding:26px 0 40px}
+.footbar .links{display:flex;gap:30px;flex-wrap:wrap;margin-bottom:18px}
+.footbar a{color:#fff;text-decoration:none;font-size:16px;font-weight:700}
+.footbar a:hover{color:var(--pink)}
+.footbar p{font-size:14.5px;font-weight:600;color:#AEB9DA;line-height:1.65;margin:0;max-width:98ch}
+</style>
+</head>
+<body>
+
+<div class="demo">
+  <span>Demo —</span>
+  <a class="dhome" href="/prototypes.html">&#9664; All prototypes</a>
+  <span class="dsep"></span>
+  <button data-g="home" class="on">Homepage</button>
+  <span class="dsep"></span>
+  <button data-g="tx">Texas</button><button data-g="fl">Florida</button><button data-g="ca">California</button>
+  <button data-g="77021">77021 Houston</button><button data-g="33131">33131 Miami</button><button data-g="80439">80439 Evergreen CO</button>
+</div>
+
+<div class="disc-bar">Independent private company. Not a government website. Not a government program.</div>
+
+<div class="wrap"><div class="nav">
+  <button class="logo" onclick="go('landing')">
+    <svg width="27" height="27" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+      <defs><clipPath id="wm1"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm1)"><rect x="13" y="0" width="14" height="13" fill="#C41F4E"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#C41F4E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/>
+    </svg>CornerHelp
+  </button>
+  <button class="geo" onclick="geoClick()" id="geoctl">
+    <span class="pin"></span><span id="geotxt">77021</span><small id="geosub">&#183; Harris County</small><span class="car">&#9662;</span>
+  </button>
+  <ul><li><a href="#guides">What to bring</a></li><li><a href="#verify">How we check</a></li></ul>
+  <div class="navr"><a class="navtel" href="tel:+10000000000">(000) 000-0000</a><button class="btn" onclick="go('results')">Check my ZIP</button></div>
+</div></div>
+
+<div class="crumb"><div class="wrap"><a onclick="go('landing')">Home</a><span id="cbsep"> › </span><a id="cb1">Texas</a><span id="cb2x"> › <span id="cb2">Harris County</span></span></div></div>
+
+<!-- ============ LANDING ============ -->
+<div id="v-landing">
+
+<section class="hero"><div class="wrap herog">
+  <div>
+    <p class="eyebrow">Updated 8:14 AM · Aug 30</p>
+    <h1 id="h1">Who's accepting applications in Texas today.</h1>
+    <div class="ratio">
+      <div class="rnums">
+        <div class="rn o"><b id="nOpen">3,180</b><small>accepting applications</small></div>
+        <div class="rn c"><b id="nShut">8,660</b><small>waitlisted or out of money</small></div>
+      </div>
+      <div class="bar"><i id="barfill" style="width:27%"></i></div>
+      <div class="bar-l"><span id="barL">27% of 11,840 programs are open right now</span><span id="barR">254 counties</span></div>
+    </div>
+    <p class="body">The expensive part is finding out at the door. We call every program and put the date on it, so you know before you go.</p>
+  </div>
+  <div class="zcard">
+    <div class="zcard-h">Check your ZIP</div>
+    <div class="zcard-b">
+      <input class="zin" id="zipin" value="77021" maxlength="5" inputmode="numeric" aria-label="ZIP code">
+      <button class="btn" onclick="go('results')">See who's open →</button>
+      <ul class="gets">
+        <li><span class="tick"><svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2.6 7.4l2.9 2.9 5.9-6.6" stroke="#C41F4E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><b>Who's open today</b><small>Confirmed by phone this week, not scraped off a list</small></div></li>
+        <li><span class="tick"><svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2.6 7.4l2.9 2.9 5.9-6.6" stroke="#C41F4E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><b>What to bring</b><small>The exact document list for each place</small></div></li>
+        <li><span class="tick"><svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2.6 7.4l2.9 2.9 5.9-6.6" stroke="#C41F4E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><b>Who to try first</b><small>So you're not making four trips</small></div></li>
+      </ul>
+      <p class="zcall"><a href="tel:+10000000000">Or call (000) 000-0000</a></p>
+    </div>
+  </div>
+</div></section>
+
+<div class="vp"><div class="wrap vpg">
+  <div>
+    <p class="eyebrow" style="color:var(--pink)">What we are</p>
+    <h2>We don't take applications. We tell you who's open.</h2>
+    <p>That's the whole service. No forms, no filing, no representing you to anybody. We find out who has money this week and what they'll ask you for, and then you go do it yourself.</p>
+    <p style="margin-bottom:0">Free, and there's nothing to sign up for.</p>
+  </div>
+  <ul class="nots">
+    <li><span class="x">✕</span>We don't fill out your application</li>
+    <li><span class="x">✕</span>We don't submit anything on your behalf</li>
+    <li><span class="x">✕</span>We don't represent you to any agency</li>
+    <li><span class="x">✕</span>We don't decide who qualifies</li>
+    <li><span class="x yes">✓</span><span class="yes">We tell you who's open, what they need, and who to try first</span></li>
+  </ul>
+</div></div>
+
+<section class="alt"><div class="wrap">
+  <p class="eyebrow">Local detail</p>
+  <h2 class="s" id="localh">What's different about getting help in Texas</h2>
+  <p class="sub" id="localsub">Every county runs on its own providers, funding calendar and utility.</p>
+  <div class="facts" id="facts"></div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">The only three words that matter</p>
+  <h2 class="s">Every listing says whether the money is still there.</h2>
+  <p class="sub">Most directories give you a phone number and let you find out the hard way. Ours carries a status and the date we confirmed it — same lit window you see in our name.</p>
+  <div class="trio">
+    <div class="sbox"><h3>{{W_OPEN}}Accepting</h3><p>Taking applications today, funds available as of our last call. Check the hours before you go — most of these cap intake.</p></div>
+    <div class="sbox"><h3>{{W_WAIT}}Waitlist</h3><p>Still taking your information, but there's a queue. Worth starting anyway — the clock runs from the day you apply.</p></div>
+    <div class="sbox"><h3>{{W_SHUT}}Funds out</h3><p>Spent for this cycle. Most refill at the start of the month. We show the reopening date and we'll text you when it changes.</p></div>
+  </div>
+</div></section>
+
+<section class="alt" id="verify"><div class="wrap vg">
+  <div>
+    <p class="eyebrow">How we check</p>
+    <h2 class="s">We call. That's the whole trick.</h2>
+    <p class="sub">There's no feed for this. No agency publishes "we ran out of rent money on the 6th." So a person picks up the phone, asks, writes down the answer and the date, and we show you both.</p>
+    <p class="sub" style="margin-bottom:0">If a date looks old to you, it should. We'd rather show it than hide it.</p>
+  </div>
+  <div>
+    <div class="tier"><div><b>Funds-cycling programs</b><small>Crisis utility, emergency rent, energy assistance</small></div><em>every 14 days</em></div>
+    <div class="tier"><div><b>Waitlist programs</b><small>Housing authority lists, vouchers</small></div><em>every 45 days</em></div>
+    <div class="tier"><div><b>Stable programs</b><small>Pantries, clinics, weatherization</small></div><em>every 90 days</em></div>
+    <div class="tier"><div><b>Fixed services</b><small>Statewide lines, referral centers</small></div><em>every 180 days</em></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow" id="ceyebrow">All 254 counties</p>
+  <h2 class="s" id="ctyh">Start with your county.</h2>
+  <p class="sub">What's open, what each place requires, and when we last confirmed it.</p>
+  <div class="cgrid" id="cgrid"></div>
+  <p class="ctynote" id="ctynote"></p>
+  <button class="btn btn-ghost" id="allcty">See all 254 counties</button>
+</div></section>
+
+<section class="alt" id="guides"><div class="wrap">
+  <p class="eyebrow">What to bring</p>
+  <h2 class="s">The part that trips everybody up.</h2>
+  <p class="sub">Most applications get turned away over paperwork, not eligibility. Written from what the agencies actually told us on the phone.</p>
+  <div class="ggrid">
+    <a class="g"><div class="gk">What to bring</div><h3>Rent assistance</h3><p>Why a verbal lease usually disqualifies you, and what counts as proof of hardship if you were paid in cash.</p></a>
+    <a class="g"><div class="gk">What to bring</div><h3>Utility and shutoff help</h3><p>The disconnect notice does more work than anything else in the folder. What to do if you've already been cut off.</p></a>
+    <a class="g"><div class="gk">How it works</div><h3>Why the money runs out by the 5th</h3><p>Most crisis funds refill monthly and empty in days. How to time an application so you're not always late.</p></a>
+    <a class="g"><div class="gk">Plain language</div><h3>Arrears, ledgers, crisis components</h3><p>The words on the form, in normal English, so you know what you're being asked for.</p></a>
+  </div>
+</div></section>
+
+<section><div class="wrap split">
+  <div class="panel" id="agencies">
+    <h3>Run one of these programs?</h3>
+    <p>Claim your listing and update your own status — funding, waitlist, hours, documents. Takes a minute, and it means fewer people at your door on a day you can't help them.</p>
+    <p>Something wrong on a page? Tell us. Every correction goes in a public log with the date on it.</p>
+    <button class="btn btn-ghost">Claim a listing</button>
+  </div>
+  <div class="panel">
+    <h3>Who keeps this current</h3>
+    <div class="who"><span class="av">AR</span><div><b>Name Placeholder</b><small>Verification lead — South &amp; East Texas</small></div></div>
+    <div class="who"><span class="av">MC</span><div><b>Name Placeholder</b><small>Verification — DFW &amp; North Texas</small></div></div>
+    <div class="who"><span class="av">JL</span><div><b>Name Placeholder</b><small>Verification — Gulf Coast &amp; Valley</small></div></div>
+    <p style="margin-top:20px">A small team on the phones, five days a week. Read how we decide what a status means, and what we do when a provider won't confirm.</p>
+    <button class="btn btn-ghost">How we verify</button>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap"><div class="cta">
+  <h2>Four places. Four sets of paperwork.</h2>
+  <p>Call once and someone goes through your list with you — which one will actually take your situation, what order to try them in, and whether what you've got in hand is enough. We still don't do the application. We just make sure you're not wasting the trip.</p>
+  <button class="btn">Talk it through →</button>
+  <p class="call">Or call (000) 000-0000 now</p>
+</div></div></section>
+</div>
+
+<!-- ============ RESULTS ============ -->
+<div id="v-results" class="hide">
+<div class="rhead"><div class="wrap">
+  <p class="eyebrow">Confirmed by phone · updated 8:14 AM Aug 30</p>
+  <h1 id="rh1">Help in 77021 — Harris County</h1>
+  <p class="rsum" id="rsum"><b>11 accepting</b> · 30 waitlisted or out of money</p>
+  <div class="rbar">
+    <input class="rzin" id="rzip" value="77021" maxlength="5" inputmode="numeric" aria-label="ZIP code">
+    <button class="fchip on">Open first</button><button class="fchip">Rent</button><button class="fchip">Utilities</button>
+    <button class="fchip">Food</button><button class="fchip">No ID needed</button>
+  </div>
+</div></div>
+
+<div class="wrap">
+  <div class="zero">
+    <div class="zeroL">
+      <p class="zlab"><span class="zdot"></span>Someone is answering right now</p>
+      <h3>Don't work the list. Let someone work it with you.</h3>
+      <p class="zerostat" id="zerostat">Only <b>9</b> of these <i>34</i> are open today.</p>
+      <p class="zsub">Twelve minutes on the phone and you'll know which two fit your situation, what to bring, and the order to try them.</p>
+    </div>
+    <div class="zeroR">
+      <a class="zeronum" href="tel:+10000000000">(000) 000-0000</a>
+      <a class="btn" href="tel:+10000000000">Call now</a>
+      <p class="zeromicro">Free · we don't take applications</p>
+    </div>
+  </div>
+
+  <div id="listings"></div>
+
+  <div class="nearby">
+    <h3>Nearby counties</h3>
+    <p>Service areas don't stop at the county line. If you're near the edge, some of these will take you too.</p>
+    <div class="nbgrid" id="nbgrid"></div>
+  </div>
+
+  <div class="what">
+    <h3>What happens when you call</h3>
+    <ul class="wsteps">
+      <li><b>First 20 seconds</b>A person picks up. No menu, no hold queue.</li>
+      <li><b>Next few minutes</b>They ask your ZIP, what you're behind on, and who lives in the house.</li>
+      <li><b>The rest</b>They tell you which places fit, what to bring, and who to try first.</li>
+    </ul>
+    <p class="wfoot">Average call is 11 minutes. <span>We don't fill out the application, submit it, or represent you to anybody — you do that part yourself.</span></p>
+  </div>
+
+  <div class="rcta">
+    <div class="rctaL">
+      <h3>Still not sure which one to try first?</h3>
+      <p>Twelve minutes on the phone and someone will tell you which of these will take your situation, what order to go in, and whether your paperwork will hold up. We don't apply for you — we just make sure you don't waste the trip.</p>
+    </div>
+    <button class="btn">Talk it through — (000) 000-0000</button>
+  </div>
+</div>
+</div>
+
+<div class="sticky">
+  <div><b id="stickyb">9 open in 33131</b><small>Find out which ones fit you</small></div>
+  <button class="btn">Call now</button>
+</div>
+
+<footer><div class="wrap">
+  <div class="fg">
+    <div>
+      <div class="fbrand">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><defs><clipPath id="wm2"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#wm2)"><rect x="13" y="0" width="14" height="13" fill="#C41F4E"/></g><rect x="2" y="2" width="22" height="22" rx="5" fill="none" stroke="#C41F4E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#C41F4E" stroke-width="2.4"/></svg>
+        CornerHelp
+      </div>
+      <p>Independent private company. We publish program status — we don't provide assistance and we don't handle applications.</p>
+      <p class="fphone">(000) 000-0000</p>
+      <p class="fhours">Monday–Friday, 8:00 a.m.–8:00 p.m. CT</p>
+    </div>
+    <div><h4>Get help</h4><a>Check my ZIP</a><a>Talk to someone</a><a>Text me a list</a><a>Alerts when funds reopen</a></div>
+    <div><h4>What we track</h4><a>Rent &amp; eviction</a><a>Electric &amp; gas</a><a>Water</a><a>Food</a><a>Emergency &amp; disaster</a><a>School &amp; childcare</a></div>
+    <div><h4 id="fcth">Texas counties</h4><div id="fcty"></div><a style="color:var(--crimson)" id="fctall">All 254 &rarr;</a></div>
+    <div><h4>About</h4><a>How we verify</a><a>Corrections log</a><a>For agencies</a><a>Data access</a><a>Contact</a></div>
+  </div>
+</div>
+<div class="footbar"><div class="wrap">
+  <div class="links"><a>Privacy</a><a>Terms</a><a>Disclosures</a><a>Contact</a></div>
+  <p>CornerHelp is an independent private company publishing the current application status of assistance programs operated by other organizations. We are not affiliated with, endorsed by, or connected to any government agency or program. We do not provide financial assistance, prepare applications, submit applications, or represent applicants to any agency. Statuses are confirmed by direct contact with each provider and are accurate as of the date shown on each listing; funding and waitlists change without notice, so confirm with the provider before travelling. The directory and our phone line are free.</p>
+</div></div>
+</footer>
+
+<script>
+let _wid=0;
+const W=(c,s=26)=>{const u='w'+(++_wid);return `<svg width="${s}" height="${s}" viewBox="0 0 26 26" fill="none" aria-hidden="true"><defs><clipPath id="${u}"><rect x="2.6" y="2.6" width="20.8" height="20.8" rx="4.4"/></clipPath></defs><g clip-path="url(#${u})"><rect x="13" y="0" width="14" height="13" fill="${c}"/></g><rect x="2" y="2" width="22" height="22" rx="5" stroke="#1C2B5E" stroke-width="3"/><path d="M13 3.5v19M3.5 13h19" stroke="#1C2B5E" stroke-width="2.4"/></svg>`;};
+const C={open:'#1B7A4B',wait:'#B0741A',shut:'#DDE2EE'};
+
+const G={
+ home:{c1:"",c2:"",zc:"",h1:"Who's accepting applications near you today.",
+  open:8930,shut:23530,total:32460,right:"3 states live",zip:"",cty:"3",
+  zopen:0,zshut:0,ztotal:0,
+  lh:"Assistance doesn't work the same way twice",
+  ls:"Who administers the money, when it refills and what they'll ask you for changes by state and by county. Start with your ZIP.",
+  counties:[["Texas",3180],["Florida",1740],["California",4010]],
+  f:[["No two states alike","Who runs federal utility help, how many programs exist and when they refill is set <b>state by state</b> \u2014 and inside a state, county by county."],
+     ["The funding calendar","Most crisis funds refill at the <b>start of the month</b> and empty within days in big metros. Timing matters as much as eligibility."],
+     ["What we don't do","We don't take applications, submit them or represent you to anybody. We tell you <b>who's open and what they need</b>."]],
+  L:"77021"},
+ tx:{c1:"Texas",c2:"",zc:"Harris County",h1:"Who's accepting applications in Texas today.",open:3180,shut:8660,total:11840,right:"254 counties",zip:"77021",cty:"254",zopen:11,zshut:30,ztotal:41,
+  lh:"What's different about getting help in Texas",ls:"Every county runs on its own providers, funding calendar and utility. Here's what shapes it statewide.",
+  counties:[["Harris",6],["Dallas",9],["Tarrant",4],["Bexar",7],["Travis",5],["Collin",3],["Denton",3],["Hidalgo",8],["El Paso",5],["Fort Bend",4],["Montgomery",2],["Williamson",3]],
+  f:[["Retail electric","Most of Texas is a <b>deregulated</b> market — your provider and your wires company are different, and only some programs pay a retail provider directly. Austin, San Antonio and El Paso are the exceptions."],
+     ["Who runs the money","Federal utility help flows through <b>35 subrecipients</b> covering all 254 counties, mostly Community Action Agencies. Which one you get depends on your county, not your city."],
+     ["Funding calendar","Most crisis funds refill on the <b>1st</b> and are gone within a week in the big metros. Applying on the 20th is usually applying for next month."]],
+  L:"77021"},
+ fl:{c1:"Florida",c2:"",zc:"Miami-Dade County",h1:"Who's accepting applications in Florida today.",open:1740,shut:4680,total:6420,right:"67 counties",zip:"33131",cty:"67",zopen:9,zshut:25,ztotal:34,
+  lh:"What's different about getting help in Florida",ls:"Florida's providers and funding calendar don't work the way Texas's do.",
+  counties:[["Miami-Dade",9],["Broward",6],["Palm Beach",5],["Hillsborough",7],["Orange",6],["Duval",4],["Pinellas",4],["Lee",3],["Polk",3],["Brevard",2],["Volusia",2],["Pasco",3]],
+  f:[["Retail electric","Florida has <b>no residential retail choice</b> — you can't switch providers, so utility help is paid directly to FPL, Duke or your municipal utility."],
+     ["Who runs the money","Utility assistance runs through county <b>Community Action Agencies</b> and, in some counties, a separate emergency program with its own paperwork and its own waitlist."],
+     ["Storm season","<b>June through November</b>, disaster funds open and close fast after a named storm, and they use different eligibility rules than regular assistance."]],
+  L:"33131"},
+ ca:{c1:"California",c2:"",zc:"Los Angeles County",h1:"Who's accepting applications in California today.",open:4010,shut:10190,total:14200,right:"58 counties",zip:"90011",cty:"58",zopen:11,zshut:30,ztotal:41,
+  lh:"What's different about getting help in California",ls:"California layers state programs on top of federal ones, which changes what you can stack.",
+  counties:[["Los Angeles",12],["San Diego",7],["Orange",6],["Riverside",5],["San Bernardino",5],["Santa Clara",4],["Alameda",4],["Sacramento",4],["Fresno",3],["Kern",3],["Contra Costa",3],["Ventura",2]],
+  f:[["Retail electric","Mostly <b>regulated</b> utilities with discount rate programs that are separate from bill assistance — you can often have both at once."],
+     ["Who runs the money","County agencies plus a statewide network, and the two have <b>different income tests</b>. Being turned down by one doesn't rule out the other."],
+     ["Stacking","Several state programs run <b>alongside</b> federal help rather than replacing it. Most people apply to one and stop."]],
+  L:"90011"},
+ "77021":{c1:"Texas",c2:"Harris County",h1:"Who's accepting applications in 77021 today.",open:11,shut:30,total:41,right:"Harris County",zip:"77021",cty:"254",zopen:11,zshut:30,ztotal:41,
+  lh:"What's different about getting help in 77021",ls:"Programs serving this ZIP, and the local details that decide whether you get seen.",
+  counties:[["Harris",6],["Fort Bend",4],["Montgomery",2],["Brazoria",3],["Galveston",3],["Liberty",1]],
+  f:[["Your utility","<b>CenterPoint</b> delivers your power, but your bill comes from a retail provider you chose. Bring the bill with the retail provider's name on it, not the CenterPoint one."],
+     ["Who runs the money","Federal utility help here runs through <b>BakerRipley</b>, which caps walk-in intake around 40 a day. People start lining up before 7:30."],
+     ["The catch","Two of the rent programs serving 77021 <b>won't pay on a verbal lease</b>. If yours isn't in writing, start with the two that will."]],
+  L:"77021"},
+ "33131":{c1:"Florida",c2:"Miami-Dade County",h1:"Who's accepting applications in 33131 today.",open:9,shut:25,total:34,right:"Miami-Dade County",zip:"33131",cty:"67",zopen:9,zshut:25,ztotal:34,
+  lh:"What's different about getting help in 33131",ls:"Programs serving this ZIP, and the local details that decide whether you get seen.",
+  counties:[["Miami-Dade",9],["Broward",6],["Monroe",2],["Palm Beach",5],["Collier",2],["Hendry",1]],
+  f:[["Your utility","<b>FPL</b> is your provider and you can't switch. Utility help is paid straight to them, so you'll need your account number, not just the bill."],
+     ["Who runs the money","Miami-Dade runs its own <b>community action</b> office alongside several nonprofit programs, and they don't share a waitlist. Apply to more than one."],
+     ["The catch","Rent here competes with a <b>very high</b> rent-to-income ratio, so several programs cap what they'll pay rather than covering a full month."]],
+  L:"33131"},
+ "80439":{c1:"Colorado",c2:"Jefferson County",h1:"Who's accepting applications in 80439 today.",open:4,shut:8,total:12,right:"Jefferson County",zip:"80439",cty:"64",zopen:4,zshut:8,ztotal:12,
+  lh:"What's different about getting help in 80439",ls:"Programs serving this ZIP, and the local details that decide whether you get seen.",
+  counties:[["Jefferson",4],["Denver",8],["Arapahoe",5],["Adams",4],["Clear Creek",1],["Park",1]],
+  f:[["Seasonal window","Colorado's main utility assistance program only runs <b>November 1 to April 30</b>. Outside that window you're looking at nonprofit funds instead, and there are fewer of them."],
+     ["Fewer doors","Twelve programs serve this ZIP versus forty-plus in a metro. <b>Mountain-area residents</b> often qualify through Denver-based agencies that also serve the county."],
+     ["The catch","Several programs here are <b>appointment only</b> with a two-week lead time. Walking in doesn't work the way it does in a city."]],
+  L:"80439"}
+};
+
+const LIST={
+ "77021":[
+  {g:"Electric, gas & water",org:"BakerRipley",prog:"Comprehensive Energy Assistance Program, including crisis component",s:"open",st:"Accepting",
+   note:"Takes disconnect notices directly. The <b>crisis component pays reconnect fees</b>, which the standard program doesn't.",
+   apply:"Walk-in, 8:00 AM–3:00 PM Mon–Thu. Intake caps around 40 a day — people line up before 7:30.",
+   bring:"Photo ID · Social Security cards for everyone in the household · current electric or gas bill · disconnect notice if you have one · <b>30 days of income for all adults</b>",
+   tags:["electric_bill","gas_bill","reconnect_fee","hvac_repair","income_150fpl"],ver:"Confirmed by phone · Aug 30, 6:11 AM"},
+  {g:"Electric, gas & water",org:"The Salvation Army — Greater Houston",prog:"Utility crisis assistance",s:"shut",st:"Funds out",
+   note:"Out of funds for August. <b>Reopens Sept 1 at 9:00 AM</b>, phone appointments only. Shutoff cases get pulled first when the month opens.",
+   apply:"Phone appointment from Sept 1.",bring:"ID · current bill · disconnect notice · proof of address",
+   stuck:"Can't wait until the 1st? Ask us what's open now →",tags:["electric_bill","water_bill","needs_disconnect_notice"],ver:"Confirmed by phone · Aug 30, 2:40 AM"},
+  {g:"Rent & eviction",org:"Catholic Charities — Galveston-Houston",prog:"Emergency rent & eviction prevention",s:"wait",st:"Waitlist",
+   note:"About <b>two weeks</b> from screening to decision right now. Won't pay on a verbal or month-to-month with no written lease.",
+   apply:"Phone screening first, then an in-person appointment.",
+   bring:"Signed lease · eviction filing or landlord ledger · photo ID · income for the last 60 days",
+   stuck:"Call us — two others here take a verbal lease",tags:["rent_assistance","eviction_prevention","needs_eviction_filing","renter"],ver:"Confirmed by phone · Aug 29, 3:22 PM"},
+  {g:"Rent & eviction",org:"Wesley Community Center",prog:"Rent & deposit assistance",s:"open",st:"Accepting",
+   note:"Smaller fund but <b>fewer requirements</b> — will consider a month-to-month arrangement if the landlord will sign a ledger.",
+   apply:"Appointment, usually within 3–4 days.",bring:"Photo ID · landlord ledger or lease · proof of income or proof of no income",
+   tags:["rent_assistance","deposit_assistance","renter"],ver:"Confirmed by phone · Aug 30, 7:05 AM"},
+  {g:"Food",org:"Houston Food Bank",prog:"Partner pantry network — 4 sites within 3 miles",s:"open",st:"Accepting",
+   note:"<b>Nothing required.</b> No ID, no income test, no appointment at most partner sites.",
+   apply:"Walk-in. Hours vary by site — the closest one on Griggs runs Tue/Thu 9–12.",bring:"Nothing. Bags help.",
+   tags:["food_pantry","groceries","no_income_test"],ver:"Confirmed by phone · Aug 26, 11:15 AM"}],
+ "33131":[
+  {g:"Electric & water",org:"Miami-Dade Community Action and Human Services",prog:"Emergency utility assistance",s:"open",st:"Accepting",
+   note:"Paid directly to FPL, so they need your <b>account number</b> — the bill alone isn't enough.",
+   apply:"Online intake then a scheduled appointment, usually within a week.",
+   bring:"Photo ID · FPL account number · current bill · 30 days income · proof of Miami-Dade residency",
+   tags:["electric_bill","water_bill","county_residency","income_150fpl"],ver:"Confirmed by phone · Aug 30, 7:48 AM"},
+  {g:"Electric & water",org:"The Salvation Army — Miami",prog:"Utility crisis fund",s:"shut",st:"Funds out",
+   note:"Cycle spent. <b>Reopens the 1st.</b> They keep a callback list — ask to be added rather than calling back daily.",
+   apply:"Phone, from Sept 1.",bring:"ID · bill · disconnect notice",
+   tags:["electric_bill","needs_disconnect_notice"],ver:"Confirmed by phone · Aug 29, 1:10 PM"},
+  {g:"Rent & eviction",org:"Catholic Charities — Archdiocese of Miami",prog:"Emergency rental assistance",s:"wait",st:"Waitlist",
+   note:"Caps at <b>one month's rent up to a set amount</b>, which in this ZIP often won't cover the full month. Plan for a partial.",
+   apply:"Phone screening, then appointment.",bring:"Lease · eviction notice if filed · ID · 60 days income",
+   stuck:"Call us — we know who stacks to cover a full month",tags:["rent_assistance","eviction_prevention","renter"],ver:"Confirmed by phone · Aug 28, 4:02 PM"},
+  {g:"Food",org:"Feeding South Florida",prog:"Partner pantry network — 3 sites nearby",s:"open",st:"Accepting",
+   note:"<b>No ID or income test</b> at partner sites. Mobile distributions run separately and move weekly.",
+   apply:"Walk-in.",bring:"Nothing.",tags:["food_pantry","groceries","no_income_test"],ver:"Confirmed by phone · Aug 27, 9:30 AM"}],
+ "80439":[
+  {g:"Heating & electric",org:"Jefferson County Human Services",prog:"Low-income energy assistance",s:"shut",st:"Season closed",
+   note:"<b>Runs Nov 1 – Apr 30 only.</b> Applications aren't accepted in August. Set an alert and we'll text you when it opens.",
+   apply:"Online or by mail, from November 1.",bring:"ID · heating bill · 30 days income · proof of residency",
+   stuck:"Call us — there is heat help before November",tags:["electric_bill","gas_bill","seasonal","income_150fpl"],ver:"Confirmed by phone · Aug 25, 10:20 AM"},
+  {g:"Heating & electric",org:"Energy Outreach Colorado",prog:"Year-round bill payment assistance",s:"wait",st:"Waitlist",
+   note:"One of the <b>few options outside the November–April window</b>, which is why the queue is long. Roughly three weeks right now.",
+   apply:"Phone intake through a partner agency.",bring:"ID · current bill · income · shutoff notice if you have one",
+   tags:["electric_bill","gas_bill","reconnect_fee"],ver:"Confirmed by phone · Aug 30, 8:02 AM"},
+  {g:"Rent & general",org:"Mountain Resource Center",prog:"Emergency assistance — rent, utilities, food",s:"open",st:"Accepting",
+   note:"The main door for mountain-area residents. <b>Appointment only, about two weeks out</b> — call today even if you don't need it until September.",
+   apply:"Appointment. Call Monday mornings for the best chance.",bring:"Photo ID · lease or mortgage statement · income · the bill you need help with",
+   stuck:"Two weeks is too long? We'll find you a faster door →",tags:["rent_assistance","electric_bill","food_pantry","county_residency"],ver:"Confirmed by phone · Aug 30, 7:31 AM"},
+  {g:"Food",org:"Food Bank of the Rockies",prog:"Partner pantry — Evergreen area",s:"open",st:"Accepting",
+   note:"<b>No requirements.</b> The Evergreen site runs Wednesdays only, so plan around it.",
+   apply:"Walk-in, Wednesdays 10–2.",bring:"Nothing.",tags:["food_pantry","groceries","no_income_test"],ver:"Confirmed by phone · Aug 26, 2:14 PM"}]
+};
+
+let cur='tx';
+const CTY2GEO={'Harris':'77021','Miami-Dade':'33131','Jefferson':'80439',
+ 'Texas':'tx','Florida':'fl','California':'ca'};
+function pick(g){document.querySelectorAll('.demo button').forEach(x=>x.classList.toggle('on',x.dataset.g===g));render(g);go('results');}
+
+function render(k){
+ const d=G[k];cur=k;
+ document.getElementById('h1').textContent=d.h1;
+ document.getElementById('nOpen').textContent=d.open.toLocaleString();
+ document.getElementById('nShut').textContent=d.shut.toLocaleString();
+ const pct=Math.round(d.open/d.total*100);
+ document.getElementById('barfill').style.width=pct+'%';
+ document.getElementById('barL').textContent=pct+'% of '+d.total.toLocaleString()+' programs are open right now';
+ document.getElementById('barR').textContent=d.right;
+ const isHome=!d.c1;
+ document.getElementById('cb1').textContent=d.c1;
+ document.getElementById('cb1').style.display=isHome?'none':'inline';
+ document.getElementById('cbsep').style.display=isHome?'none':'inline';
+ document.getElementById('cb2x').style.display=d.c2?'inline':'none';
+ if(d.c2)document.getElementById('cb2').textContent=d.c2;
+ const zi=document.getElementById('zipin');
+ zi.value=d.zip; zi.placeholder=d.zip?'':'ZIP code';
+ document.getElementById('rzip').value=d.zip;
+ document.getElementById('localh').textContent=d.lh;
+ document.getElementById('localsub').textContent=d.ls;
+ document.getElementById('facts').innerHTML=d.f.map(f=>`<div class="fact"><h3>${f[0]}</h3><p>${f[1]}</p></div>`).join('');
+ document.getElementById('cgrid').innerHTML=d.counties.map(c=>{const g=CTY2GEO[c[0]];
+   return g?`<button class="cty" onclick="pick('${g}')">${c[0]} <em>${c[1]} open</em></button>`:`<span class="cty off">${c[0]} <em>${c[1]} open</em></span>`;}).join('');
+ const live=d.counties.filter(c=>CTY2GEO[c[0]]).map(c=>c[0]);
+ document.getElementById('ctynote').textContent=isHome?'Three states carry sample data in this prototype.':live.length?live.join(' and ')+' carries sample data in this prototype \u2014 the rest are shown for layout.':'Shown for layout only.';
+ document.getElementById('ceyebrow').textContent=isHome?'Where we\u2019re live':'All '+d.cty+' counties';
+ document.getElementById('ctyh').textContent=isHome?'Start with your state.':'Start with your county.';
+ document.getElementById('allcty').style.display=isHome?'none':'inline-block';
+ document.getElementById('allcty').textContent='See all '+d.cty+' counties';
+
+ const L=LIST[d.L]||LIST["77021"];
+ const nOpen=L.filter(x=>x.s==='open').length;
+ document.getElementById('rh1').textContent='Help in '+d.zip+' — '+(d.c2||d.zc);
+ document.getElementById('rsum').innerHTML='<b>'+d.zopen+' accepting</b> · '+d.zshut+' waitlisted or out of money';
+ let html='',g='';
+ L.forEach(x=>{
+  if(x.g!==g){g=x.g;html+=`<p class="lgroup">${g}</p>`}
+  html+=`<div class="L">${W(C[x.s],32)}<div>
+   <div class="Ltop"><span class="Lorg">${x.org}</span><span class="Lstate ${x.s}">${x.st}</span></div>
+   <p class="Lprog">${x.prog}</p>
+   <div class="Lnote">${x.note}</div>
+   <dl><dt>Apply</dt><dd>${x.apply}</dd><dt>Bring</dt><dd>${x.bring}</dd></dl>
+   ${x.stuck?`<button class="stuck"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 2.5h2.6l1.2 3-1.6 1.1a8.5 8.5 0 0 0 3.9 3.9l1.1-1.6 3 1.2V13a1 1 0 0 1-1.1 1A11.6 11.6 0 0 1 2 3.6 1 1 0 0 1 3 2.5Z" fill="#fff"/></svg>${x.stuck}</button>`:''}
+   <div class="Ltags">${x.tags.map(t=>`<span class="Ltag">${t}</span>`).join('')}</div>
+   <p class="Lver">${x.ver}</p></div></div>`;
+ });
+ document.getElementById('listings').innerHTML=html;
+ document.getElementById('zerostat').innerHTML='Only <b>'+d.zopen+'</b> of these <i>'+d.ztotal+'</i> are open today.';
+ document.getElementById('stickyb').textContent=d.zopen+' open in '+d.zip;
+ document.getElementById('geotxt').textContent=d.c2?d.zip:(d.c1||'Enter your ZIP');
+ document.getElementById('geosub').textContent=d.c2?'\u00b7 '+d.c2:(d.c1?'\u00b7 all counties':'');
+ const nb=d.counties.filter(c=>!d.c2||!d.c2.startsWith(c[0])).slice(0,5);
+ document.getElementById('nbgrid').innerHTML=nb.map(c=>{const g=CTY2GEO[c[0]];
+   return g?`<button class="cty" style="flex:0 0 auto" onclick="pick('${g}')">${c[0]} County <em>${c[1]} open</em></button>`:`<span class="cty off" style="flex:0 0 auto">${c[0]} County <em>${c[1]} open</em></span>`;}).join('');
+ document.getElementById('fcth').textContent=d.c1+' counties';
+ document.getElementById('fcty').innerHTML=d.counties.slice(0,5).map(c=>`<a>${c[0]}</a>`).join('');
+ document.getElementById('fctall').textContent='All '+d.cty+' \u2192';
+
+ document.querySelectorAll('.sbox h3').forEach((h,i)=>{
+  const c=[C.open,C.wait,C.shut][i];
+  if(!h.querySelector('svg'))h.insertAdjacentHTML('afterbegin',W(c,24));
+ });
+}
+function geoClick(){const d=G[cur];if(d.c2){go('results');return;}go('landing');
+ setTimeout(()=>document.getElementById('ceyebrow').scrollIntoView({behavior:'smooth',block:'start'}),40);}
+function go(v){
+ document.getElementById('v-landing').classList.toggle('hide',v!=='landing');
+ document.getElementById('v-results').classList.toggle('hide',v!=='results');
+ document.body.classList.toggle('results',v==='results');
+ window.scrollTo({top:0,behavior:'instant'});
+}
+document.querySelectorAll('.demo button').forEach(b=>b.addEventListener('click',()=>{
+ document.querySelectorAll('.demo button').forEach(x=>x.classList.remove('on'));
+ b.classList.add('on');render(b.dataset.g);
+}));
+document.querySelectorAll('.fchip').forEach(c=>c.addEventListener('click',()=>{
+ document.querySelectorAll('.fchip').forEach(x=>x.classList.remove('on'));c.classList.add('on');
+}));
+(function(){
+ const q=new URLSearchParams(location.search);
+ const g=q.get('geo');
+ const start=(g && G[g])?g:'home';
+ document.querySelectorAll('.demo button').forEach(x=>x.classList.toggle('on',x.dataset.g===start));
+ render(start);
+ if(q.get('view')==='results')go('results');
+})();
+</script>
+</body>
+</html>

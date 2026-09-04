@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { SITE } from '@/lib/db';
+import { HOME } from '@/lib/routes';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
@@ -33,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
         <header className="site">
           <div className="wrap">
-            <a className="brand" href="/">
+            <a className="brand" href={HOME}>
               <span className="pane" aria-hidden="true" />
               <span className="brandname">CornerHelp</span>
             </a>

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getDb, dbConfigured, SITE, whenVerified } from '@/lib/db';
 import { ProgramCard, NotLiveYet, JsonLd, ProgramRow } from '../../components';
 import type { Metadata } from 'next';
+import { HOME } from '@/lib/routes';
 
 export const revalidate = 300;
 
@@ -86,7 +87,7 @@ export default async function Place({ params }: { params: { place: string } }) {
         }} />
       )}
       <div className="wrap stack">
-        <div className="crumb"><a href="/">CornerHelp</a> › Texas › {d.label}</div>
+        <div className="crumb"><a href={HOME}>CornerHelp</a> › Texas › {d.label}</div>
         <h1>Assistance in {d.label}</h1>
 
         {live ? (
