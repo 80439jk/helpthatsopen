@@ -42,6 +42,12 @@ def load(dsn, geo, listings):
     print(f'geography: {len(c)} counties, {len(z)} zips, {len(zc)} pairs')
 
     recs = [json.loads(l) for l in open(listings, encoding='utf-8') if l.strip()]
+    nostate = [r for r in recs if not r.get('state')]
+    if nostate:
+        conn.rollback()
+        sys.exit(f'REFUSED: {len(nostate)} rows carry no state. County names are not '
+                 'unique across states; attaching them by name alone is how a North '
+                 'Carolina office ends up serving Texas.')
     bad = [r for r in recs if r['current_status'] != 'unknown' or r['last_verified_at'] is not None]
     if bad:
         conn.rollback()
@@ -79,10 +85,14 @@ def load(dsn, geo, listings):
             [(pid, zz) for zz in r['service_zips']])
         cur.execute("DELETE FROM program_counties WHERE program_id=%s", (pid,))
         psycopg2.extras.execute_batch(cur,
+            # state comes from the record. Hardcoding 'TX' here silently gave every
+            # North Carolina and Florida program zero counties -- and county names
+            # are shared across states, so matching on the name alone would have
+            # attached the wrong ones instead. Same bug class as expand_zips.
             "INSERT INTO program_counties (program_id,county_fips) "
-            "SELECT %s, county_fips FROM counties WHERE state='TX' AND name=%s "
+            "SELECT %s, county_fips FROM counties WHERE state=%s AND name=%s "
             "ON CONFLICT DO NOTHING",
-            [(pid, cn + ' County') for cn in r['service_counties']])
+            [(pid, r['state'], cn + ' County') for cn in r['service_counties']])
         cur.execute("DELETE FROM program_tags WHERE program_id=%s AND tag_type='need'", (pid,))
         psycopg2.extras.execute_batch(cur,
             "INSERT INTO program_tags (program_id,tag,tag_type) VALUES (%s,%s,'need') "
