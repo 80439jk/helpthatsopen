@@ -16,17 +16,30 @@ export default async function Home() {
         .select('name, slug, state, verified_programs, accepting_now, total_programs, is_live')
         .order('accepting_now', { ascending: false })).data ?? [])
     : [];
-  const zips = dbConfigured()
+  // Count server-side. Selecting the rows and counting them in JS returned 0,
+  // because PostgREST caps a response at 1,000 rows and there are 4,873 ZIPs --
+  // the live ones simply were not in the page that came back. Any "how many"
+  // question against a table this size has to be a count, not a fetch.
+  const liveZipCount = dbConfigured()
     ? ((await getDb().from('zip_publish_status')
-        .select('verified_programs, accepting_now, is_live')).data ?? [])
-    : [];
+        .select('zip', { count: 'exact', head: true })
+        .eq('is_live', true)).count ?? 0)
+    : 0;
+
+  // Counted on programs, not summed across counties. A CEAP provider serving
+  // fifteen counties appears in fifteen county rows, so summing them reports
+  // fifteen programs where there is one. The headline number on this page has to
+  // be the number of programs, once each.
+  const q = () => getDb().from('programs').select('program_id', { count: 'exact', head: true });
+  const totalVerified = dbConfigured()
+    ? ((await q().eq('is_published', true)).count ?? 0) : 0;
+  const accepting = dbConfigured()
+    ? ((await q().eq('is_published', true).eq('current_status', 'accepting')).count ?? 0) : 0;
 
   const live = counties.filter((c: any) => c.is_live);
-  const totalVerified = counties.reduce((n: number, c: any) => n + (c.verified_programs ?? 0), 0);
-  const accepting = counties.reduce((n: number, c: any) => n + (c.accepting_now ?? 0), 0);
   const notOpen = Math.max(totalVerified - accepting, 0);
   const pct = totalVerified ? Math.round((accepting / totalVerified) * 100) : 0;
-  const liveZips = zips.filter((z: any) => z.is_live).length;
+  const liveZips = liveZipCount;
   const states = Array.from(new Set(live.map((c: any) => c.state)))
     .map((s) => STATES[s as string]?.name).filter(Boolean);
 
