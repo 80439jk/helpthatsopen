@@ -1,4 +1,5 @@
-import { STATUS_LABEL, STATUS_TONE, whenVerified } from '@/lib/db';
+import { STATUS_LABEL, STATUS_TONE, verifiedParts } from '@/lib/db';
+import { CALL_CENTER_PHONE } from '@/lib/site';
 
 export type ProgramRow = {
   slug: string; name: string; org_name: string | null;
@@ -14,8 +15,36 @@ export function StatusPill({ status }: { status: string | null }) {
   return <span className={`Lstate ${tone}`}>{STATUS_LABEL[s] ?? 'Not confirmed'}</span>;
 }
 
-export function ProgramCard({ p, href }: { p: ProgramRow; href?: string }) {
+/** What to say on a listing the visitor can't use today.
+ *
+ *  Only where this door is shut AND another on the same page is open -- offering
+ *  to find "what's open now" when nothing is open would be a lie, and it is
+ *  exactly the lie a directory in this category would tell. Never on an
+ *  accepting listing: there the right action is to ring the agency, whose number
+ *  is right there. That is .cursorrules rule 5 in one function. */
+function nudge(status: string | null, elsewhereOpen: number, reopens?: string | null) {
+  if (!CALL_CENTER_PHONE || elsewhereOpen < 1) return null;
+  switch (status) {
+    case 'funds_exhausted':
+      return `Out of money here. Ask us which ${elsewhereOpen === 1 ? 'one is' : `${elsewhereOpen} are`} open now →`;
+    case 'seasonal_closed':
+      return reopens ? `Closed until then. Ask us what's open now →`
+                     : `Closed for the season. Ask us what's open now →`;
+    case 'waitlist':
+      return `There's a queue here. Ask us who's taking people faster →`;
+    case 'appointment_only':
+      return `Appointment only. Ask us who takes walk-ins →`;
+    default:
+      return null;
+  }
+}
+
+export function ProgramCard(
+  { p, href, elsewhereOpen = 0 }:
+  { p: ProgramRow; href?: string; elsewhereOpen?: number }) {
   const tone = STATUS_TONE[p.current_status ?? 'unknown'] ?? 'shut';
+  const v = verifiedParts(p.last_verified_at);
+  const ask = nudge(p.current_status, elsewhereOpen, p.application_window);
   return (
     <article className="L">
       <span className={`w ${tone === 'open' ? 'o' : tone === 'wait' ? 't' : 's'}`} />
@@ -45,7 +74,21 @@ export function ProgramCard({ p, href }: { p: ProgramRow; href?: string }) {
             <dd><a className="tel" href={`tel:${p.intake_phone}`}>{p.intake_phone}</a></dd></>)}
         </dl>
 
-        <p className="Lver">{whenVerified(p.last_verified_at)}</p>
+        {ask && (
+          <a className="stuck" href={`tel:${CALL_CENTER_PHONE}`}>
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 2.5h2.6l1.2 3-1.6 1.1a8.5 8.5 0 0 0 3.9 3.9l1.1-1.6 3 1.2V13a1 1 0
+                       0 1-1.1 1A11.6 11.6 0 0 1 2 3.6 1 1 0 0 1 3 2.5Z" fill="#fff" />
+            </svg>{ask}
+          </a>
+        )}
+
+        <p className="Lver">
+          <b>{v.relative}</b>
+          {v.absolute && (
+            <time dateTime={p.last_verified_at ?? undefined}>{v.absolute}</time>
+          )}
+        </p>
       </div>
     </article>
   );

@@ -279,3 +279,13 @@ footer{padding:58px 0 0;border-top:2px solid var(--line-2);margin-top:30px}
    real site renders them, so they need real rules against the same tokens. */
 .w{width:14px;height:14px;border-radius:4px;flex:none;display:inline-block}
 .w.o{background:var(--open)} .w.t{background:var(--wait)} .w.s{background:var(--shut)}
+
+/* freshness stamp: the relative reading carries, the date makes it checkable */
+.Lver{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 7px}
+.Lver b{font-family:Nunito,system-ui,sans-serif;font-weight:800;font-size:13.5px;
+  color:var(--navy-2);letter-spacing:0}
+.Lver time{color:var(--navy-3)}
+
+/* the inline nudge only appears where this door is shut and another is open */
+.stuck{text-decoration:none}
+.stuck:hover{background:#A81842}

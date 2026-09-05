@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getDb, dbConfigured, SITE, STATUS_LABEL, whenVerified } from '@/lib/db';
+import { getDb, dbConfigured, SITE, STATUS_LABEL, whenVerified, verifiedParts } from '@/lib/db';
 import { StatusPill, JsonLd } from '../../components';
 import type { Metadata } from 'next';
 import { HOME } from '@/lib/routes';
@@ -63,7 +63,14 @@ export default async function Program({ params }: { params: { slug: string } }) 
         {p.organizations?.name && <div className="org">{p.organizations.name}</div>}
         <h1>{p.name}</h1>
         <div><StatusPill status={p.current_status} /></div>
-        <div className="verified">{whenVerified(p.last_verified_at)}</div>
+        <p className="Lver">
+          <b>{verifiedParts(p.last_verified_at).relative}</b>
+          {verifiedParts(p.last_verified_at).absolute && (
+            <time dateTime={p.last_verified_at ?? undefined}>
+              {verifiedParts(p.last_verified_at).absolute}
+            </time>
+          )}
+        </p>
 
         {!confirmed && (
           <div className="notlive">

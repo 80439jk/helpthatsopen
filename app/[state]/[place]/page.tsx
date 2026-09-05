@@ -122,7 +122,7 @@ export default async function Place({ params }: { params: { state: string; place
 
       <div className="rhead"><div className="wrap">
         <p className="eyebrow">
-          {live ? `Confirmed by phone · ${whenVerified(d.gate.last_verified_at)}`
+          {live ? `${whenVerified(d.gate.last_verified_at)} · by phone`
                 : 'Not confirmed here yet'}
         </p>
         <h1>Assistance in {d.label}</h1>
@@ -146,7 +146,10 @@ export default async function Place({ params }: { params: { state: string; place
 
             <div>
               {programs.map((p) => (
-                <ProgramCard key={p.slug} p={p} href={`/programs/${p.slug}/`} />
+                <ProgramCard key={p.slug} p={p} href={`/programs/${p.slug}/`}
+                             elsewhereOpen={
+                               programs.filter((o) => o.slug !== p.slug &&
+                                 o.current_status === 'accepting').length} />
               ))}
             </div>
 

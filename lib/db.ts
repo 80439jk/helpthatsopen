@@ -53,10 +53,29 @@ export const STATUS_TONE: Record<string, 'open' | 'wait' | 'shut'> = {
 };
 
 export function whenVerified(iso: string | null): string {
-  if (!iso) return 'not yet confirmed';
-  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
-  if (days <= 0) return 'confirmed today';
-  if (days === 1) return 'confirmed yesterday';
-  if (days < 14) return `confirmed ${days} days ago`;
-  return `confirmed ${new Date(iso).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}`;
+  const v = verifiedParts(iso);
+  return v.absolute ? `${v.relative} · ${v.absolute}` : v.relative;
 }
+
+/** The freshness stamp, split so a card can weight the two halves differently.
+ *
+ *  This date IS the product -- it is the one thing a scraped directory cannot
+ *  show -- so it gets both readings: how long ago, which is what a worried
+ *  person actually parses, and the calendar date, which is what makes the claim
+ *  checkable. "Confirmed yesterday" alone asks the reader to work out what day
+ *  that was; the date alone makes them do arithmetic. */
+export function verifiedParts(iso: string | null): { relative: string; absolute: string } {
+  if (!iso) return { relative: 'Not yet confirmed', absolute: '' };
+  const then = new Date(iso);
+  const dayStart = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  const days = Math.round((dayStart(new Date()) - dayStart(then)) / 86400000);
+  const absolute = then.toLocaleDateString('en-US',
+    { month: 'long', day: 'numeric', year: 'numeric' });
+
+  if (days <= 0) return { relative: 'Confirmed today', absolute };
+  if (days === 1) return { relative: 'Confirmed yesterday', absolute };
+  if (days < 14) return { relative: `Confirmed ${days} days ago`, absolute };
+  // Past a fortnight the relative reading stops helping and starts excusing.
+  return { relative: 'Confirmed', absolute };
+}
+
