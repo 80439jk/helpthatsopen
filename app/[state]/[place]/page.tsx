@@ -2,7 +2,7 @@ import { notFound, redirect } from 'next/navigation';
 import { getDb, dbConfigured, SITE, whenVerified } from '@/lib/db';
 import { ProgramCard, NotLiveYet, JsonLd, ProgramRow } from '../../components';
 import { HOME, STATES, STATE_BY_SLUG, placePath } from '@/lib/routes';
-import { CallBlock } from '../../callblock';
+import { CallBlock, StickyCall, ListEndCall } from '../../callblock';
 
 const sentence = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 import type { Metadata } from 'next';
@@ -128,7 +128,7 @@ export default async function Place({ params }: { params: { state: string; place
         <h1>Assistance in {d.label}</h1>
       </div></div>
 
-      <div className="wrap">
+      <div className="wrap has-sticky">
 
         {live ? (
           <>
@@ -153,6 +153,8 @@ export default async function Place({ params }: { params: { state: string; place
               ))}
             </div>
 
+            <ListEndCall count={programs.length} />
+
             <div className="what">
               <h3>What happens when you call</h3>
               <ul className="wsteps">
@@ -175,6 +177,11 @@ export default async function Place({ params }: { params: { state: string; place
             pending={d.gate.pending_service_area ?? 0}
             known={programs.length}
           />
+        )}
+
+        {live && (
+          <StickyCall accepting={d.gate.accepting_now ?? 0}
+                      place={isZip(params.place) ? params.place : d.gate.name} />
         )}
 
         {isZip(params.place) && d.counties.length > 0 && (
