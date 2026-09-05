@@ -10,41 +10,44 @@ export type ProgramRow = {
 
 export function StatusPill({ status }: { status: string | null }) {
   const s = status ?? 'unknown';
-  return (
-    <span className={`status s-${STATUS_TONE[s] ?? 'shut'}`}>
-      <span className="dot" aria-hidden="true" />
-      {STATUS_LABEL[s] ?? 'Not confirmed'}
-    </span>
-  );
+  const tone = STATUS_TONE[s] ?? 'shut';
+  return <span className={`Lstate ${tone}`}>{STATUS_LABEL[s] ?? 'Not confirmed'}</span>;
 }
 
 export function ProgramCard({ p, href }: { p: ProgramRow; href?: string }) {
+  const tone = STATUS_TONE[p.current_status ?? 'unknown'] ?? 'shut';
   return (
-    <li className="card">
-      <div className="cardhead">
-        <div>
-          {p.org_name && <div className="org">{p.org_name}</div>}
-          <div className="pname">
-            {href ? <a href={href} style={{ color: 'inherit' }}>{p.name}</a> : p.name}
+    <article className="L">
+      <span className={`w ${tone === 'open' ? 'o' : tone === 'wait' ? 't' : 's'}`} />
+      <div>
+        <div className="Ltop">
+          <div className="Lorg">
+            {href ? <a href={href} style={{ color: 'inherit' }}>{p.org_name ?? p.name}</a>
+                  : (p.org_name ?? p.name)}
           </div>
+          <StatusPill status={p.current_status} />
         </div>
-        <StatusPill status={p.current_status} />
+        <p className="Lprog">{p.name}</p>
+
+        {/* The field nobody else publishes, in the agency's own words. */}
+        {p.disqualifier && (
+          <div className="Lnote"><b>Most common reason people are turned away:</b>{' '}
+            {p.disqualifier}</div>
+        )}
+
+        <dl>
+          {p.how_to_apply && (<><dt>Apply</dt><dd>{p.how_to_apply.replace(/_/g, ' ')}</dd></>)}
+          {p.application_window && (<><dt>Timing</dt><dd>{p.application_window}</dd></>)}
+          {p.documents_required?.length
+            ? (<><dt>Bring</dt><dd>{p.documents_required.join(' · ')}</dd></>) : null}
+          {p.stated_service_area && (<><dt>Area</dt><dd>{p.stated_service_area}</dd></>)}
+          {p.intake_phone && (<><dt>Call</dt>
+            <dd><a className="tel" href={`tel:${p.intake_phone}`}>{p.intake_phone}</a></dd></>)}
+        </dl>
+
+        <p className="Lver">{whenVerified(p.last_verified_at)}</p>
       </div>
-      <div className="verified">{whenVerified(p.last_verified_at)}</div>
-      <div className="facts">
-        {p.how_to_apply && <div><b>How to apply:</b> {p.how_to_apply.replace(/_/g, ' ')}</div>}
-        {p.application_window && <div><b>Timing:</b> {p.application_window}</div>}
-        {p.documents_required?.length ? (
-          <div><b>What to bring:</b> {p.documents_required.join(' · ')}</div>
-        ) : null}
-        {p.stated_service_area && <div><b>Service area:</b> {p.stated_service_area}</div>}
-      </div>
-      {/* The field nobody else publishes, in the agency's own words. */}
-      {p.disqualifier && <div className="catch"><b>The catch:</b> {p.disqualifier}</div>}
-      {p.intake_phone && (
-        <div><a className="tel" href={`tel:${p.intake_phone}`}>Call {p.intake_phone}</a></div>
-      )}
-    </li>
+    </article>
   );
 }
 

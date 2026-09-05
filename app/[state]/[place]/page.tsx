@@ -2,6 +2,7 @@ import { notFound, redirect } from 'next/navigation';
 import { getDb, dbConfigured, SITE, whenVerified } from '@/lib/db';
 import { ProgramCard, NotLiveYet, JsonLd, ProgramRow } from '../../components';
 import { HOME, STATES, STATE_BY_SLUG, placePath } from '@/lib/routes';
+import { CALL_CENTER_PHONE, prettyPhone } from '@/lib/site';
 
 const sentence = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 import type { Metadata } from 'next';
@@ -114,23 +115,77 @@ export default async function Place({ params }: { params: { state: string; place
           isAccessibleForFree: true,
         }} />
       )}
-      <div className="wrap stack">
-        <div className="crumb">
-          <a href={HOME}>CornerHelp</a> › {d.stateName || 'Not found'} › {d.label}
-        </div>
+      <div className="crumb"><div className="wrap">
+        <a href={HOME}>Home</a> › <a href={HOME}>{d.stateName || 'Not found'}</a> › {d.label}
+      </div></div>
+
+      <div className="rhead"><div className="wrap">
+        <p className="eyebrow">
+          {live ? `Confirmed by phone · ${whenVerified(d.gate.last_verified_at)}`
+                : 'Not confirmed here yet'}
+        </p>
         <h1>Assistance in {d.label}</h1>
+      </div></div>
+
+      <div className="wrap">
 
         {live ? (
           <>
-            <p style={{ color: 'var(--navy-2)' }}>
-              <b>{d.gate.accepting_now} of {d.gate.verified_programs}</b> confirmed programs
-              are accepting applications. {sentence(whenVerified(d.gate.last_verified_at))}.
+            <p className="rsum">
+              <b>{d.gate.accepting_now} accepting</b> · {Math.max(
+                (d.gate.verified_programs ?? 0) - (d.gate.accepting_now ?? 0), 0)}{' '}
+              waitlisted or out of money
             </p>
-            <ul className="plain" style={{ marginTop: 8 }}>
+
+            {/* The commercial handoff. .cursorrules rule 5: it is offered AFTER the
+                list, never instead of it, and never framed as the thing that stops a
+                disconnection. The agency numbers are above it and always will be. */}
+            {CALL_CENTER_PHONE && (
+              <div className="zero">
+                <div className="zeroL">
+                  <h3>Not sure which of these to try first?</h3>
+                  <p className="zerostat">
+                    <b>{d.gate.accepting_now}</b> of these {d.gate.verified_programs} are
+                    open today.
+                  </p>
+                  <p className="zsub">
+                    Talk it through with someone who has the same list in front of them —
+                    which ones fit your situation, what to bring, and the order to try them.
+                  </p>
+                </div>
+                <div className="zeroR">
+                  <a className="zeronum" href={`tel:${CALL_CENTER_PHONE}`}>
+                    {prettyPhone(CALL_CENTER_PHONE)}
+                  </a>
+                  <a className="btn" href={`tel:${CALL_CENTER_PHONE}`}>Call now</a>
+                  <p className="zeromicro">
+                    Free · we don&rsquo;t take applications · not a government line
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <div>
               {programs.map((p) => (
                 <ProgramCard key={p.slug} p={p} href={`/programs/${p.slug}/`} />
               ))}
-            </ul>
+            </div>
+
+            <div className="what">
+              <h3>What happens when you call</h3>
+              <ul className="wsteps">
+                <li><b>What they do</b>Go through this same list with you and narrow it to
+                  the ones that take your situation.</li>
+                <li><b>What they ask</b>Your ZIP, what you&rsquo;re behind on, and who lives
+                  in the house.</li>
+                <li><b>What they don&rsquo;t do</b>Fill out the application, submit it, or
+                  represent you to any agency. You do that part yourself.</li>
+              </ul>
+              <p className="wfoot">
+                <span>CornerHelp is not a government agency and is not affiliated with any
+                of the programs listed here.</span>
+              </p>
+            </div>
           </>
         ) : (
           <NotLiveYet
