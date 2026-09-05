@@ -51,7 +51,9 @@ export function CallBlock({ accepting, verified }: { accepting: number; verified
  *  the highest-value placement on the page -- on a phone the listings run past
  *  the fold and the CTA above them is long gone. It states the real count for
  *  this place, so it is a summary before it is an ad. */
-export function StickyCall({ accepting, place }: { accepting: number; place: string }) {
+export function StickyCall(
+  { accepting, place, known = 0, live = true }:
+  { accepting: number; place: string; known?: number; live?: boolean }) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     const tick = () => setOpen(isOpenNow());
@@ -63,8 +65,13 @@ export function StickyCall({ accepting, place }: { accepting: number; place: str
   return (
     <div className="sticky">
       <div>
-        <b>{accepting} open in {place}</b>
-        <small>{open ? 'Find out which ones fit you' : opensNext()}</small>
+        <b>{live ? `${accepting} open in ${place}`
+                 : `${known} program${known === 1 ? '' : 's'} in ${place}`}</b>
+        <small>
+          {!open ? opensNext()
+                 : live ? 'Find out which ones fit you'
+                        : 'None confirmed yet — we can still help'}
+        </small>
       </div>
       <a className="btn" href={`tel:${CALL_CENTER_PHONE}`}>Call</a>
     </div>
@@ -88,6 +95,59 @@ export function ListEndCall({ count }: { count: number }) {
       <a className="btn" href={`tel:${CALL_CENTER_PHONE}`}>
         Talk it through — {prettyPhone(CALL_CENTER_PHONE)}
       </a>
+    </div>
+  );
+}
+
+/** The call block for a place we have NOT verified yet.
+ *
+ *  Most paid traffic lands here -- 4,861 of 4,873 ZIPs are not live -- and until
+ *  now the page offered 211 and nothing else.
+ *
+ *  What makes this honest is that it does not pretend to know the local answer.
+ *  We hold the providers' names and numbers for almost every ZIP in three
+ *  states; what we have not done is ring them to find out who has money this
+ *  week. So the offer is exactly that: someone will read you the list and start
+ *  working it with you. 211 stays, because it is genuinely the right call for
+ *  some people and a directory that hides the alternative is not one to trust. */
+export function NotLiveCall({ known, place }: { known: number; place: string }) {
+  const [open, setOpen] = useState(false);
+  const [when, setWhen] = useState(HOURS_LABEL);
+  useEffect(() => {
+    const tick = () => { setOpen(isOpenNow()); setWhen(opensNext()); };
+    tick();
+    const t = setInterval(tick, 60_000);
+    return () => clearInterval(t);
+  }, []);
+  if (!CALL_CENTER_PHONE || known < 1) return null;
+
+  return (
+    <div className="zero">
+      <div className="zeroL">
+        <p className="zlab">
+          {open ? <><span className="zdot" />Someone is answering right now</> : <>{when}</>}
+        </p>
+        <h3>We haven&rsquo;t called {place} yet. You don&rsquo;t have to wait for us.</h3>
+        <p className="zerostat">
+          We know of <b>{known}</b> {known === 1 ? 'program' : 'programs'} here.
+        </p>
+        <p className="zsub">
+          We have their names and numbers — what we haven&rsquo;t done is ring them to find
+          out who still has money this month. Someone here will go through the list with
+          you and start working it.
+        </p>
+      </div>
+      <div className="zeroR">
+        <a className="zeronum" href={`tel:${CALL_CENTER_PHONE}`}>
+          {prettyPhone(CALL_CENTER_PHONE)}
+        </a>
+        <a className="btn" href={`tel:${CALL_CENTER_PHONE}`}>
+          {open ? 'Call now' : 'Call when we open'}
+        </a>
+        <p className="zeromicro">
+          {HOURS_LABEL} · free · we don&rsquo;t take applications · not a government line
+        </p>
+      </div>
     </div>
   );
 }

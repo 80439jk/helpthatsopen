@@ -120,7 +120,7 @@ export function NotLiveYet(
         </p>
       ) : null}
       <p className="muted">
-        In the meantime, dialling <b>211</b> reaches the statewide referral line.
+        Dialling <b>211</b> also reaches the statewide referral line, free.
       </p>
     </div>
   );

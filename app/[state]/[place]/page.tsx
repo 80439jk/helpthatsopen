@@ -2,7 +2,7 @@ import { notFound, redirect } from 'next/navigation';
 import { getDb, dbConfigured, SITE, whenVerified } from '@/lib/db';
 import { ProgramCard, NotLiveYet, JsonLd, ProgramRow } from '../../components';
 import { HOME, STATES, STATE_BY_SLUG, placePath } from '@/lib/routes';
-import { CallBlock, StickyCall, ListEndCall } from '../../callblock';
+import { CallBlock, StickyCall, ListEndCall, NotLiveCall } from '../../callblock';
 
 const sentence = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 import type { Metadata } from 'next';
@@ -172,17 +172,19 @@ export default async function Place({ params }: { params: { state: string; place
             </div>
           </>
         ) : (
-          <NotLiveYet
-            place={d.label}
-            pending={d.gate.pending_service_area ?? 0}
-            known={programs.length}
-          />
+          <>
+            <NotLiveYet
+              place={d.label}
+              pending={d.gate.pending_service_area ?? 0}
+              known={programs.length}
+            />
+            <NotLiveCall known={programs.length} place={d.label} />
+          </>
         )}
 
-        {live && (
-          <StickyCall accepting={d.gate.accepting_now ?? 0}
-                      place={isZip(params.place) ? params.place : d.gate.name} />
-        )}
+        <StickyCall accepting={d.gate.accepting_now ?? 0} live={live}
+                    known={programs.length}
+                    place={isZip(params.place) ? params.place : d.gate.name} />
 
         {isZip(params.place) && d.counties.length > 0 && (
           <p className="muted" style={{ marginTop: 8 }}>
