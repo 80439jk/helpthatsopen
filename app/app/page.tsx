@@ -1,5 +1,6 @@
 import { getDb, dbConfigured, SITE } from '@/lib/db';
 import { JsonLd } from '../components';
+import { placePath } from '@/lib/routes';
 
 export const revalidate = 300;
 
@@ -26,7 +27,9 @@ export default async function Home() {
           'An independent private company. Not a government agency, not affiliated with any ' +
           'government program, and not a provider of assistance.',
         foundingDate: '2026',
-        areaServed: { '@type': 'State', name: 'Texas' },
+        areaServed: [{ '@type': 'State', name: 'Texas' },
+                      { '@type': 'State', name: 'North Carolina' },
+                      { '@type': 'State', name: 'Florida' }],
         publishingPrinciples: `${SITE}/how-we-verify/`,
         correctionsPolicy: `${SITE}/corrections/`,
       }} />
@@ -77,8 +80,9 @@ export default async function Home() {
             <h2 style={{ marginTop: 12 }}>Browse by county</h2>
             <div className="grid">
               {live.map((c: any) => (
-                <a key={c.slug} className="countylink" href={`/texas/${c.slug}/`}>
-                  {c.name} County
+                <a key={`${c.state}-${c.slug}`} className="countylink"
+                   href={placePath(c.state, c.slug)}>
+                  {c.name}
                 </a>
               ))}
             </div>

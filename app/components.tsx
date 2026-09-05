@@ -51,7 +51,9 @@ export function ProgramCard({ p, href }: { p: ProgramRow; href?: string }) {
 /** A ZIP or county below the publish threshold. Rule 7 says do not serve stale green;
  *  it does not say serve a void. Saying plainly that we have not confirmed here yet is
  *  the honest answer and is still more useful than a directory that guesses. */
-export function NotLiveYet({ place, pending }: { place: string; pending: number }) {
+export function NotLiveYet(
+  { place, pending, known = 0 }:
+  { place: string; pending: number; known?: number }) {
   return (
     <div className="notlive stack">
       <h2>We haven&rsquo;t confirmed enough programs in {place} yet</h2>
@@ -60,12 +62,17 @@ export function NotLiveYet({ place, pending }: { place: string; pending: number 
         open and which areas it actually covers. We would rather show you nothing than send
         you to a closed door.
       </p>
-      {pending > 0 && (
+      {pending > 0 ? (
         <p className="muted">
           {pending} {pending === 1 ? 'program is' : 'programs are'} part-way through that process
           right now.
         </p>
-      )}
+      ) : known > 0 ? (
+        <p className="muted">
+          We know of {known} {known === 1 ? 'program' : 'programs'} serving {place}. None has
+          been called yet.
+        </p>
+      ) : null}
       <p className="muted">
         In the meantime, dialling <b>211</b> reaches the statewide referral line.
       </p>
