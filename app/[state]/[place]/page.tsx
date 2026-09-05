@@ -2,7 +2,7 @@ import { notFound, redirect } from 'next/navigation';
 import { getDb, dbConfigured, SITE, whenVerified } from '@/lib/db';
 import { ProgramCard, NotLiveYet, JsonLd, ProgramRow } from '../../components';
 import { HOME, STATES, STATE_BY_SLUG, placePath } from '@/lib/routes';
-import { CALL_CENTER_PHONE, prettyPhone } from '@/lib/site';
+import { CallBlock } from '../../callblock';
 
 const sentence = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 import type { Metadata } from 'next';
@@ -116,7 +116,8 @@ export default async function Place({ params }: { params: { state: string; place
         }} />
       )}
       <div className="crumb"><div className="wrap">
-        <a href={HOME}>Home</a> › <a href={HOME}>{d.stateName || 'Not found'}</a> › {d.label}
+        <a href={HOME}>Home</a> ›{' '}
+        <a href={`/${params.state}/`}>{d.stateName || 'Not found'}</a> › {d.label}
       </div></div>
 
       <div className="rhead"><div className="wrap">
@@ -140,30 +141,8 @@ export default async function Place({ params }: { params: { state: string; place
             {/* The commercial handoff. .cursorrules rule 5: it is offered AFTER the
                 list, never instead of it, and never framed as the thing that stops a
                 disconnection. The agency numbers are above it and always will be. */}
-            {CALL_CENTER_PHONE && (
-              <div className="zero">
-                <div className="zeroL">
-                  <h3>Not sure which of these to try first?</h3>
-                  <p className="zerostat">
-                    <b>{d.gate.accepting_now}</b> of these {d.gate.verified_programs} are
-                    open today.
-                  </p>
-                  <p className="zsub">
-                    Talk it through with someone who has the same list in front of them —
-                    which ones fit your situation, what to bring, and the order to try them.
-                  </p>
-                </div>
-                <div className="zeroR">
-                  <a className="zeronum" href={`tel:${CALL_CENTER_PHONE}`}>
-                    {prettyPhone(CALL_CENTER_PHONE)}
-                  </a>
-                  <a className="btn" href={`tel:${CALL_CENTER_PHONE}`}>Call now</a>
-                  <p className="zeromicro">
-                    Free · we don&rsquo;t take applications · not a government line
-                  </p>
-                </div>
-              </div>
-            )}
+            <CallBlock accepting={d.gate.accepting_now ?? 0}
+                       verified={d.gate.verified_programs ?? 0} />
 
             <div>
               {programs.map((p) => (
