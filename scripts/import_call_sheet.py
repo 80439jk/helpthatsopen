@@ -59,16 +59,18 @@ def parse(csv_path, batch):
     with open(csv_path, encoding='utf-8-sig') as f:
         # the sheet has banner rows above the header; find the row containing 'slug'
         raw = list(csv.reader(f))
+    # the live sheet labels it "slug — do not edit"
     hdr_i = next((i for i, r in enumerate(raw)
-                  if any((c or '').strip().lower() == 'slug' for c in r)), None)
+                  if any((c or '').strip().lower().startswith('slug') for c in r)), None)
     if hdr_i is None:
-        sys.exit("Could not find a header row containing 'slug'.")
+        sys.exit("Could not find a header row whose first cell starts with 'slug'.")
     header = [c.strip() for c in raw[hdr_i]]
     for r in raw[hdr_i + 1:]:
         if not any((c or '').strip() for c in r):
             continue
         row = dict(zip(header, r))
-        slug = col(row, 'slug')
+        slug = col(row, 'slug', 'slug — do not edit', 'slug - do not edit')
+        rent_slug = col(row, 'rent slug — do not edit', 'rent slug - do not edit', 'rent slug')
         if not slug:
             continue
 
@@ -112,12 +114,51 @@ def parse(csv_path, batch):
             if v:
                 practicals[key] = v
 
+        # Nobody spoke, so nothing was stated. Two rows marked accepting on a
+        # refusal -- "Patricia was not willing to provide any information",
+        # "Kelly refused to give details" -- carried a status read off the
+        # agency's website, not off the call. The observation is that we were
+        # refused; the status is unknown.
+        if status != 'unknown' and disp in ('refused', 'no_answer', 'busy',
+                                            'disconnected', 'wrong_number', 'blocked'):
+            problems.append(f'{slug}: status {status!r} on a {disp} — nobody stated it, '
+                            'imported as unknown')
+            status = 'unknown'
+
         spoke = col(row, 'Spoke with')
         method, outcome = 'phone', vout
         if status != 'unknown' and (NO_PERSON.search(spoke) or NO_PERSON.search(note)):
             method, outcome = 'agency_self_report', 'partial'
             problems.append(f'{slug}: status taken from a recording — recorded as '
                             'agency_self_report/partial, not a conversation')
+
+        # require_note_on_change() refuses a status change with no explanation, and
+        # it is right to. But "reached, spoke with Dante, accepting" IS explained --
+        # by the row's own structured fields. So restate those rather than lose a
+        # real confirmation to a blank free-text box. Nothing is invented here: every
+        # word comes from a cell the VA filled in. It is still reported, because a
+        # sentence in the VA's own words is worth more than this.
+        if status != 'unknown' and not note:
+            parts = [f'{disp.replace("_", " ").capitalize()}']
+            if spoke:
+                parts.append(f'spoke with {spoke}')
+            note = '; '.join(parts) + '. No further detail recorded on the call.'
+            problems.append(f'{slug}: status {status!r} recorded with no note — imported '
+                            'with the call facts restated; ask the VA for a sentence')
+
+        # "Reopens on" is a date column, and VAs type sentences into it -- "Agent
+        # can't determine for now" is a perfectly good answer to the question and a
+        # terrible date. Keep the sentence in null_reasons instead of throwing the
+        # import away or, worse, coercing it into a date that means nothing.
+        reopens_raw = col(row, 'Reopens on')
+        reopens, reopens_note = None, None
+        if reopens_raw:
+            try:
+                reopens = datetime.date.fromisoformat(reopens_raw[:10]).isoformat()
+            except ValueError:
+                reopens_note = reopens_raw
+                problems.append(f'{slug}: "Reopens on" is not a date ({reopens_raw!r}) — '
+                                'kept as a note, column left empty')
 
         date = col(row, 'Date called', 'Called (date)') or datetime.date.today().isoformat()
         rows.append({
@@ -132,14 +173,30 @@ def parse(csv_path, batch):
             'va': col(row, 'VA'),
             'spoke_with': spoke or None,
             'funds_last_until': col(row, 'Funds last until', 'Funding lasts until') or None,
-            'reopens_on': col(row, 'Reopens on') or None,
+            'reopens_on': reopens,
             'note': note or None,
             'practicals': practicals or None,
             'stated_service_area': col(row, 'Service area', 'SERVICE AREA — whole county? which areas?') or None,
             'languages_stated': col(row, 'Languages') or None,
-            'null_reasons': {'blank_fields': blankwhy} if blankwhy else None,
+            'null_reasons': ({k: v for k, v in
+                              (('blank_fields', blankwhy), ('reopens_on', reopens_note))
+                              if v} or None),
             'import_batch': batch,
         })
+
+        # Rent is a separate funding pot with its own status cell. It writes its
+        # own observation against its own program record -- never a copy of the
+        # utility status, which is the fabrication this sheet exists to avoid.
+        rent_status = col(row, 'Rent status').lower().replace(' ', '_')
+        if rent_slug and rent_status:
+            if rent_status not in STATUSES:
+                problems.append(f'{rent_slug}: Rent status {rent_status!r} not in the enum '
+                                '— row skipped')
+            else:
+                r2 = dict(rows[-1])
+                r2.update({'slug': rent_slug, 'status': rent_status,
+                           'practicals': None, 'stated_service_area': None})
+                rows.append(r2)
     return rows, problems
 
 

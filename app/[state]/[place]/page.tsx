@@ -2,6 +2,8 @@ import { notFound, redirect } from 'next/navigation';
 import { getDb, dbConfigured, SITE, whenVerified } from '@/lib/db';
 import { ProgramCard, NotLiveYet, JsonLd, ProgramRow } from '../../components';
 import { HOME, STATES, STATE_BY_SLUG, placePath } from '@/lib/routes';
+
+const sentence = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 import type { Metadata } from 'next';
 
 export const revalidate = 300;
@@ -122,7 +124,7 @@ export default async function Place({ params }: { params: { state: string; place
           <>
             <p style={{ color: 'var(--navy-2)' }}>
               <b>{d.gate.accepting_now} of {d.gate.verified_programs}</b> confirmed programs
-              are accepting applications. Last confirmed {whenVerified(d.gate.last_verified_at)}.
+              are accepting applications. {sentence(whenVerified(d.gate.last_verified_at))}.
             </p>
             <ul className="plain" style={{ marginTop: 8 }}>
               {programs.map((p) => (

@@ -68,15 +68,20 @@ def load(dsn, geo, listings):
         cur.execute("""
             INSERT INTO programs (org_id,name,slug,volatility_tier,intake_phone,
               source_name,source_url,source_retrieved_at,extraction_method,
-              needs_source_verification)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+              needs_source_verification,service_area_source)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
             ON CONFLICT (slug) DO UPDATE SET
               intake_phone=EXCLUDED.intake_phone,
-              needs_source_verification=EXCLUDED.needs_source_verification
+              needs_source_verification=EXCLUDED.needs_source_verification,
+              -- never downgrade what a rep actually told us on a call
+              service_area_source=CASE
+                WHEN programs.service_area_source = 'stated' THEN 'stated'
+                ELSE EXCLUDED.service_area_source END
             RETURNING program_id""",
             (org_id, r['program_name'], r['slug'], r['volatility_tier'], r['phone'],
              r['source_name'], r['source_url'], r['source_retrieved_at'],
-             r['extraction_method'], r['needs_source_verification']))
+             r['extraction_method'], r['needs_source_verification'],
+             r.get('service_area_source') or 'inferred'))
         pid = cur.fetchone()[0]; prog += 1
 
         cur.execute("DELETE FROM program_zips WHERE program_id=%s", (pid,))

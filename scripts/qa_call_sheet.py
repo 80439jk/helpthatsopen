@@ -50,6 +50,21 @@ def qa(rows):
     # Only rows carrying a real status can reach a listing, so only those can contaminate
     # one. A repeated note across two voicemails is noise.
     publishable = [r for r in rows if r.get('status') and r['status'] != 'unknown']
+
+    # A shared FIRST NAME is not evidence. Two agencies each having a Patricia is
+    # ordinary; the Rolling Plains contamination was caught because the note and
+    # the document list matched too. So a name collision only counts when a
+    # substantive field corroborates it -- otherwise this flags four honest rows
+    # for every real one and the gate stops being believed.
+    def corroborated(a, b):
+        for f in ('note', 'stated_service_area'):
+            x, y = (a.get(f) or '').strip().lower(), (b.get(f) or '').strip().lower()
+            if x and x == y:
+                return True
+        da = tuple(d.lower() for d in (a.get('practicals') or {}).get('documents_required') or ())
+        db = tuple(d.lower() for d in (b.get('practicals') or {}).get('documents_required') or ())
+        return bool(da) and da == db
+
     for field in ('spoke_with', 'note'):
         seen = collections.defaultdict(list)
         for r in publishable:
@@ -61,11 +76,18 @@ def qa(rows):
             seen[v.lower()].append(r)
         for v, group in seen.items():
             orgs = {g['org'] for g in group}
-            if len(orgs) > 1:
-                for g in group:
-                    flags['CONTAMINATION'].append(
-                        (g, f'{field} "{v[:60]}" also appears under: '
-                            f'{", ".join(sorted(orgs - {g["org"]}))[:70]}'))
+            if len(orgs) < 2:
+                continue
+            if field == 'spoke_with' and not any(
+                    corroborated(a, b) for i, a in enumerate(group) for b in group[i + 1:]):
+                flags['SHARED NAME'].append(
+                    (group[0], f'"{v[:40]}" appears under {len(orgs)} organizations with '
+                               'different answers — common name, not contamination'))
+                continue
+            for g in group:
+                flags['CONTAMINATION'].append(
+                    (g, f'{field} "{v[:60]}" also appears under: '
+                        f'{", ".join(sorted(orgs - {g["org"]}))[:70]}'))
 
     # documents lists are distinctive enough to be a fingerprint too
     seen = collections.defaultdict(list)
@@ -94,9 +116,20 @@ def qa(rows):
             flags['CONTRADICTION'].append(
                 (r, f'status "{status}" but the note says the program was not reached: '
                     f'"{note[:70]}"'))
+        # An IVR is not a person, but it does speak: "we are not currently
+        # accepting applications" off a recording is a real observation, and the
+        # importer already books it as agency_self_report / partial rather than a
+        # conversation. A REFUSAL is different -- nobody said anything, so a
+        # status on it came from somewhere other than the call.
         if confirmed and r.get('disposition') not in CONTACT_STATUSES:
-            flags['UNSUPPORTED'].append(
-                (r, f'status "{status}" recorded on outcome "{r.get("disposition")}"'))
+            if r.get('disposition') == 'voicemail':
+                flags['FROM A RECORDING'].append(
+                    (r, f'status "{status}" taken off a recording — imports as '
+                        'agency_self_report / partial, not a conversation'))
+            else:
+                flags['UNSUPPORTED'].append(
+                    (r, f'status "{status}" recorded on outcome "{r.get("disposition")}" — '
+                        'nobody stated it; importing as unknown'))
         if confirmed and not r.get('stated_service_area'):
             flags['NO CATCHMENT'].append((r, 'confirmed, but no service area — cannot publish'))
     return flags
@@ -108,7 +141,8 @@ def main(paths):
         rs, _ = parse(p, 'qa')
         rows += rs
     flags = qa(rows)
-    order = ['CONTAMINATION', 'CONTRADICTION', 'UNSUPPORTED', 'NO PERSON', 'NO CATCHMENT']
+    order = ['CONTAMINATION', 'CONTRADICTION', 'UNSUPPORTED', 'FROM A RECORDING',
+             'SHARED NAME', 'NO PERSON', 'NO CATCHMENT']
     blocking = 0
     for k in order:
         items = flags.get(k)

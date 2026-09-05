@@ -1,0 +1,5 @@
+-- 009 replaced service_area_verified with a source enum; the gate was never
+-- repointed, so it still asked the boolean and 448 contractual service areas
+-- counted for nothing. Applied live 2026-09-05. Full text is the migration of
+-- the same name in Supabase; program_freshness now tests
+-- service_area_source IN ('contract','published','stated').
